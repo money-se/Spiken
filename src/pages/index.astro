@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import dikter from '../data/dikter.json';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const teman = ['Kärlek', 'Sorg', 'Saknad', 'Ensamhet', 'Livet'];
+---
+<Layout>
+  <section class="hero wrap">
+    <span class="eyebrow">Ord från undersidan</span>
+    <h1>För allt det vi aldrig säger högt.</h1>
+    <p>Här får det vackra vara trasigt. Här finns dikter om kärlek, sorg, längtan och det mänskliga i att inte alltid orka.</p>
+    <div><a class="action" href={base + '/dikter/'}>Läs dikterna →</a></div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Hitta orden</span>
+      <h2>Vad bär du på?</h2>
+      <p class="muted">Utforska Spikens dikter genom de känslor som binder oss samman.</p>
+      <div class="topics">{teman.map(tema => <a class="topic" href={base + '/dikter/?tema=' + encodeURIComponent(tema)}>{tema}</a>)}</div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Ur arkivet</span>
+      <h2>Senaste dikterna</h2>
+      {dikter.length ? <ul class="poem-list">{dikter.slice(-5).reverse().map(d => <li><a href={base + '/dikter/' + d.slug + '/'}>{d.titel}</a><small>{d.tema}</small></li>)}</ul> : <p class="muted">Arkivet öppnar snart. De första dikterna är på väg.</p>}
+      <a class="action" href={base + '/dikter/'}>Till diktarkivet →</a>
+    </div>
+  </section>
+</Layout>
