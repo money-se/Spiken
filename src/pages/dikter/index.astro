@@ -1,0 +1,26 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import dikter from '../../data/dikter.json';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<Layout title="Dikter – Spiken" description="Läs Spikens egna dikter om kärlek, sorg, saknad, ensamhet och livet.">
+<section class="section"><div class="wrap">
+<span class="eyebrow">Spikens texter</span><h1 style="font-size:clamp(48px,8vw,86px)">Diktarkivet</h1>
+<p class="muted">Texter för det som känns, även när orden inte räcker till.</p>
+<label for="sok" class="eyebrow">Sök bland dikterna</label><div><input id="sok" type="search" placeholder="Sök på titel, text eller tema…" style="margin-top:15px;padding:16px;width:min(100%,500px);background:#1e1b1a;color:#eee8e1;border:1px solid #51443d;font:16px Arial,sans-serif" /></div>
+{dikter.length ? <ul class="poem-list" id="lista">{dikter.map(d => <li data-search={(d.titel + ' ' + d.tema + ' ' + d.text).toLocaleLowerCase('sv')} data-tema={d.tema.toLocaleLowerCase('sv')}><a href={base + '/dikter/' + d.slug + '/'}>{d.titel}</a><small>{d.tema}</small></li>)}</ul> : <p class="muted">Inga dikter har publicerats här ännu.</p>}
+<p id="tomt" class="muted" hidden>Inga dikter matchar din sökning.</p>
+</div></section>
+<script>
+const input = document.querySelector('#sok');
+const items = [...document.querySelectorAll('#lista li')];
+const selected = new URLSearchParams(window.location.search).get('tema')?.toLocaleLowerCase('sv') || '';
+function filter(){
+const q = input?.value.trim().toLocaleLowerCase('sv') || '';
+let found=0;
+for (const item of items){const match=item.dataset.search.includes(q)&&(!selected||item.dataset.tema===selected);item.hidden=!match;if(match)found++;}
+const empty=document.querySelector('#tomt');if(empty)empty.hidden=found>0||items.length===0;
+}
+input?.addEventListener('input',filter);filter();
+</script>
+</Layout>
