@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import dikter from '../../data/dikter.json';
+export function getStaticPaths() {
+  return dikter.map(d => ({ params: { slug: d.slug }, props: { dikt: d } }));
+}
+const { dikt } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<Layout title={dikt.titel + ' – Spiken'} description={'Läs ' + dikt.titel + ', en dikt av Spiken om ' + dikt.tema.toLocaleLowerCase('sv') + '.'}>
+<article class="poem wrap"><a class="eyebrow" href={base + '/dikter/'}>← Alla dikter</a><h1>{dikt.titel}</h1><p class="eyebrow">{dikt.tema}</p><div class="poem-body">{dikt.text}</div><p class="muted" style="margin-top:55px">— Spiken</p><a class="action" href={base + '/dikter/'}>Läs fler dikter →</a></article>
+</Layout>
