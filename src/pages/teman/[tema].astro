@@ -2,7 +2,9 @@
 import Layout from '../../layouts/Layout.astro';
 import dikter from '../../data/dikter.json';
 
-const teman = [
+export async function getStaticPaths() {
+  const { default: allaDikter } = await import('../../data/dikter.json');
+  const teman = [
   { slug: 'karlek', namn: 'Kärlek', beskrivning: 'Dikter om kärlekens närhet, längtan och sårbarhet.' },
   { slug: 'sorg', namn: 'Sorg', beskrivning: 'Dikter om att förlora, sörja och leva vidare.' },
   { slug: 'saknad', namn: 'Saknad', beskrivning: 'Dikter om någon som inte längre finns nära.' },
@@ -10,8 +12,7 @@ const teman = [
   { slug: 'livet', namn: 'Livet', beskrivning: 'Dikter om livet, tvivlet och de små ögonblicken.' }
 ];
 
-export function getStaticPaths() {
-  return teman.filter(t => dikter.some(d => d.tema.toLocaleLowerCase('sv') === t.namn.toLocaleLowerCase('sv')))
+  return teman.filter(t => allaDikter.some(d => d.tema.toLocaleLowerCase('sv') === t.namn.toLocaleLowerCase('sv')))
     .map(t => ({ params: { tema: t.slug }, props: { tema: t } }));
 }
 const { tema } = Astro.props;
