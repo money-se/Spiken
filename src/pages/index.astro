@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import dikter from '../data/dikter.json';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const teman = ['Kärlek', 'Sorg', 'Saknad', 'Ensamhet', 'Livet'];
+const teman = [{namn:'Kärlek',slug:'karlek'},{namn:'Sorg',slug:'sorg'},{namn:'Saknad',slug:'saknad'},{namn:'Ensamhet',slug:'ensamhet'},{namn:'Livet',slug:'livet'}];
 ---
 <Layout>
   <section class="hero wrap">
@@ -16,7 +16,7 @@ const teman = ['Kärlek', 'Sorg', 'Saknad', 'Ensamhet', 'Livet'];
       <span class="eyebrow">Hitta orden</span>
       <h2>Vad bär du på?</h2>
       <p class="muted">Utforska Spikens dikter genom de känslor som binder oss samman.</p>
-      <div class="topics">{teman.map(tema => <a class="topic" href={base + '/dikter/?tema=' + encodeURIComponent(tema)}>{tema}</a>)}</div>
+      <div class="topics">{teman.map(tema => <a class="topic" href={dikter.some(d => d.tema.toLocaleLowerCase('sv') === tema.namn.toLocaleLowerCase('sv')) ? base + '/teman/' + tema.slug + '/' : base + '/dikter/'}>{tema.namn}</a>)}</div>
     </div>
   </section>
   <section class="section">
