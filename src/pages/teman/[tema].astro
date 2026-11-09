@@ -1,0 +1,30 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import dikter from '../../data/dikter.json';
+
+const teman = [
+  { slug: 'karlek', namn: 'Kärlek', beskrivning: 'Dikter om kärlekens närhet, längtan och sårbarhet.' },
+  { slug: 'sorg', namn: 'Sorg', beskrivning: 'Dikter om att förlora, sörja och leva vidare.' },
+  { slug: 'saknad', namn: 'Saknad', beskrivning: 'Dikter om någon som inte längre finns nära.' },
+  { slug: 'ensamhet', namn: 'Ensamhet', beskrivning: 'Dikter om ensamhet och att inte känna sig förstådd.' },
+  { slug: 'livet', namn: 'Livet', beskrivning: 'Dikter om livet, tvivlet och de små ögonblicken.' }
+];
+
+export function getStaticPaths() {
+  return teman.filter(t => dikter.some(d => d.tema.toLocaleLowerCase('sv') === t.namn.toLocaleLowerCase('sv')))
+    .map(t => ({ params: { tema: t.slug }, props: { tema: t } }));
+}
+const { tema } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const relevanta = dikter.filter(d => d.tema.toLocaleLowerCase('sv') === tema.namn.toLocaleLowerCase('sv'));
+---
+<Layout title={`Dikter om ${tema.namn.toLowerCase()} – Spiken`} description={tema.beskrivning}>
+<section class="section"><div class="wrap">
+<a href={base + '/dikter/'} class="eyebrow">← Alla dikter</a>
+<h1 style="font-size:clamp(48px,8vw,86px)">Dikter om {tema.namn.toLowerCase()}</h1>
+<p class="muted">{tema.beskrivning}</p>
+<ul class="poem-list">
+{relevanta.map(d => <li><a href={base + '/dikter/' + d.slug + '/'}>{d.titel}</a><small>Spiken</small></li>)}
+</ul>
+</div></section>
+</Layout>
