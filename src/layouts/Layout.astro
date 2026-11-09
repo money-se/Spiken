@@ -1,0 +1,28 @@
+---
+import '../styles/global.css';
+const { title = 'Spiken – Dikter som känns', description = 'Spiken skriver dikter om kärlek, sorg, saknad och det som är svårt att säga högt.' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+---
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#101010" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header wrap">
+      <a class="wordmark" href={base + '/'} aria-label="Spiken – startsidan">SPIKEN<span class="dot">.</span></a>
+      <nav aria-label="Huvudmeny"><a href={base + '/'}>Hem</a><a href={base + '/dikter/'}>Dikter</a><a href={base + '/om/'}>Om Spiken</a></nav>
+    </header>
+    <main><slot /></main>
+    <footer class="site-footer wrap"><span>© {new Date().getFullYear()} Spiken. Alla texter tillhör författaren.</span><a href={base + '/dikter/'}>Utforska dikterna</a></footer>
+  </body>
+</html>
