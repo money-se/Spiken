@@ -1,0 +1,7 @@
+{
+  "provider": "cloudflare-web-analytics",
+  "enabled": false,
+  "site_token": "",
+  "requires_opt_in": true,
+  "description": "Gratis Cloudflare Web Analytics. Aktivera först när kontot är skapat, site_token satts och integritetstexten kontrollerats. Inga beacons skickas när enabled=false."
+}
