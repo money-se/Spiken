@@ -28,6 +28,15 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Installera beroenden
         run: npm install
+      - name: Installera Spikens bildpaket
+        run: |
+          if [ -f Spiken_Under_Huden_Bildpaket.zip ]; then
+            mkdir -p public/images
+            unzip -o -j Spiken_Under_Huden_Bildpaket.zip '*.webp' -d public/images
+            echo "Spikens bilder har packats upp."
+          else
+            echo "Bildpaketet har ännu inte laddats upp. Webbplatsen byggs med tomma bildytor."
+          fi
       - name: Bygg webbplatsen
         run: npm run build
       - name: Ladda upp webbplatsen
