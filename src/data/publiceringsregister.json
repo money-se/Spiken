@@ -1,5 +1,46 @@
 {
-  "version": 1,
-  "description": "Spikens centrala publiceringsregister. Huvudkälla för kommande innehållspipeline; tomt tills texter läggs in och webbplatsens mallar kopplats hit.",
-  "works": []
+  "version": 2,
+  "description": "Gemensamt register över alla verk. Varje verk har ett stabilt ID, en kanal/kategori och separata publiceringsdata per språk (sv/en). Ännu ej kopplat till webbmallarna.",
+  "works": [],
+  "locales": [
+    "sv",
+    "en"
+  ],
+  "work_schema_example": {
+    "id": "spiken-000001",
+    "type": "dikt",
+    "channel": "under-huden",
+    "category": "langtan",
+    "tags": [
+      "relationer"
+    ],
+    "original_language": "sv",
+    "original_text": "Författarens oförändrade original",
+    "image": {
+      "path": null,
+      "credit": null
+    },
+    "translations": {
+      "sv": {
+        "title": "Exempeltitel",
+        "slug": "exempeltitel",
+        "text": "Redaktionellt strukturerad svensk text",
+        "meta_title": "Exempeltitel – Spiken",
+        "meta_description": "Svensk metabeskrivning",
+        "image_alt": "Svensk alt-text",
+        "status": "draft",
+        "published_at": null
+      },
+      "en": {
+        "title": "Example title",
+        "slug": "example-title",
+        "text": "Literary English translation",
+        "meta_title": "Example title – Spiken",
+        "meta_description": "English meta description",
+        "image_alt": "English alt text",
+        "status": "draft",
+        "published_at": null
+      }
+    }
+  }
 }
