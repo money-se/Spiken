@@ -1,0 +1,8 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+---
+<Layout title="About Spiken – Words Under the Skin" description="Spiken is an independent literary project exploring love, longing and the uncomfortable sides of being human." lang="en" alternatePath="/om/">
+<section class="wrap section about-en"><p class="eyebrow">BEHIND THE WORDS</p><h1>About <em>Spiken.</em></h1><p>Spiken is a place for words that dare to stay with the uncomfortable. For longing, love, loneliness, and everything that doesn't always fit into ordinary conversation.</p><p>Here, words can be honest. Sometimes beautiful, sometimes dark, and sometimes both at once.</p><p>A place for everything human — including what we try to hide.</p><a href={base+'/en/'}>← Back to the beginning</a></section>
+</Layout>
+<style>.about-en{min-height:65vh;max-width:850px}.about-en h1{font:normal clamp(44px,7vw,88px) Georgia,serif;line-height:1.15}.about-en h1 em{color:#d9a5b0}.about-en p{font:21px/1.8 Georgia,serif;color:#e4ccd1}.about-en a{display:inline-block;margin-top:20px;padding-bottom:8px;border-bottom:1px solid #a45e6e;font:14px Arial,sans-serif}</style>
