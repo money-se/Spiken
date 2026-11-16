@@ -1,20 +1,30 @@
 ---
 import '../styles/global.css';
 import analytics from '../data/analytics.json';
-const { title = 'Spiken – Ord under huden', description = 'Dikter om kärlek, sorg, saknad och allt det som inte alltid får sägas högt.' } = Astro.props;
+const { title = 'Spiken – Ord under huden', description = 'Dikter om kärlek, sorg, saknad och allt det som inte alltid får sägas högt.', lang = 'sv', alternatePath = null } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const en = lang === 'en';
+const alternateCanonical = alternatePath ? new URL(base + alternatePath, Astro.site).toString() : null;
+const urlSwedish = en ? (alternateCanonical || new URL(base + '/', Astro.site).toString()) : canonical;
+const urlEnglish = en ? canonical : (alternateCanonical || new URL(base + '/en/', Astro.site).toString());
+const nav = en ? {home:'Home',poems:'Poems',about:'About Spiken',worlds:'Spiken’s Worlds',archive:'Read poems',privacy:'Privacy',footer:'Words under the skin · Stories from beneath the surface.'} : {home:'Hem',poems:'Dikter',about:'Om Spiken',worlds:'Spikens världar',archive:'Läs dikterna',privacy:'Integritet',footer:'Ord under huden · Dikter från undersidan.'};
+const home = base + (en ? '/en/' : '/');
+const poems = base + (en ? '/en/poems/' : '/dikter/');
+const about = base + (en ? '/en/about/' : '/om/');
+const worlds = base + (en ? '/en/worlds/' : '/varldar/');
 const analyticsEnabled = analytics.enabled && Boolean(analytics.site_token);
 const analyticsToken = analyticsEnabled ? analytics.site_token : '';
 ---
 <!doctype html>
-<html lang="sv">
+<html lang={lang}>
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content={description} /><meta name="theme-color" content="#151310" />
 <link rel="canonical" href={canonical} />
-<meta property="og:type" content="website" /><meta property="og:locale" content="sv_SE" /><meta property="og:url" content={canonical} />
+{alternatePath && <><link rel="alternate" hreflang="sv" href={urlSwedish} /><link rel="alternate" hreflang="en" href={urlEnglish} /><link rel="alternate" hreflang="x-default" href={urlSwedish} /></>}
+<meta property="og:type" content="website" /><meta property="og:locale" content={en ? "en_US" : "sv_SE"} /><meta property="og:url" content={canonical} />
 <meta property="og:site_name" content="Spiken" /><meta property="og:image" content={new URL(base + '/images/social-delning.webp', Astro.site).toString()} /><meta property="og:title" content={title} /><meta property="og:description" content={description} />
 <title>{title}</title>
 <style>
@@ -52,18 +62,46 @@ const analyticsToken = analyticsEnabled ? analytics.site_token : '';
 .spiken-consent-settings{font:inherit;color:#fff0ed;background:none;border:none;border-bottom:1px solid #a76b70;padding:0 0 7px;cursor:pointer}
 @media(max-width:540px){.spiken-consent{bottom:8px;left:8px;right:8px;padding:14px}.spiken-consent button{flex:1}}
 </style>
+
+<style>
+/* Spiken 2.0: anpassad navigation och språkbyte */
+.spiken-photo-header{background-color:#16090e;background-image:linear-gradient(90deg,#12070dec,#12070de8),var(--header-art);border-bottom:1px solid #633640}
+.spiken-photo-header .header-inner{max-width:1280px;width:min(1280px,calc(100% - 72px));gap:27px;min-height:82px}
+.spiken-photo-header .brand{font-size:24px;gap:11px}
+.spiken-photo-header .spiken-brand-image{width:32px;height:46px}
+.spiken-photo-header .main-nav{gap:25px;margin-left:auto;align-items:center}
+.spiken-photo-header .main-nav a{font:13px Arial,sans-serif;white-space:nowrap;color:#eed6d5}
+.spiken-header-actions{display:flex;align-items:center;gap:20px}
+.spiken-header-actions .header-link{display:none}
+.spiken-languages{display:flex;align-items:center;gap:8px;color:#a98e91;font:700 12px Arial,sans-serif}
+.spiken-languages a{color:#ad9396;padding:8px 0}
+.spiken-languages a[aria-current="page"]{color:#fff0ec;border-bottom:1px solid #d49da5}
+.spiken-photo-footer{background-image:linear-gradient(90deg,rgba(15,6,10,.88),rgba(15,6,10,.58)),var(--footer-art)}
+.spiken-photo-footer .footer-inner{min-height:200px}
+.spiken-photo-footer .footer-right{max-width:560px}
+@media(max-width:930px){.spiken-photo-header .header-inner{gap:13px;width:calc(100% - 36px)}.spiken-photo-header .main-nav{gap:14px}.spiken-photo-header .main-nav a{font-size:12px}.spiken-photo-header .brand{font-size:21px}}
+@media(max-width:700px){
+.spiken-photo-header .header-inner{min-height:0;flex-wrap:wrap;gap:8px;padding:9px 0 13px}
+.spiken-photo-header .brand{font-size:20px}
+.spiken-photo-header .spiken-brand-image{width:28px;height:40px}
+.spiken-header-actions{margin-left:auto}
+.spiken-photo-header .main-nav{order:3;width:100%;margin:0;justify-content:space-between;overflow-x:auto;padding:10px 0 2px;gap:13px}
+.spiken-photo-header .main-nav a{font-size:12px;flex-shrink:0}
+.spiken-photo-footer .footer-inner{align-items:start}
+}
+</style>
 </head>
 <body>
-<a class="skip-link" href="#innehall">Hoppa till innehållet</a>
+<a class="skip-link" href="#innehall">{en ? "Skip to content" : "Hoppa till innehållet"}</a>
 <header class="site-header spiken-photo-header" style={`--header-art:url("${base}/images/header-bakgrund.webp")`}><div class="wrap header-inner">
-<a class="brand" href={base + '/'} aria-label="Spiken – startsidan">
+<a class="brand" href={home} aria-label={en ? "Spiken – homepage" : "Spiken – startsidan"}>
 <img class="brand-symbol spiken-brand-image" src={base + '/images/spiken-emblem.webp'} width="34" height="48" alt="" />
 <span>SPIKEN<span class="brand-stop">.</span></span></a>
-<nav class="main-nav" aria-label="Huvudmeny"><a href={base + '/'}>Hem</a><a href={base + '/dikter/'}>Dikter</a><a href={base + '/om/'}>Om Spiken</a></nav>
-<a class="header-link" href={base + '/dikter/'}>Öppna arkivet ↗</a>
+<nav class="main-nav" aria-label={en ? "Main navigation" : "Huvudmeny"}><a href={home}>{nav.home}</a><a href={poems}>{nav.poems}</a><a href={about}>{nav.about}</a><a href={worlds}>{nav.worlds}</a></nav>
+<div class="spiken-header-actions"><a class="header-link" href={poems}>{nav.archive} ↗</a><nav class="spiken-languages" aria-label={en ? "Language" : "Språk"}><a href={urlSwedish} lang="sv" aria-current={!en ? "page" : undefined}>SV</a><span aria-hidden="true">/</span><a href={urlEnglish} lang="en" aria-current={en ? "page" : undefined}>EN</a></nav></div>
 </div></header>
 <main id="innehall"><slot /></main>
-<footer id="sidfot" class="site-footer spiken-photo-footer" style={`--footer-art:url("${base}/images/footer-bakgrund.webp")`}><div class="wrap footer-inner"><div><span class="footer-brand">SPIKEN.</span><p>Ord under huden · Dikter från undersidan.</p></div><div class="footer-right"><a href={base + '/dikter/'}>Diktarkiv</a><a href={base + '/om/'}>Om Spiken</a><a href={base + '/integritet/'}>Integritet</a>{analyticsEnabled && <button type="button" class="spiken-consent-settings" id="spiken-consent-settings">Statistikinställningar</button>}<small>© {new Date().getFullYear()} Spiken. Alla rättigheter förbehållna.</small></div></div></footer>
+<footer id="sidfot" class="site-footer spiken-photo-footer" style={`--footer-art:url("${base}/images/footer-bakgrund.webp")`}><div class="wrap footer-inner"><div><span class="footer-brand">SPIKEN.</span><p>{nav.footer}</p></div><div class="footer-right"><a href={poems}>{nav.poems}</a><a href={worlds}>{nav.worlds}</a><a href={about}>{nav.about}</a><a href={base + '/integritet/'}>{nav.privacy}</a>{analyticsEnabled && <button type="button" class="spiken-consent-settings" id="spiken-consent-settings">{en ? "Analytics settings" : "Statistikinställningar"}</button>}<small>© {new Date().getFullYear()} Spiken.</small></div></div></footer>
 
 {analyticsEnabled && <div id="spiken-consent" class="spiken-consent" role="region" aria-label="Val för frivillig statistik" hidden>
   <p>Vill du hjälpa Spiken att förbättra läsupplevelsen? Vi kan samla in enkel webbstatistik med Cloudflare, men endast om du godkänner det. <a href={base + '/integritet/'}>Läs om integritet</a>.</p>
