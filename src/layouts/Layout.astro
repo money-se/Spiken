@@ -195,6 +195,33 @@ body:has(.spiken-three) .spiken-photo-header{border-bottom-color:#2e2421}
  body:has(.spiken-three) .spiken-photo-header .header-inner{min-height:0}
 }
 </style>
+
+<style>
+/* Startsidan: navigeringen flyter ovanpå själva hero-bilden, inte i ett separat band. */
+body:has(.spiken-three) .spiken-photo-header{
+ position:absolute;
+ top:0;
+ left:0;
+ right:0;
+ width:100%;
+ z-index:40;
+ background-color:transparent;
+ background-image:linear-gradient(180deg,rgba(9,7,8,.87) 0%,rgba(9,7,8,.46) 72%,rgba(9,7,8,0) 100%);
+ border:0;
+ box-shadow:none;
+}
+body:has(.spiken-three) .spiken-photo-header .header-inner{
+ min-height:74px;
+}
+@media(max-width:700px){
+ body:has(.spiken-three) .spiken-photo-header{
+  background-image:linear-gradient(180deg,rgba(9,7,8,.95),rgba(9,7,8,.76) 80%,rgba(9,7,8,.20));
+ }
+ body:has(.spiken-three) .spiken-photo-header .header-inner{
+  min-height:0;
+ }
+}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#innehall">{en ? "Skip to content" : "Hoppa till innehållet"}</a>
