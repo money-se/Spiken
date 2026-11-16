@@ -12,28 +12,28 @@ const t = en ? {
  title:'For everything you never got to say.',
  intro:'Poetry about love, longing and everything that lingers.',
  read:'Read the poems',
- feelings:'Find the words for your feelings.',
- feelingsSub:'Where would you like to begin?',
- poems:'From the archive',
- poemsSub:'Words to return to.',
+ feelings:'It begins with a feeling.',
+ feelingsSub:'Some feelings are easier to recognize than explain. Choose yours.',
+ poems:'Then come the words.',
+ poemsSub:'A place for everything we could not say.',
  empty:'The poetry archive is taking shape. Here, the poems will soon find their place.',
  explore:'Explore the archive',
  worlds:'Spiken’s Worlds',
- worldsText:'Stories, reviews, dark poetry, reflections and mythology. Another side of the same author.',
+ worldsText:'The words do not end here. Discover stories, reflections and darker worlds beyond the poems.',
  worldsLink:'Explore the worlds',
 } : {
  eyebrow:'ORD UNDER HUDEN',
  title:'För allt du aldrig fick sagt.',
  intro:'Dikter om kärlek, längtan och allt som dröjer sig kvar.',
  read:'Läs dikterna',
- feelings:'Hitta orden för din känsla.',
- feelingsSub:'Var vill du börja?',
- poems:'Ur diktarkivet',
- poemsSub:'Ord att återvända till.',
+ feelings:'Allt börjar med en känsla.',
+ feelingsSub:'Vissa känslor är lättare att känna än att förklara. Välj din.',
+ poems:'Sedan kommer orden.',
+ poemsSub:'En plats för det vi aldrig fick sagt.',
  empty:'Diktarkivet tar form. Här får dikterna snart sin plats.',
  explore:'Utforska arkivet',
  worlds:'Spikens världar',
- worldsText:'Noveller, recensioner, mörk poesi, reflektioner och mytologi. En annan sida av samma författare.',
+ worldsText:'Orden slutar inte här. Upptäck berättelser, reflektioner och mörkare världar bortom dikterna.',
  worldsLink:'Utforska världarna',
 };
 const feelings = [
@@ -54,7 +54,7 @@ const feelings = [
     </div>
   </section>
 
-  <section class="sp-feelings" aria-labelledby="sp-feelings-title">
+  <section class="sp-feelings sp-chapter-section" aria-labelledby="sp-feelings-title">
     <div class="sp-wrap sp-feelings-inner">
       <div class="sp-section-intro">
         <h2 id="sp-feelings-title">{t.feelings}</h2>
@@ -66,7 +66,7 @@ const feelings = [
     </div>
   </section>
 
-  <section class="sp-archive" aria-labelledby="sp-archive-title">
+  <section class="sp-archive sp-chapter-section" aria-labelledby="sp-archive-title">
     <div class="sp-wrap sp-archive-inner">
       <div class="sp-archive-image" role="img" aria-label={en ? 'Handwritten letters and a burgundy flower by candlelight' : 'Handskrivna brev och en vinröd blomma i levande ljus'}></div>
       <div class="sp-archive-text">
@@ -82,7 +82,7 @@ const feelings = [
     </div>
   </section>
 
-  <section class="sp-worlds" aria-labelledby="sp-worlds-title">
+  <section class="sp-worlds sp-chapter-section" aria-labelledby="sp-worlds-title">
     <div class="sp-wrap sp-worlds-inner">
       <h2 id="sp-worlds-title">{t.worlds}</h2>
       <p>{t.worldsText}</p>
@@ -140,4 +140,34 @@ const feelings = [
 .sp-worlds p{font-size:17px}
 }
 @media(prefers-reduced-motion:reduce){.sp-feeling-list a,.sp-cta{transition:none}}
+
+/* Spikens röda tråd: samma ton, samma linje och samma berättelse genom sidan. */
+.spiken-simple{--sp-night:#12080d;--sp-wine:#281019;--sp-line:#a56b79;position:relative}
+.sp-hero{position:relative;isolation:isolate}
+.sp-hero::after{content:"";position:absolute;inset:auto 0 0;height:130px;pointer-events:none;background:linear-gradient(180deg,transparent,#180a11)}
+.sp-hero-inner{position:relative;z-index:1}
+.sp-chapter-section{position:relative;isolation:isolate}
+.sp-chapter-section::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);height:1px;width:min(1120px,calc(100% - 72px));background:linear-gradient(90deg,transparent,#784753 18%,#784753 82%,transparent);opacity:.52}
+.sp-chapter{display:flex;align-items:center;gap:13px;margin-bottom:25px;font:700 11px/1.5 Arial,sans-serif;letter-spacing:.23em;color:#d9a6b0}
+.sp-chapter::before{content:"";width:32px;height:1px;background:var(--sp-line)}
+.sp-feelings{background:linear-gradient(180deg,#180a11 0%,#21101a 46%,#1c0b14 100%);padding-top:96px;padding-bottom:104px}
+.sp-feelings::after{content:"";position:absolute;inset:auto 0 0;height:100px;z-index:-1;background:linear-gradient(transparent,#180a11)}
+.sp-archive{background:linear-gradient(180deg,#180a11 0%,#1d0c14 55%,#1a0b13 100%);padding-top:90px;padding-bottom:110px}
+.sp-archive-image{position:relative;min-height:410px;background-position:center;background-size:cover;box-shadow:0 25px 70px #05020555}
+.sp-archive-image::after{content:"";position:absolute;inset:0;border:1px solid #9b647044;box-shadow:inset 0 0 65px #11060b44}
+.sp-archive-text .sp-section-sub{margin-top:18px}
+.sp-worlds{background-image:linear-gradient(90deg,#160810f7 0%,#160810e5 37%,#160810ac 68%,#1608108f 100%),var(--sp-library);background-position:center;background-size:cover}
+.sp-worlds::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(180deg,#1a0b13aa,transparent 30%)}
+.sp-worlds-inner{position:relative;z-index:1}
+.sp-feeling-list a{font-size:clamp(23px,2.4vw,32px)}
+.sp-feeling-list a:hover{color:#ecc5ce}
+.sp-cta{background:#75283a}
+@media(max-width:700px){
+.sp-feelings{padding-top:66px;padding-bottom:75px}
+.sp-archive{padding-top:65px;padding-bottom:75px}
+.sp-worlds{background-image:linear-gradient(90deg,#160810f5,#160810bb),var(--sp-library)}
+.sp-chapter{margin-bottom:18px}
+.sp-chapter-section::before{width:calc(100% - 40px)}
+.sp-archive-image{min-height:265px}
+}
 </style>
