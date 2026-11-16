@@ -27,7 +27,7 @@ const senaste = [...dikter].slice(-3).reverse();
           <p class="uh-lead">Dikter om det som skaver, det som brinner, det som saknas – och det som ändå håller oss vid liv.</p>
           <div class="uh-hero-ctas"><a href={base + '/dikter/'} class="uh-primary">Läs dikter <span aria-hidden="true">↗</span></a><a href={base + '/om/'} class="uh-secondary">Om Spiken <span aria-hidden="true">↗</span></a></div>
         </div>
-        <div class="uh-emblem-wrap" aria-hidden="true"><img class="uh-emblem" src={img('spiken-emblem')} width="132" height="175" alt="" loading="lazy" /></div>
+        
       </div>
       <div class="uh-hero-edge uh-container"><span>DET MÄNSKLIGA. DET OBEKVÄMA. DET ÄKTA.</span><span>01 / 03</span></div>
     </section>
@@ -121,4 +121,14 @@ const senaste = [...dikter].slice(-3).reverse();
 .uh-themes::before{opacity:.035}
 .uh-closing{background:linear-gradient(180deg,rgba(12,5,8,.42),rgba(12,5,8,.57))}
 @media(max-width:700px){.under-huden::before{background-image:linear-gradient(90deg,rgba(8,4,5,.75),rgba(8,4,5,.42)),linear-gradient(0deg,rgba(8,4,5,.55),transparent 60%),var(--uh-backdrop)}}
+
+/* Rättning: bildförankring, separata sektioner, header-övergång */
+.under-huden{isolation:auto;background:transparent}
+.under-huden::before{z-index:-1}
+.uh-hero{isolation:auto}
+.uh-hero-inner{justify-content:flex-start}
+.uh-hero-copy{position:relative;z-index:1}
+.uh-hero-edge{position:relative}
+.uh-emblem-wrap{display:none!important}
+.uh-themes,.uh-featured,.uh-closing{position:relative}
 </style>
