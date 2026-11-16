@@ -247,4 +247,25 @@ const journeys = [
  .s3-mood{aspect-ratio:1.6}
  .s3-worlds-heading h2{font-size:clamp(37px,9vw,55px)}
 }
+
+/* Bilden startar längst upp bakom navigationen. Motivets ovankant hålls synlig. */
+.s3-hero-visual{
+ background-position:center, right 16%, right 16%;
+}
+@media(min-width:1050px){
+ .s3-hero{min-height:540px}
+ .s3-hero-inner{padding-top:135px;padding-bottom:65px}
+}
+@media(min-width:701px) and (max-width:1049px){
+ .s3-hero{min-height:535px}
+ .s3-hero-inner{padding-top:135px;padding-bottom:75px}
+ .s3-hero-visual{background-position:center, 68% 13%, 68% 13%}
+}
+@media(max-width:700px){
+ .s3-hero{min-height:680px}
+ .s3-hero-visual{
+  background-position:center,60% 10%,60% 10%;
+ }
+ .s3-hero-inner{padding-top:300px;padding-bottom:54px}
+}
 </style>
