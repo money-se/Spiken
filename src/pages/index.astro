@@ -3,59 +3,70 @@ import Layout from '../layouts/Layout.astro';
 import dikter from '../data/dikter.json';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const teman = [
- {namn:'Kärlek',slug:'karlek',beskrivning:'Det vi känner, men inte vågar säga.'},
- {namn:'Sorg',slug:'sorg',beskrivning:'När någon eller något fattas.'},
- {namn:'Saknad',slug:'saknad',beskrivning:'Till det som aldrig riktigt lämnar oss.'},
- {namn:'Ensamhet',slug:'ensamhet',beskrivning:'Att stå mitt bland människor och ändå vara ensam.'},
- {namn:'Livet',slug:'livet',beskrivning:'Det vackra, det trasiga och allt däremellan.'}
+  { namn: 'Kärlek', slug: 'karlek', rad: 'Begär, närhet och det som bränner.', ikon: '♡' },
+  { namn: 'Sorg', slug: 'sorg', rad: 'Förluster, sprickor och det som stannar.', ikon: '✢' },
+  { namn: 'Saknad', slug: 'saknad', rad: 'Det som fattas, det som aldrig blev.', ikon: '⌁' },
+  { namn: 'Ensamhet', slug: 'ensamhet', rad: 'Att vara ensam bland andra och i sig själv.', ikon: '◌' }
 ];
-function temaUrl(t) {
- return dikter.some(d => d.tema.toLocaleLowerCase('sv') === t.namn.toLocaleLowerCase('sv')) ? base + '/teman/' + t.slug + '/' : base + '/dikter/';
-}
+const linkFor = (t) => dikter.some(d => d.tema.toLocaleLowerCase('sv') === t.namn.toLocaleLowerCase('sv'))
+  ? base + '/teman/' + t.slug + '/' : base + '/dikter/?tema=' + encodeURIComponent(t.namn);
 ---
-<Layout title="Spiken – Ord från undersidan">
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-content">
-        <span class="eyebrow">— EN PLATS FÖR DET OSAGDA</span>
-        <h1>Alla sår<br />syns <em>inte.</em></h1>
-        <p class="hero-lead">Men de lämnar ord efter sig.</p>
-        <p class="hero-intro">Spiken skriver om kärleken, sorgen, ensamheten och allt det där som ryms under huden. Inga perfekta liv. Bara mänskliga.</p>
-        <div class="hero-actions"><a class="action action-primary" href={base + '/dikter/'}>Utforska dikterna <span aria-hidden="true">↗</span></a><a class="text-link" href={base + '/om/'}>Lär känna Spiken →</a></div>
+<Layout title="Spiken – Det förbjudna arkivet" description="Spikens förbjudna arkiv. Dikter om kärlek, sorg, saknad, ensamhet och allt som inte alltid får sägas högt.">
+  <div class="archive-home">
+    <section class="archive-hero wrap" aria-labelledby="archive-title">
+      <div class="hero-manuscript">
+        <span class="paper-corner" aria-hidden="true"></span>
+        <span class="stamp mini-stamp">ARKIV / SPIKEN<br/>NR. 0001</span>
+        <div class="hero-paper">
+          <span class="micro-label">ORD FRÅN UNDERSIDAN · SAMLING 01</span>
+          <h1 id="archive-title">SPIKEN<span class="rust">.</span></h1>
+          <span class="paint-label">DET FÖRBJUDNA ARKIVET</span>
+          <p class="typewriter-intro">En samling dikter, tankar och bekännelser som inte alltid får sägas <span class="underline-red">högt.</span></p>
+          <a class="paper-button" href={base + '/dikter/'}>Öppna arkivet <span aria-hidden="true">↗</span></a>
+        </div>
       </div>
-      <div class="hero-art" aria-hidden="true">
-        <svg class="flower-art" viewBox="0 0 440 580" fill="none">
-          <path d="M221 534c15-111 1-215-3-344" stroke="#c5b3a7" stroke-width="3" stroke-linecap="round"/>
-          <path d="M213 383c-48-66-93-61-119-51 33 42 68 60 119 51Z" fill="#585146" stroke="#887e71" stroke-width="2"/>
-          <path d="M220 443c51-73 104-69 132-54-42 49-81 58-132 54Z" fill="#413a34" stroke="#887e71" stroke-width="2"/>
-          <path d="M222 191C127 59 53 143 115 213c-91-33-125 86-21 121-60 72 51 157 129 61 55 105 186 29 126-65 110-52 56-173-37-121 67-77-10-158-90-18Z" fill="#392923" stroke="#b68b79" stroke-width="2.2"/>
-          <path d="M221 191C177 85 100 148 145 226M221 191c54-103 120-40 91 18M312 209c87-7 95 78 37 121M349 330c49 83-44 139-126 65M223 395c-92 63-147-6-129-61" stroke="#8d685b" stroke-width="2"/>
-          <circle cx="223" cy="281" r="46" fill="#a57c67" stroke="#c29b86" stroke-width="2"/><circle cx="223" cy="281" r="20" fill="#2a211e" stroke="#b68b79" stroke-width="1.5"/>
-          <path d="M216 540h16m-8-4v24" stroke="#c5b3a7" stroke-width="3"/>
-        </svg>
+      <div class="hero-collage" aria-hidden="true">
+        <div class="portrait-fragment"><span class="portrait-moon"></span><span class="portrait-shadow"></span><span class="portrait-label">Dikter från insidan.</span></div>
+        <div class="pressed-flower">
+          <svg viewBox="0 0 260 340" fill="none" aria-hidden="true">
+            <path d="M132 325L130 65" stroke="#c8ad90" stroke-width="5" stroke-linecap="round"/>
+            <path d="M129 230Q70 173 20 211Q83 260 129 230ZM130 269Q177 214 244 242Q192 291 130 269Z" fill="#6e6251" stroke="#8f765d" stroke-width="3"/>
+            <path d="M130 119C106 74 56 77 68 120C28 103 24 162 75 168C43 202 91 233 131 190C172 233 217 193 186 166C237 158 228 107 187 119C196 75 154 72 130 119Z" fill="#814739" stroke="#c0846c" stroke-width="3"/>
+            <path d="M130 119L131 189M75 168L131 189M187 119L131 189M186 166L131 189M68 120L131 189" stroke="#ad7660" stroke-width="2"/>
+            <circle cx="131" cy="151" r="18" fill="#3b2925" stroke="#b07d64" stroke-width="3"/>
+            <path d="M123 10H142L139 25H126Z" fill="#9b8c7a"/><path d="M130 25V320L135 330L139 318V25" fill="#978978" stroke="#d5b99a" stroke-width="2"/>
+          </svg>
+        </div>
+        <span class="small-note">LÅT DET SOM SKAVER<br/>FÅ EN PLATS.</span>
       </div>
-    </div>
-    <div class="wrap hero-bottom"><span>POESI UTAN FASAD</span><span>SCROLLA VIDARE ↓</span></div>
-  </section>
-  <section class="manifesto-section">
-    <div class="wrap manifesto-grid">
-      <div><span class="eyebrow">DET HÄR ÄR SPIKEN</span><h2>Ibland är ett ord<br />allt vi har kvar.</h2></div>
-      <div class="manifesto-copy"><p>Det finns känslor som aldrig får plats i ett vanligt samtal. Sådant man bär tyst, tills något inom en brister.</p><p>Här får de känslorna finnas. Oputsade. Obehagliga. Vackra på sitt eget vis.</p><a class="underlined-link" href={base + '/om/'}>Mer om Spiken ↗</a></div>
-    </div>
-  </section>
-  <section class="section topics-section">
-    <div class="wrap">
-      <div class="section-heading"><div><span class="eyebrow">HITTA DET SOM KÄNNS</span><h2>Vad bär du på?</h2></div><p>Det finns alltid fler ord för det vi känner. Börja där det gör mest ont – eller där det fortfarande finns värme.</p></div>
-      <div class="topic-list">{teman.map((tema,i) => <a class="topic-row" href={temaUrl(tema)}><span class="topic-number">{String(i+1).padStart(2,'0')}</span><span class="topic-name">{tema.namn}</span><span class="topic-description">{tema.beskrivning}</span><span class="topic-arrow" aria-hidden="true">↗</span></a>)}</div>
-    </div>
-  </section>
-  <section class="section archive-section">
-    <div class="wrap archive-grid">
-      <div class="archive-intro"><span class="eyebrow">TEXTER FRÅN UNDERSIDAN</span><h2>En plats för<br /><em>alla orden.</em></h2><p>Dikter att känna igen sig i. Att läsa en gång till. Att kanske skicka vidare till någon som behöver dem.</p><a class="action action-outline" href={base + '/dikter/'}>Till diktarkivet ↗</a></div>
-      <div class="archive-preview"><div class="preview-heading"><span>UR ARKIVET</span><span>SPIKEN / TEXTER</span></div>
-        {dikter.length ? <ol class="featured-list">{dikter.slice(-4).reverse().map((d,i) => <li><span>{String(i+1).padStart(2,'0')}</span><a href={base + '/dikter/' + d.slug + '/'}>{d.titel}</a><small>{d.tema}</small></li>)}</ol> : <div class="empty-archive"><span class="empty-symbol" aria-hidden="true">✳</span><p>Arkivet håller på att fyllas.</p><span>Här kommer Spikens dikter snart att få egna sidor.</span></div>}
+    </section>
+
+    <section class="themes-section wrap" aria-labelledby="themes-heading">
+      <div class="section-marker"><span>01 / FÖRTECKNING</span><span>UTFORSKA EFTER KÄNSLA</span></div>
+      <h2 id="themes-heading">Bläddra bland <em>det osagda.</em></h2>
+      <div class="archive-themes">
+        {teman.map((tema, i) => <a class="archive-theme" href={linkFor(tema)} aria-label={'Dikter om ' + tema.namn.toLowerCase()}>
+          <span class="theme-art" aria-hidden="true"><span class="theme-glyph">{tema.ikon}</span><span class="theme-print">SPIKEN / {String(i + 1).padStart(2,'0')}</span></span>
+          <span class="theme-paper"><span class="theme-count">MAPP {String(i + 1).padStart(2,'0')}</span><strong>{tema.namn}</strong><span class="theme-text">{tema.rad}</span><span class="theme-arrow" aria-hidden="true">↗</span></span>
+        </a>)}
       </div>
-    </div>
-  </section>
-  <section class="closing-section"><div class="wrap closing-inner"><span class="eyebrow">ORDEN LEVER VIDARE</span><p>Om du hittade hit av en anledning,<br /><em>kanske finns något här för dig.</em></p><a class="underlined-link" href={base + '/dikter/'}>Börja läsa →</a></div></section>
+    </section>
+
+    <section class="archive-content wrap" aria-labelledby="recent-heading">
+      <div class="archive-ledger paper-sheet">
+        <div class="ledger-heading"><span class="clip" aria-hidden="true">⌁</span><span class="micro-label ink">REGISTRERADE TEXTER / SPIKEN</span><h2 id="recent-heading">Senast i arkivet</h2></div>
+        {dikter.length ? <ol class="ledger-list">{dikter.slice(-5).reverse().map((d, i) => <li><span class="entry-number">№ {String(dikter.length - i).padStart(4,'0')}</span><a href={base + '/dikter/' + d.slug + '/'}><strong>{d.titel}</strong><small>{d.tema} · Läs dikten</small></a><span aria-hidden="true">→</span></li>)}</ol>
+        : <div class="ledger-empty"><span class="entry-number">№ 0000</span><p>Arkivet är öppet.<br/>De första dikterna förs snart in.</p><span class="red-mark">UNDER UPPBYGGNAD</span></div>}
+        <a href={base + '/dikter/'} class="ledger-more">Visa hela diktarkivet <span aria-hidden="true">↗</span></a>
+      </div>
+      <aside class="dossier paper-sheet" aria-label="Om arkivet">
+        <div class="dossier-top"><span class="stamp">SPIKEN-ARKIVET<br/>BEVARAS FÖR ALLTID</span><span class="dossier-id">AKT 001<br/>ORD / LIV</span></div>
+        <div class="botanical-plate" aria-hidden="true"><svg viewBox="0 0 300 230" fill="none"><path d="M151 210C143 150 143 96 151 21M150 165Q101 119 49 147Q92 177 150 165ZM151 127Q194 86 250 115Q215 143 151 127Z" stroke="#444239" stroke-width="3"/><path d="M151 47c-51-47-76 12-30 35-42 8-7 61 30 22 35 40 76-11 34-22 47-25 16-77-34-35Z" stroke="#5e4b40" stroke-width="3" fill="#b7a38a"/><circle cx="151" cy="78" r="13" fill="#7c4737"/></svg></div>
+        <div class="dossier-info"><span>KATEGORI:</span><strong>Poetiskt arkiv</strong><span>STATUS:</span><strong class="rust">Öppet</strong><span>UPPHOV:</span><strong>Spiken</strong></div>
+        <p class="dossier-quote">Här samlas det som inte passar in. Det som skaver. Det som fortfarande lever.</p>
+        <a class="dossier-link" href={base + '/om/'}>Om människan bakom orden ↗</a>
+      </aside>
+    </section>
+    <section class="archive-ending wrap"><span class="ending-star" aria-hidden="true">✳</span><p>Ingenting behöver vara vackert<br/>för att vara <em>värt att bevara.</em></p><span class="micro-label">SPIKEN · ORD FRÅN UNDERSIDAN</span></section>
+  </div>
 </Layout>
