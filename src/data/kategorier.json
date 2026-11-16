@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "kanaler": [
+    {
+      "id": "under-huden",
+      "namn": "Under huden",
+      "huvudmalgrupp": "Läsare av romantisk och emotionell poesi",
+      "underkategorier": [
+        {
+          "id": "karlek",
+          "namn": "Kärlek"
+        },
+        {
+          "id": "langtan",
+          "namn": "Längtan"
+        },
+        {
+          "id": "begar",
+          "namn": "Begär och närhet"
+        },
+        {
+          "id": "hjartesorg",
+          "namn": "Hjärtesorg"
+        },
+        {
+          "id": "saknad",
+          "namn": "Saknad"
+        },
+        {
+          "id": "sarbarhet",
+          "namn": "Sårbarhet"
+        }
+      ]
+    },
+    {
+      "id": "varldar",
+      "namn": "Spikens världar",
+      "underkategorier": [
+        {
+          "id": "mork-poesi",
+          "namn": "Mörk poesi"
+        },
+        {
+          "id": "noveller",
+          "namn": "Noveller"
+        },
+        {
+          "id": "reflektioner",
+          "namn": "Reflektioner"
+        },
+        {
+          "id": "recensioner",
+          "namn": "Recensioner"
+        },
+        {
+          "id": "min-bibel",
+          "namn": "Min Bibel"
+        }
+      ]
+    }
+  ]
+}
