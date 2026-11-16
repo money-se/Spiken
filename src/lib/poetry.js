@@ -38,6 +38,7 @@ export function getPoems(lang = 'sv') {
       tags:Array.isArray(work.tags) ? work.tags.map(safe).filter(Boolean) : [],
       published:safe(localized.published_at),
       description:safe(localized.meta_description) || excerpt(localized.text),
+      metaTitle:safe(localized.meta_title) || (safe(localized.title)+' – Spiken'),
       image:safe(work.image?.path),
       imageAlt:safe(localized.image_alt),
       translatedSlug:isPublished(companion) ? safe(companion.slug) : '',
@@ -52,7 +53,7 @@ export function getPoems(lang = 'sv') {
     return [{
       id:'legacy-'+slug,slug,title,text,theme:safe(d.tema)||'Poesi',
       category:safe(d.tema),tags:[],published:safe(d.datum),
-      description:excerpt(text),image:'',imageAlt:'',translatedSlug:'',
+      description:excerpt(text),metaTitle:title+' – Spiken',image:'',imageAlt:'',translatedSlug:'',
       legacyIndex:index
     }];
   });
