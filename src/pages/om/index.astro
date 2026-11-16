@@ -1,6 +1,32 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL.slice(0,-1) : import.meta.env.BASE_URL;
 ---
-<Layout title="Om Spiken – Det förbjudna arkivet" description="Om Spiken, ett litterärt projekt med dikter och tankar om det mänskliga.">
-<section class="wrap section about-section"><span class="eyebrow">AKT 002 / BAKOM ORDEN</span><div class="paper-sheet about-paper"><span class="micro-label ink">OM SPIKEN · ORD FRÅN UNDERSIDAN</span><h1>Om Spiken<span class="rust">.</span></h1><p>Spiken är en plats för texter som vågar stanna i det obekväma. För saknaden, kärleken, ensamheten och allt det där som inte alltid får plats i ett vanligt samtal.</p><p>Här får orden vara ärliga. Ibland vackra, ibland mörka, ibland båda samtidigt.</p><p>Det här är ett arkiv för det som inte riktigt går att släppa.</p></div></section>
+<Layout title="Om Spiken – Ord under huden" description="Om Spiken – en plats för rå och personlig poesi om det mänskliga, kärleken och sorgen.">
+<section class="spiken-about">
+  <div class="wrap spiken-about-grid">
+    <div class="spiken-about-copy">
+      <p class="spiken-about-kicker">BAKOM ORDEN</p>
+      <h1>Om <em>Spiken.</em></h1>
+      <p>Spiken är en plats för texter som vågar stanna i det obekväma. För saknaden, kärleken, ensamheten och allt det där som inte alltid får plats i ett vanligt samtal.</p>
+      <p>Här får orden vara ärliga. Ibland vackra, ibland mörka, ibland båda samtidigt.</p>
+      <p>En plats för det mänskliga – också det vi helst gömmer.</p>
+      <a class="spiken-about-link" href={base + '/dikter/'}>Läs dikterna ↗</a>
+    </div>
+    <figure class="spiken-about-image"><img src={base + '/images/om-spiken.webp'} alt="En anonym person skriver i en anteckningsbok vid ett regnigt fönster" width="900" height="1125" loading="eager" /></figure>
+  </div>
+</section>
 </Layout>
+<style>
+.spiken-about{background:linear-gradient(125deg,rgba(13,5,8,.94),rgba(39,11,18,.72)),url('/Spiken/images/overgang-rok.webp') center / cover;min-height:700px;padding:100px 0}
+.spiken-about-grid{display:grid;grid-template-columns:1fr .85fr;gap:8%;align-items:center}
+.spiken-about-copy{max-width:640px}
+.spiken-about-kicker{color:#d0aaa3;font:700 12px Arial,sans-serif;letter-spacing:.25em}
+.spiken-about h1{font:normal clamp(55px,7vw,105px)/1.1 Georgia,serif;letter-spacing:-.05em;margin:20px 0 36px}
+.spiken-about h1 em{color:#c59a97}
+.spiken-about-copy>p:not(.spiken-about-kicker){font:clamp(17px,1.7vw,21px)/1.85 Georgia,serif;color:#ebd9d5}
+.spiken-about-link{display:inline-block;margin-top:25px;padding:15px 20px;color:#f5e7e1;border:1px solid #93545b;font:14px Arial,sans-serif}
+.spiken-about-image{margin:0;box-shadow:0 30px 80px #0009;border:1px solid #573037;overflow:hidden}
+.spiken-about-image img{display:block;width:100%;height:auto;max-height:690px;object-fit:cover}
+@media(max-width:760px){.spiken-about{padding:65px 0}.spiken-about-grid{grid-template-columns:1fr;gap:42px}.spiken-about-image img{max-height:470px;object-position:center 45%}}
+</style>
