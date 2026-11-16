@@ -6,8 +6,24 @@ export function getStaticPaths(){
  return getPoems('sv').map(poem=>({params:{slug:poem.slug},props:{poem}}));
 }
 const {poem}=Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\\/$/,'');
+const imageUrl = poem.image ? base+'/images/'+poem.image.replace(/^\\/+/, '') : null;
+const schema = {
+  '@context':'https://schema.org',
+  '@type':'CreativeWork',
+  name:poem.title,
+  headline:poem.title,
+  description:poem.description,
+  author:{'@type':'Person',name:'Spiken'},
+  genre:'Poetry',
+  inLanguage:'sv',
+  datePublished:poem.published || undefined,
+  isAccessibleForFree:true,
+  image:imageUrl ? new URL(imageUrl,Astro.site).toString() : undefined,
+  url:new URL(Astro.url.pathname,Astro.site).toString()
+};
 const alternatePath=poem.translatedSlug?'/en/poems/'+encodeURIComponent(poem.translatedSlug)+'/':null;
 ---
-<Layout title={poem.title + ' – Spiken'} description={poem.description} lang="sv" alternatePath={alternatePath}>
+<Layout title={poem.title + ' – Spiken'} description={poem.description} lang="sv" alternatePath={alternatePath} socialImage={imageUrl} socialImageAlt={poem.imageAlt} publishedAt={poem.published} structuredData={schema}>
   <PoemReader poem={poem} lang="sv" />
 </Layout>
