@@ -66,6 +66,7 @@ const image = base + '/images/spiken-3-forfattare.webp';
         <div class="pa-grid" id="pa-poem-list">
           {poems.map((poem,i)=><article class="pa-item" data-search={(poem.title+' '+poem.theme+' '+poem.text+' '+poem.tags.join(' ')).toLocaleLowerCase(lang)} data-theme={poem.theme.toLocaleLowerCase(lang)}>
             <a href={archiveRoot + encodeURIComponent(poem.slug) + '/'} class="pa-item-link">
+              <div class="pa-card-photo" style={`--pa-card-img:url("${poem.image ? base+'/images/'+poem.image : base+'/images/dikt-arkiv-v2.webp'}")`} aria-hidden="true"></div>
               <div class="pa-item-top"><span>SPIKEN / {String(i+1).padStart(3,'0')}</span><span aria-hidden="true">↗</span></div>
               <div class="pa-item-body"><span class="pa-category">{poem.theme}</span><h2>{poem.title}</h2><p>{poemExcerpt(poem.text,145)}</p></div>
               <span class="pa-read">{labels.read} <span aria-hidden="true">→</span></span>
@@ -207,4 +208,14 @@ refresh();
 @media(max-width:900px){.pa-wrap{width:calc(100% - 36px)}.pa-mood-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.pa-intro:before{background-position:center,center,62% 16%}}
 @media(max-width:600px){.pa-intro{min-height:580px;align-items:end}.pa-intro:before{background-image:linear-gradient(0deg,#0d0b0bfc 0%,#0d0b0bbf 43%,#0d0b0b2b 100%),var(--pa-image);background-position:center,63% 18%}.pa-intro-inner{padding:185px 0 48px}.pa-intro h1{font-size:clamp(45px,10.5vw,65px)}.pa-lead{font-size:17px}.pa-mood-gallery{gap:9px;margin-bottom:27px}.pa-mood-button{aspect-ratio:1.65}.pa-mood-button span{font-size:27px;left:13px;bottom:22px}.pa-mood-button i{left:13px;width:52px}.pa-section-heading{padding:0 0 19px}.pa-library{padding-top:23px}}
 @media(prefers-reduced-motion:reduce){.pa-mood-button img{transition:none}}
+
+/* Unik fotobild som fungerar i arkivet utan att bryta den gemensamma stilen. */
+.pa-item{min-height:0;position:relative;overflow:hidden}
+.pa-item-link{padding:0;min-height:0;height:100%}
+.pa-card-photo{height:175px;width:100%;display:block;background-image:linear-gradient(0deg,#170d10d9 0%,#100c0c10 75%),var(--pa-card-img);background-size:cover;background-position:center;transition:background-size .3s}
+.pa-item-top{margin:17px 22px 0}
+.pa-item-body{padding:16px 22px 20px}
+.pa-item h2{font-size:clamp(26px,2.5vw,37px)}
+.pa-read{margin:0 22px 20px}
+@media(max-width:600px){.pa-card-photo{height:205px}.pa-item h2{font-size:34px}}
 </style>
