@@ -93,7 +93,7 @@ const analyticsToken = analyticsEnabled ? analytics.site_token : '';
 
 <style>
 /* Endast startsidan: den genomgående bildvärlden tonas naturligt ned i sidfoten. */
-body:has(.spiken-universe) .spiken-photo-footer{
+body:has(.spiken-simple) .spiken-photo-footer{
   border-top:0;
   box-shadow:none;
   background-color:#160a10;
@@ -101,14 +101,14 @@ body:has(.spiken-universe) .spiken-photo-footer{
   background-size:cover;
   background-position:center center;
 }
-body:has(.spiken-universe) .spiken-photo-footer .footer-inner{
+body:has(.spiken-simple) .spiken-photo-footer .footer-inner{
   padding-top:34px;
   padding-bottom:56px;
   min-height:190px;
 }
 @media(max-width:700px){
-  body:has(.spiken-universe) .spiken-photo-footer{background-position:center center}
-  body:has(.spiken-universe) .spiken-photo-footer .footer-inner{padding-top:24px;padding-bottom:43px}
+  body:has(.spiken-simple) .spiken-photo-footer{background-position:center center}
+  body:has(.spiken-simple) .spiken-photo-footer .footer-inner{padding-top:24px;padding-bottom:43px}
 }
 </style>
 </head>
