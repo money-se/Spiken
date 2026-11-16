@@ -3,177 +3,204 @@ import dikter from '../data/dikter.json';
 const { lang = 'sv' } = Astro.props;
 const en = lang === 'en';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const img = name => base + '/images/' + name + '.webp';
-const poemPath = base + (en ? '/en/poems/' : '/dikter/');
-const worldPath = base + (en ? '/en/worlds/' : '/varldar/');
-const latest = en ? [] : [...dikter].slice(-3).reverse();
-const t = en ? {
- eyebrow:'WORDS UNDER THE SKIN',
- title:'For everything you never got to say.',
- intro:'Poetry about love, longing and everything that lingers.',
- read:'Read the poems',
- feelings:'It begins with a feeling.',
- feelingsSub:'Some feelings are easier to recognize than explain. Choose yours.',
- poems:'Then come the words.',
- poemsSub:'A place for everything we could not say.',
- empty:'The poetry archive is taking shape. Here, the poems will soon find their place.',
- explore:'Explore the archive',
- worlds:'Spiken’s Worlds',
- worldsText:'The words do not end here. Discover stories, reflections and darker worlds beyond the poems.',
- worldsLink:'Explore the worlds',
+const img = (name) => base + '/images/' + name + '.webp';
+const home = base + (en ? '/en/' : '/');
+const poems = base + (en ? '/en/poems/' : '/dikter/');
+const about = base + (en ? '/en/about/' : '/om/');
+const worlds = base + (en ? '/en/worlds/' : '/varldar/');
+const currentPoems = en ? [] : [...dikter].slice(-3).reverse();
+const copy = en ? {
+  eyebrow: 'SPIKEN · WORDS UNDER THE SKIN',
+  titleStart: 'Words beneath', titleEnd:'the skin.',
+  lead:'Poems about love, longing, desire and the feelings we rarely dare to speak of. Written with heart, hurt and longing.',
+  read:'Read my poems', about:'About Spiken',
+  featured:'Find your feeling',
+  author:'The man behind the words',
+  authorBody:'Spiken is my way of exploring what it means to be human. Here I share poetry, thoughts and stories shaped by both darkness and light.',
+  authorCta:'Get to know me',
+  quote:'I do not write to be perfect, but to be human.',
+  worlds:'Spiken’s Worlds', worldsText:'Beyond the poems — stories, reflections and other worlds born from words.',
+  explore:'Enter the worlds', recent:'Recently published', archive:'The poetry archive',
+  love:'Love', longing:'Longing', desire:'Desire', existence:'Existence',
+  stories:'Stories', thoughts:'Reflections', mythology:'My Bible'
 } : {
- eyebrow:'ORD UNDER HUDEN',
- title:'För allt du aldrig fick sagt.',
- intro:'Dikter om kärlek, längtan och allt som dröjer sig kvar.',
- read:'Läs dikterna',
- feelings:'Allt börjar med en känsla.',
- feelingsSub:'Vissa känslor är lättare att känna än att förklara. Välj din.',
- poems:'Sedan kommer orden.',
- poemsSub:'En plats för det vi aldrig fick sagt.',
- empty:'Diktarkivet tar form. Här får dikterna snart sin plats.',
- explore:'Utforska arkivet',
- worlds:'Spikens världar',
- worldsText:'Orden slutar inte här. Upptäck berättelser, reflektioner och mörkare världar bortom dikterna.',
- worldsLink:'Utforska världarna',
+  eyebrow: 'SPIKEN · ORD UNDER HUDEN',
+  titleStart: 'Ord under', titleEnd:'huden.',
+  lead:'Dikter om kärlek, längtan, begär och det som bränner där ingen ser. En plats för känslor utan filter – skrivna med hjärta, sår och lust.',
+  read:'Läs mina dikter', about:'Om Spiken',
+  featured:'Hitta din känsla',
+  author:'Mannen bakom orden',
+  authorBody:'Spiken är mitt sätt att förstå, bearbeta och utforska det mänskliga. Här delar jag dikter, tankar och världar som formats av både mörker och ljus.',
+  authorCta:'Läs mer om mig',
+  quote:'Jag skriver inte för att vara perfekt, utan för att vara mänsklig.',
+  worlds:'Spikens världar', worldsText:'Bortom dikterna finns berättelser, reflektioner och andra världar som växer fram ur orden.',
+  explore:'Utforska världarna', recent:'Senast publicerat', archive:'Diktarkivet',
+  love:'Kärlek', longing:'Längtan', desire:'Begär', existence:'Existens',
+  stories:'Noveller', thoughts:'Reflektioner', mythology:'Min Bibel'
 };
-const feelings = [
- {sv:'Kärlek',en:'Love',theme:'Kärlek'},
- {sv:'Längtan',en:'Longing',theme:'Längtan'},
- {sv:'Begär',en:'Desire',theme:'Begär'},
- {sv:'Hjärtesorg',en:'Heartbreak',theme:'Hjärtesorg'},
- {sv:'Saknad',en:'Missing',theme:'Saknad'},
+const moods = [
+ {id:'love',name:copy.love,theme:'Kärlek',image:'kategori-karlek-v2'},
+ {id:'longing',name:copy.longing,theme:'Längtan',image:'kategori-langtan-v2'},
+ {id:'desire',name:copy.desire,theme:'Begär',image:'kategori-begar-v2'},
+ {id:'existence',name:copy.existence,theme:'Existens',image:'kategori-saknad-v2'},
+];
+const journeys = [
+ {name:copy.stories,description:en?'Human stories and their shadows.':'Berättelser om människor och deras skuggor.',anchor:'noveller',image:'varldar-bibliotek'},
+ {name:copy.thoughts,description:en?'Questions about living and feeling.':'Tankar om livet, känslorna och människan.',anchor:'reflektioner',image:'dikt-arkiv-v2'},
+ {name:copy.mythology,description:en?'An evolving fictional mythology.':'En skönlitterär mytologi som växer fram.',anchor:'min-bibel',image:'bakgrund-litterar'}
 ];
 ---
-<div class="spiken-simple" style={`--sp-hero:url("${img('hero-romantik')}");--sp-archive:url("${img('dikt-arkiv-v2')}");--sp-library:url("${img('varldar-bibliotek')}")`}>
-  <section class="sp-hero" aria-labelledby="sp-hero-title">
-    <div class="sp-wrap sp-hero-inner">
-      <p class="sp-eyebrow">{t.eyebrow}</p>
-      <h1 id="sp-hero-title">{t.title}</h1>
-      <p class="sp-lead">{t.intro}</p>
-      <a class="sp-cta" href={poemPath}>{t.read}<span aria-hidden="true">↗</span></a>
-    </div>
-  </section>
-
-  <section class="sp-feelings sp-chapter-section" aria-labelledby="sp-feelings-title">
-    <div class="sp-wrap sp-feelings-inner">
-      <div class="sp-section-intro">
-        <h2 id="sp-feelings-title">{t.feelings}</h2>
-        <p>{t.feelingsSub}</p>
-      </div>
-      <nav class="sp-feeling-list" aria-label={en ? 'Poetry by feeling' : 'Dikter efter känsla'}>
-        {feelings.map(f => <a href={poemPath + '?tema=' + encodeURIComponent(f.theme)}><span>{en ? f.en : f.sv}</span><span class="sp-arrow" aria-hidden="true">↗</span></a>)}
-      </nav>
-    </div>
-  </section>
-
-  <section class="sp-archive sp-chapter-section" aria-labelledby="sp-archive-title">
-    <div class="sp-wrap sp-archive-inner">
-      <div class="sp-archive-image" role="img" aria-label={en ? 'Handwritten letters and a burgundy flower by candlelight' : 'Handskrivna brev och en vinröd blomma i levande ljus'}></div>
-      <div class="sp-archive-text">
-        <h2 id="sp-archive-title">{t.poems}</h2>
-        <p class="sp-section-sub">{t.poemsSub}</p>
-        {latest.length > 0 ?
-          <div class="sp-poems">
-            {latest.map(d => <a href={poemPath+d.slug+'/'}><span>{d.titel}</span><small>{d.tema} ↗</small></a>)}
-          </div>
-          : <p class="sp-empty">{t.empty}</p>}
-        <a class="sp-text-link" href={poemPath}>{t.explore} <span aria-hidden="true">↗</span></a>
+<div class="spiken-three" style={`--s3-hero:url("${img('spiken-3-hero')}");--s3-author:url("${img('spiken-3-forfattare')}");--s3-hero-fallback:url("${img('hero-romantik')}");--s3-author-fallback:url("${img('om-spiken')}")`}>
+  <section class="s3-hero" aria-labelledby="s3-title">
+    <div class="s3-hero-visual" aria-hidden="true"></div>
+    <div class="s3-width s3-hero-inner">
+      <div class="s3-hero-copy">
+        <span class="s3-kicker">{copy.eyebrow}</span>
+        <h1 id="s3-title">{copy.titleStart} <em>{copy.titleEnd}</em></h1>
+        <p>{copy.lead}</p>
+        <div class="s3-actions">
+          <a class="s3-primary" href={poems}>{copy.read} <span aria-hidden="true">→</span></a>
+          <a class="s3-secondary" href={about}>{copy.about}</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="sp-worlds sp-chapter-section" aria-labelledby="sp-worlds-title">
-    <div class="sp-wrap sp-worlds-inner">
-      <h2 id="sp-worlds-title">{t.worlds}</h2>
-      <p>{t.worldsText}</p>
-      <a class="sp-text-link" href={worldPath}>{t.worldsLink} <span aria-hidden="true">↗</span></a>
+  <section class="s3-feelings" aria-labelledby="s3-feelings-title" id="kanslor">
+    <div class="s3-width">
+      <h2 id="s3-feelings-title" class="s3-screen-reader">{copy.featured}</h2>
+      <div class="s3-mood-grid">
+        {moods.map(m => <a class="s3-mood" href={poems + '?tema=' + encodeURIComponent(m.theme)} aria-label={m.name}>
+          <img src={img(m.image)} loading="lazy" width="640" height="430" alt="" />
+          <span class="s3-mood-label">{m.name}</span>
+          <span class="s3-mood-rule"></span>
+        </a>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="s3-author" aria-labelledby="s3-author-title">
+    <div class="s3-width s3-author-grid">
+      <div class="s3-author-portrait" aria-hidden="true"></div>
+      <div class="s3-author-text">
+        <h2 id="s3-author-title">{copy.author}</h2>
+        <p>{copy.authorBody}</p>
+        <a class="s3-outline" href={about}>{copy.authorCta} <span aria-hidden="true">→</span></a>
+      </div>
+      <blockquote class="s3-quote">
+        <span aria-hidden="true">“</span>
+        <p>{copy.quote}</p>
+        <cite>— SPIKEN</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  {currentPoems.length > 0 && <section class="s3-latest" aria-label={copy.recent}>
+    <div class="s3-width">
+      <div class="s3-latest-heading"><h2>{copy.recent}</h2><a href={poems}>{copy.archive} →</a></div>
+      <div class="s3-latest-list">{currentPoems.map(d => <a href={poems + d.slug + '/'}><strong>{d.titel}</strong><span>{d.tema} →</span></a>)}</div>
+    </div>
+  </section>}
+
+  <section class="s3-worlds" aria-labelledby="s3-worlds-title">
+    <div class="s3-width">
+      <div class="s3-worlds-heading">
+        <h2 id="s3-worlds-title">{copy.worlds}</h2>
+        <p>{copy.worldsText}</p>
+      </div>
+      <div class="s3-world-grid">
+        {journeys.map(j => <a class="s3-world-card" href={worlds+'#'+j.anchor}>
+          <img src={img(j.image)} alt="" loading="lazy" width="560" height="350"/>
+          <div class="s3-world-caption"><h3>{j.name}</h3><p>{j.description}</p></div>
+          <span class="s3-world-arrow" aria-hidden="true">→</span>
+        </a>)}
+      </div>
+      <div class="s3-worlds-more"><a href={worlds}>{copy.explore} →</a></div>
     </div>
   </section>
 </div>
 <style>
-.spiken-simple{background:#12080d;color:#f5e8e5;font-family:Georgia,'Times New Roman',serif}
-.sp-wrap{width:min(1120px,calc(100% - 72px));margin-inline:auto}
-.sp-hero{min-height:660px;display:flex;align-items:center;background:linear-gradient(90deg,#10070dfb 0%,#10070de6 30%,#10070d79 58%,#10070d1e 100%),var(--sp-hero) center right/cover no-repeat}
-.sp-hero-inner{padding-block:105px}
-.sp-eyebrow{margin:0 0 22px;color:#d7a8ae;font:600 11px/1.5 Arial,sans-serif;letter-spacing:.24em}
-.sp-hero h1{max-width:650px;margin:0;font:400 clamp(55px,6.6vw,95px)/1.07 Georgia,serif;letter-spacing:-.044em;text-wrap:balance}
-.sp-lead{max-width:480px;margin:27px 0 32px;color:#ead5d3;font:21px/1.6 Georgia,serif}
-.sp-cta{display:inline-flex;align-items:center;gap:35px;background:#78293b;color:#fff3f0;padding:16px 23px;font:14px Arial,sans-serif;transition:background .2s}
-.sp-cta:hover{background:#a13d54;color:#fff;text-decoration:none}
-.sp-feelings{padding:100px 0;background:#160a10}
-.sp-feelings-inner{display:grid;grid-template-columns:1fr 1fr;gap:9%;align-items:start}
-.sp-section-intro h2,.sp-archive h2,.sp-worlds h2{font:400 clamp(39px,4.5vw,62px)/1.16 Georgia,serif;letter-spacing:-.03em;margin:0}
-.sp-section-intro p,.sp-section-sub{font:italic 20px/1.6 Georgia,serif;color:#cbaeb2;margin:19px 0 0}
-.sp-feeling-list{display:flex;flex-direction:column;border-top:1px solid #5f3943}
-.sp-feeling-list a{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 5px;border-bottom:1px solid #5f3943;color:#f2dddb;font:italic clamp(24px,2.5vw,33px) Georgia,serif;transition:padding .2s,color .2s}
-.sp-feeling-list a:hover{padding-inline:12px;color:#e9acb7;text-decoration:none}
-.sp-arrow{font:20px Arial,sans-serif;color:#c78996}
-.sp-archive{padding:100px 0;background:#10070b}
-.sp-archive-inner{display:grid;grid-template-columns:.95fr 1fr;align-items:center;gap:8%}
-.sp-archive-image{min-height:380px;background:var(--sp-archive) center/cover no-repeat}
-.sp-archive-text{max-width:500px}
-.sp-archive-text .sp-section-sub{margin:16px 0 25px}
-.sp-empty{max-width:420px;color:#ddc5c7;font:18px/1.7 Georgia,serif}
-.sp-text-link{display:inline-block;margin-top:20px;padding-bottom:8px;border-bottom:1px solid #ae6474;color:#f1d3d7;font:14px Arial,sans-serif}
-.sp-text-link:hover{color:#fff}
-.sp-poems{border-top:1px solid #5f3943;margin:30px 0 5px}
-.sp-poems a{display:flex;align-items:baseline;justify-content:space-between;gap:15px;border-bottom:1px solid #5f3943;padding:14px 0;font:italic 23px Georgia,serif}
-.sp-poems small{color:#c696a2;font:12px Arial,sans-serif}
-.sp-worlds{display:flex;align-items:center;min-height:380px;padding:82px 0;background:linear-gradient(90deg,#10080deb 0%,#10080dbf 50%,#10080d69 100%),var(--sp-library) center/cover no-repeat}
-.sp-worlds-inner{max-width:1120px}
-.sp-worlds h2,.sp-worlds p{max-width:580px}
-.sp-worlds p{font:19px/1.65 Georgia,serif;color:#e0c5cb;margin:18px 0 10px}
-@media(max-width:850px){.sp-hero{background-position:65% center}.sp-feelings-inner{gap:6%}}
-@media(max-width:700px){
-.sp-wrap{width:calc(100% - 40px)}
-.sp-hero{min-height:610px;align-items:flex-end;background-image:linear-gradient(0deg,#10070df7 0%,#10070d94 48%,#10070d4a 100%),linear-gradient(90deg,#10070d88,transparent),var(--sp-hero);background-position:center,center,68% center;background-size:cover}
-.sp-hero-inner{padding-block:100px 67px}
-.sp-hero h1{font-size:clamp(47px,11vw,69px);max-width:520px}
-.sp-lead{font-size:18px}
-.sp-feelings{padding:70px 0}
-.sp-feelings-inner{grid-template-columns:1fr;gap:30px}
-.sp-feeling-list a{padding-block:14px}
-.sp-archive{padding:65px 0}
-.sp-archive-inner{grid-template-columns:1fr;gap:33px}
-.sp-archive-image{min-height:250px}
-.sp-worlds{min-height:340px;padding:65px 0}
-.sp-worlds p{font-size:17px}
+.spiken-three{
+ --s3-accent:#bd1c25;--s3-line:#60433e;--s3-cream:#eee2d8;
+ background:#0d0b0b;color:var(--s3-cream);
+ font-family:Georgia,'Times New Roman',serif;isolation:isolate;overflow:hidden
 }
-@media(prefers-reduced-motion:reduce){.sp-feeling-list a,.sp-cta{transition:none}}
-
-/* Spikens röda tråd: samma ton, samma linje och samma berättelse genom sidan. */
-.spiken-simple{--sp-night:#12080d;--sp-wine:#281019;--sp-line:#a56b79;position:relative}
-.sp-hero{position:relative;isolation:isolate}
-.sp-hero::after{content:"";position:absolute;inset:auto 0 0;height:130px;pointer-events:none;background:linear-gradient(180deg,transparent,#180a11)}
-.sp-hero-inner{position:relative;z-index:1}
-.sp-chapter-section{position:relative;isolation:isolate}
-.sp-chapter-section::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);height:1px;width:min(1120px,calc(100% - 72px));background:linear-gradient(90deg,transparent,#784753 18%,#784753 82%,transparent);opacity:.52}
-.sp-chapter{display:flex;align-items:center;gap:13px;margin-bottom:25px;font:700 11px/1.5 Arial,sans-serif;letter-spacing:.23em;color:#d9a6b0}
-.sp-chapter::before{content:"";width:32px;height:1px;background:var(--sp-line)}
-.sp-feelings{background:linear-gradient(180deg,#180a11 0%,#21101a 46%,#1c0b14 100%);padding-top:96px;padding-bottom:104px}
-.sp-feelings::after{content:"";position:absolute;inset:auto 0 0;height:100px;z-index:-1;background:linear-gradient(transparent,#180a11)}
-.sp-archive{background:linear-gradient(180deg,#180a11 0%,#1d0c14 55%,#1a0b13 100%);padding-top:90px;padding-bottom:110px}
-.sp-archive-image{position:relative;min-height:410px;background-position:center;background-size:cover;box-shadow:0 25px 70px #05020555}
-.sp-archive-image::after{content:"";position:absolute;inset:0;border:1px solid #9b647044;box-shadow:inset 0 0 65px #11060b44}
-.sp-archive-text .sp-section-sub{margin-top:18px}
-.sp-worlds{background-image:linear-gradient(90deg,#160810f7 0%,#160810e5 37%,#160810ac 68%,#1608108f 100%),var(--sp-library);background-position:center;background-size:cover}
-.sp-worlds::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(180deg,#1a0b13aa,transparent 30%)}
-.sp-worlds-inner{position:relative;z-index:1}
-.sp-feeling-list a{font-size:clamp(23px,2.4vw,32px)}
-.sp-feeling-list a:hover{color:#ecc5ce}
-.sp-cta{background:#75283a}
+.spiken-three .s3-width{width:min(1320px,calc(100% - 84px));margin-inline:auto}
+.s3-hero{position:relative;isolation:isolate;min-height:510px;display:flex;align-items:center;background:#0d0b0b}
+.s3-hero-visual{position:absolute;inset:0;z-index:-2;background-image:linear-gradient(90deg,#08090afa 0%,#090809eb 27%,#09080978 48%,#08090a26 76%,#08090a24 100%),var(--s3-hero),var(--s3-hero-fallback);background-position:center,right center,right center;background-repeat:no-repeat;background-size:cover}
+.s3-hero::after{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(180deg,transparent 70%,#0d0b0ba1 100%);pointer-events:none}
+.s3-hero-inner{padding-block:86px}
+.s3-hero-copy{max-width:540px}
+.s3-kicker{font:700 11px/1.5 Arial,sans-serif;letter-spacing:.24em;color:#ddc6bd}
+.s3-hero h1{font:italic 400 clamp(56px,6.5vw,100px)/1.03 Georgia,serif;letter-spacing:-.035em;margin:26px 0 25px;text-wrap:balance}
+.s3-hero h1 em{color:#bf2029;font-weight:400}
+.s3-hero-copy>p{font-size:clamp(18px,1.6vw,23px);line-height:1.62;color:#f0e2db;margin:0;max-width:500px}
+.s3-actions{display:flex;gap:16px;flex-wrap:wrap;margin-top:30px}
+.s3-primary,.s3-secondary,.s3-outline{display:inline-flex;align-items:center;justify-content:center;gap:21px;min-height:48px;padding:12px 23px;font:16px Arial,sans-serif;transition:background .2s,border-color .2s}
+.s3-primary{background:#921417;color:#fff;border:1px solid #ad2429}
+.s3-primary:hover{background:#bf2227;color:white}
+.s3-secondary,.s3-outline{background:#100d0dc9;border:1px solid #aaa09a;color:#f2e6db}
+.s3-secondary:hover,.s3-outline:hover{border-color:#eee;color:white;background:#382322}
+.s3-feelings{position:relative;background:linear-gradient(180deg,#151110,#0d0b0b);padding:22px 0 48px}
+.s3-feelings:before{content:"";height:1px;background:linear-gradient(90deg,transparent,#7d5e4d,transparent);position:absolute;left:0;right:0;top:0}
+.s3-screen-reader{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.s3-mood-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.s3-mood{display:block;position:relative;isolation:isolate;aspect-ratio:1.93;overflow:hidden;border:1px solid #59423d;background:#241918}
+.s3-mood img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .35s;z-index:-2}
+.s3-mood:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,#060505d8,transparent 83%)}
+.s3-mood-label{position:absolute;bottom:30px;left:23px;font:italic clamp(28px,3vw,47px)/1 Georgia,serif;color:#f4eae2}
+.s3-mood-rule{position:absolute;bottom:15px;left:23px;width:75px;height:2px;background:#b41b23}
+.s3-mood:hover img{transform:scale(1.06)}
+.s3-author{padding:0 0 50px;background:#0d0b0b}
+.s3-author-grid{display:grid;grid-template-columns:32% 34% 1fr;gap:30px;align-items:center}
+.s3-author-portrait{min-height:295px;align-self:stretch;background-image:linear-gradient(90deg,transparent 70%,#0d0b0b5c),var(--s3-author),var(--s3-author-fallback);background-position:center;background-size:cover;background-repeat:no-repeat;filter:grayscale(.55)}
+.s3-author-text{padding:22px 0}
+.s3-author-text h2{font:italic 400 clamp(33px,3.4vw,51px)/1.16 Georgia,serif;margin:0 0 16px;letter-spacing:-.02em}
+.s3-author-text p{font:18px/1.65 Georgia,serif;color:#e1d1c9;margin:0 0 20px}
+.s3-outline{font:15px Arial,sans-serif;border-color:#a6262b;padding:12px 19px;min-height:43px}
+.s3-quote{border-left:1px solid #7f5d56;margin:0;padding:20px 0 20px 48px;text-align:center;min-width:0}
+.s3-quote>span{display:block;color:#bc1f29;font:700 64px/0.8 Georgia,serif;margin-bottom:18px}
+.s3-quote p{font:italic clamp(20px,2.2vw,31px)/1.45 Georgia,serif;color:#f1e2dc;margin:0 0 14px}
+.s3-quote cite{font:12px Arial,sans-serif;letter-spacing:.3em;font-style:normal;color:#c1a8a0}
+.s3-latest{background:#141010;padding:30px 0 55px}
+.s3-latest-heading{display:flex;justify-content:space-between;align-items:baseline;gap:16px}.s3-latest-heading h2{font:italic 35px Georgia,serif;margin:0 0 15px}.s3-latest-heading a{border-bottom:1px solid #a1272b}
+.s3-latest-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.s3-latest-list a{padding:20px;border:1px solid #573a3a;display:flex;gap:20px;align-items:center;justify-content:space-between}
+.s3-latest-list strong{font:italic 23px Georgia,serif}.s3-latest-list span{font:12px Arial,sans-serif;color:#c79c98}
+.s3-worlds{background:linear-gradient(180deg,#120e0d,#0d0b0b);padding:42px 0 62px;border-top:1px solid #46352f}
+.s3-worlds-heading{text-align:center;margin-bottom:31px}
+.s3-worlds-heading h2{font:italic 400 clamp(40px,4.5vw,64px)/1.2 Georgia,serif;margin:0 0 12px}
+.s3-worlds-heading p{font:18px/1.55 Georgia,serif;color:#d4bcb4;margin:0}
+.s3-world-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.s3-world-card{position:relative;min-height:250px;overflow:hidden;isolation:isolate;display:flex;align-items:flex-end;border:1px solid #67534b;color:#fff}
+.s3-world-card img{position:absolute;z-index:-2;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.s3-world-card:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,#0b0808f4,transparent 95%)}
+.s3-world-card:hover img{transform:scale(1.05)}
+.s3-world-caption{padding:25px 24px}
+.s3-world-caption h3{font:italic 32px/1.2 Georgia,serif;margin:0 0 9px}
+.s3-world-caption p{max-width:270px;font:14px/1.5 Arial,sans-serif;margin:0;color:#e8d7ce}
+.s3-world-arrow{position:absolute;right:16px;bottom:20px;font:26px Arial,sans-serif}
+.s3-worlds-more{text-align:center;padding-top:27px}.s3-worlds-more a{display:inline-block;border-bottom:1px solid #bd3136;font:15px Arial,sans-serif;padding-bottom:9px}
+@media(max-width:1040px){.s3-author-grid{grid-template-columns:33% 1fr;gap:25px}.s3-quote{grid-column:2;border-left:0;border-top:1px solid #5d403b;padding:23px 0 0}.s3-quote p{font-size:21px}.s3-mood-label{font-size:31px}.s3-hero{min-height:530px}}
 @media(max-width:700px){
-.sp-feelings{padding-top:66px;padding-bottom:75px}
-.sp-archive{padding-top:65px;padding-bottom:75px}
-.sp-worlds{background-image:linear-gradient(90deg,#160810f5,#160810bb),var(--sp-library)}
-.sp-chapter{margin-bottom:18px}
-.sp-chapter-section::before{width:calc(100% - 40px)}
-.sp-archive-image{min-height:265px}
+ .spiken-three .s3-width{width:calc(100% - 36px)}
+ .s3-hero{min-height:650px;align-items:flex-end}
+ .s3-hero-visual{background-image:linear-gradient(0deg,#09080afa 0%,#09080ab8 44%,#09080a1c 90%),var(--s3-hero),var(--s3-hero-fallback);background-position:center,63% center,63% center}
+ .s3-hero-inner{padding:270px 0 55px}
+ .s3-hero h1{font-size:clamp(54px,12.3vw,78px);max-width:480px}
+ .s3-hero-copy>p{font-size:18px}
+ .s3-actions{gap:10px}.s3-primary,.s3-secondary{font-size:14px;padding:11px 16px}
+ .s3-mood-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .s3-mood{aspect-ratio:1.5}.s3-mood-label{font-size:29px;left:13px;bottom:23px}.s3-mood-rule{left:13px;bottom:10px;width:47px}
+ .s3-feelings{padding:13px 0 35px}
+ .s3-author{padding-bottom:30px}.s3-author-grid{grid-template-columns:1fr;gap:0}
+ .s3-author-portrait{height:260px;min-height:0;background-position:center 35%}
+ .s3-author-text{padding:28px 4px}
+ .s3-author-text h2{font-size:39px}.s3-author-text p{font-size:17px}
+ .s3-quote{grid-column:1;padding:23px 5px}
+ .s3-worlds{padding:35px 0 52px}.s3-world-grid{grid-template-columns:1fr;gap:11px}
+ .s3-world-card{min-height:205px}.s3-worlds-heading p{font-size:16px}
+ .s3-latest-list{grid-template-columns:1fr}
 }
-
-/* Mjuk övergång: biblioteket slutar i samma vinröda ton som sidfoten börjar. */
-.sp-worlds{position:relative;isolation:isolate;overflow:hidden;padding-bottom:126px;background-image:linear-gradient(180deg,rgba(22,8,16,.36) 0%,rgba(22,8,16,.22) 35%,rgba(20,8,15,.82) 76%,#160a10 100%),linear-gradient(90deg,#160810e8 0%,#160810d6 38%,#1608108b 72%,#16081072 100%),var(--sp-library);background-size:cover;background-position:center;border-bottom:0}
-.sp-worlds::after{content:"";position:absolute;inset:auto 0 0;height:135px;z-index:0;pointer-events:none;background:linear-gradient(180deg,transparent,#160a10)}
-.sp-worlds-inner{position:relative;z-index:1}
-@media(max-width:700px){.sp-worlds{padding-bottom:92px;background-image:linear-gradient(180deg,rgba(22,8,16,.3) 0%,rgba(22,8,16,.48) 43%,#160a10 100%),linear-gradient(90deg,#160810e3,#160810b8),var(--sp-library)}.sp-worlds::after{height:90px}}
+@media(prefers-reduced-motion:reduce){.s3-mood img,.s3-world-card img,.s3-primary,.s3-secondary{transition:none}}
 </style>
