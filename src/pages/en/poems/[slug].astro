@@ -1,0 +1,13 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import PoemReader from '../../../components/PoemReader.astro';
+import { getPoems } from '../../../lib/poetry.js';
+export function getStaticPaths(){
+ return getPoems('en').map(poem=>({params:{slug:poem.slug},props:{poem}}));
+}
+const {poem}=Astro.props;
+const alternatePath=poem.translatedSlug?'/dikter/'+encodeURIComponent(poem.translatedSlug)+'/':null;
+---
+<Layout title={poem.title + ' – Spiken'} description={poem.description} lang="en" alternatePath={alternatePath}>
+ <PoemReader poem={poem} lang="en"/>
+</Layout>
