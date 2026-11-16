@@ -1,8 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+import PoetryArchive from '../../../components/PoetryArchive.astro';
 ---
-<Layout title="Poems – Spiken" description="Poetry about love, longing, desire and loss. English translations of Spiken's original Swedish poems are coming soon." lang="en" alternatePath="/dikter/">
-<section class="wrap section poems-en"><p class="eyebrow">SPIKEN / THE POETRY ARCHIVE</p><h1>Words under <em>the skin.</em></h1><p>The English poetry archive is taking shape. Original Swedish poems will appear here in carefully adapted English translations.</p><a href={base+'/'}>← Read the Swedish site</a></section>
+<Layout title="Poetry Archive – Spiken | Words Beneath the Skin" description="Discover Spiken's poems in English about love, longing, desire and everything we struggle to say." lang="en" alternatePath="/dikter/">
+  <PoetryArchive lang="en" />
 </Layout>
-<style>.poems-en{min-height:65vh;max-width:850px}.poems-en h1{font:normal clamp(44px,7vw,88px) Georgia,serif;line-height:1.15}.poems-en h1 em{color:#d9a5b0}.poems-en p{font:21px/1.8 Georgia,serif;color:#e4ccd1}.poems-en a{display:inline-block;margin-top:20px;padding-bottom:8px;border-bottom:1px solid #a45e6e;font:14px Arial,sans-serif}</style>
