@@ -2,29 +2,60 @@
 import Layout from '../layouts/Layout.astro';
 import dikter from '../data/dikter.json';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const teman = [{namn:'Kärlek',slug:'karlek'},{namn:'Sorg',slug:'sorg'},{namn:'Saknad',slug:'saknad'},{namn:'Ensamhet',slug:'ensamhet'},{namn:'Livet',slug:'livet'}];
+const teman = [
+ {namn:'Kärlek',slug:'karlek',beskrivning:'Det vi känner, men inte vågar säga.'},
+ {namn:'Sorg',slug:'sorg',beskrivning:'När någon eller något fattas.'},
+ {namn:'Saknad',slug:'saknad',beskrivning:'Till det som aldrig riktigt lämnar oss.'},
+ {namn:'Ensamhet',slug:'ensamhet',beskrivning:'Att stå mitt bland människor och ändå vara ensam.'},
+ {namn:'Livet',slug:'livet',beskrivning:'Det vackra, det trasiga och allt däremellan.'}
+];
+function temaUrl(t) {
+ return dikter.some(d => d.tema.toLocaleLowerCase('sv') === t.namn.toLocaleLowerCase('sv')) ? base + '/teman/' + t.slug + '/' : base + '/dikter/';
+}
 ---
-<Layout>
-  <section class="hero wrap">
-    <span class="eyebrow">Ord från undersidan</span>
-    <h1>För allt det vi aldrig säger högt.</h1>
-    <p>Här får det vackra vara trasigt. Här finns dikter om kärlek, sorg, längtan och det mänskliga i att inte alltid orka.</p>
-    <div><a class="action" href={base + '/dikter/'}>Läs dikterna →</a></div>
+<Layout title="Spiken – Ord från undersidan">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-content">
+        <span class="eyebrow">— EN PLATS FÖR DET OSAGDA</span>
+        <h1>Alla sår<br />syns <em>inte.</em></h1>
+        <p class="hero-lead">Men de lämnar ord efter sig.</p>
+        <p class="hero-intro">Spiken skriver om kärleken, sorgen, ensamheten och allt det där som ryms under huden. Inga perfekta liv. Bara mänskliga.</p>
+        <div class="hero-actions"><a class="action action-primary" href={base + '/dikter/'}>Utforska dikterna <span aria-hidden="true">↗</span></a><a class="text-link" href={base + '/om/'}>Lär känna Spiken →</a></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg class="flower-art" viewBox="0 0 440 580" fill="none">
+          <path d="M221 534c15-111 1-215-3-344" stroke="#c5b3a7" stroke-width="3" stroke-linecap="round"/>
+          <path d="M213 383c-48-66-93-61-119-51 33 42 68 60 119 51Z" fill="#585146" stroke="#887e71" stroke-width="2"/>
+          <path d="M220 443c51-73 104-69 132-54-42 49-81 58-132 54Z" fill="#413a34" stroke="#887e71" stroke-width="2"/>
+          <path d="M222 191C127 59 53 143 115 213c-91-33-125 86-21 121-60 72 51 157 129 61 55 105 186 29 126-65 110-52 56-173-37-121 67-77-10-158-90-18Z" fill="#392923" stroke="#b68b79" stroke-width="2.2"/>
+          <path d="M221 191C177 85 100 148 145 226M221 191c54-103 120-40 91 18M312 209c87-7 95 78 37 121M349 330c49 83-44 139-126 65M223 395c-92 63-147-6-129-61" stroke="#8d685b" stroke-width="2"/>
+          <circle cx="223" cy="281" r="46" fill="#a57c67" stroke="#c29b86" stroke-width="2"/><circle cx="223" cy="281" r="20" fill="#2a211e" stroke="#b68b79" stroke-width="1.5"/>
+          <path d="M216 540h16m-8-4v24" stroke="#c5b3a7" stroke-width="3"/>
+        </svg>
+      </div>
+    </div>
+    <div class="wrap hero-bottom"><span>POESI UTAN FASAD</span><span>SCROLLA VIDARE ↓</span></div>
   </section>
-  <section class="section">
-    <div class="wrap">
-      <span class="eyebrow">Hitta orden</span>
-      <h2>Vad bär du på?</h2>
-      <p class="muted">Utforska Spikens dikter genom de känslor som binder oss samman.</p>
-      <div class="topics">{teman.map(tema => <a class="topic" href={dikter.some(d => d.tema.toLocaleLowerCase('sv') === tema.namn.toLocaleLowerCase('sv')) ? base + '/teman/' + tema.slug + '/' : base + '/dikter/'}>{tema.namn}</a>)}</div>
+  <section class="manifesto-section">
+    <div class="wrap manifesto-grid">
+      <div><span class="eyebrow">DET HÄR ÄR SPIKEN</span><h2>Ibland är ett ord<br />allt vi har kvar.</h2></div>
+      <div class="manifesto-copy"><p>Det finns känslor som aldrig får plats i ett vanligt samtal. Sådant man bär tyst, tills något inom en brister.</p><p>Här får de känslorna finnas. Oputsade. Obehagliga. Vackra på sitt eget vis.</p><a class="underlined-link" href={base + '/om/'}>Mer om Spiken ↗</a></div>
     </div>
   </section>
-  <section class="section">
+  <section class="section topics-section">
     <div class="wrap">
-      <span class="eyebrow">Ur arkivet</span>
-      <h2>Senaste dikterna</h2>
-      {dikter.length ? <ul class="poem-list">{dikter.slice(-5).reverse().map(d => <li><a href={base + '/dikter/' + d.slug + '/'}>{d.titel}</a><small>{d.tema}</small></li>)}</ul> : <p class="muted">Arkivet öppnar snart. De första dikterna är på väg.</p>}
-      <a class="action" href={base + '/dikter/'}>Till diktarkivet →</a>
+      <div class="section-heading"><div><span class="eyebrow">HITTA DET SOM KÄNNS</span><h2>Vad bär du på?</h2></div><p>Det finns alltid fler ord för det vi känner. Börja där det gör mest ont – eller där det fortfarande finns värme.</p></div>
+      <div class="topic-list">{teman.map((tema,i) => <a class="topic-row" href={temaUrl(tema)}><span class="topic-number">{String(i+1).padStart(2,'0')}</span><span class="topic-name">{tema.namn}</span><span class="topic-description">{tema.beskrivning}</span><span class="topic-arrow" aria-hidden="true">↗</span></a>)}</div>
     </div>
   </section>
+  <section class="section archive-section">
+    <div class="wrap archive-grid">
+      <div class="archive-intro"><span class="eyebrow">TEXTER FRÅN UNDERSIDAN</span><h2>En plats för<br /><em>alla orden.</em></h2><p>Dikter att känna igen sig i. Att läsa en gång till. Att kanske skicka vidare till någon som behöver dem.</p><a class="action action-outline" href={base + '/dikter/'}>Till diktarkivet ↗</a></div>
+      <div class="archive-preview"><div class="preview-heading"><span>UR ARKIVET</span><span>SPIKEN / TEXTER</span></div>
+        {dikter.length ? <ol class="featured-list">{dikter.slice(-4).reverse().map((d,i) => <li><span>{String(i+1).padStart(2,'0')}</span><a href={base + '/dikter/' + d.slug + '/'}>{d.titel}</a><small>{d.tema}</small></li>)}</ol> : <div class="empty-archive"><span class="empty-symbol" aria-hidden="true">✳</span><p>Arkivet håller på att fyllas.</p><span>Här kommer Spikens dikter snart att få egna sidor.</span></div>}
+      </div>
+    </div>
+  </section>
+  <section class="closing-section"><div class="wrap closing-inner"><span class="eyebrow">ORDEN LEVER VIDARE</span><p>Om du hittade hit av en anledning,<br /><em>kanske finns något här för dig.</em></p><a class="underlined-link" href={base + '/dikter/'}>Börja läsa →</a></div></section>
 </Layout>
