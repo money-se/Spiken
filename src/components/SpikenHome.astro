@@ -3,159 +3,141 @@ import dikter from '../data/dikter.json';
 const { lang = 'sv' } = Astro.props;
 const en = lang === 'en';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const image = (name) => base + '/images/' + name + '.webp';
-const t = en ? {
-eyebrow:'SPIKEN · WORDS UNDER THE SKIN',titleA:'For everything',titleB:'you never got to say.',subtitle:'Love. Desire. Loss. And the stories that continue to live within us.',read:'Read the poems',worlds:'Explore Spiken’s Worlds',
-question:'What do you need to read today?',questionSub:'Choose a feeling and find the words that come closer.',picks:'Selected poems',picksSub:'Words that linger.',emptyTitle:'The first pages are being written.',emptyText:'Soon you will find poetry about the feelings we carry, the people we miss and the moments that stay with us.',all:'Explore the archive',worldsSub:'Beyond poetry: stories, reflections, reviews and a world of mythology.',worldsButton:'Enter Spiken’s Worlds',closing:'Some words stay, even when people leave.',footerLink:'Discover the author',
-} : {
-eyebrow:'SPIKEN · ORD UNDER HUDEN',titleA:'För allt du',titleB:'aldrig fick sagt.',subtitle:'Kärleken. Begäret. Sorgen. Och historierna som fortsätter leva inom oss.',read:'Läs dikterna',worlds:'Utforska Spikens världar',
-question:'Vad behöver du läsa idag?',questionSub:'Välj en känsla och hitta orden som kommer närmare.',picks:'Utvalda dikter',picksSub:'Ord som dröjer sig kvar.',emptyTitle:'De första sidorna väntar.',emptyText:'Snart hittar du dikter om det vi bär inom oss, människorna vi saknar och ögonblicken som aldrig lämnar oss.',all:'Utforska diktarkivet',worldsSub:'Bortom poesin: noveller, reflektioner, recensioner och en värld av mytologi.',worldsButton:'Gå in i Spikens världar',closing:'Vissa ord stannar kvar, även när människor går.',footerLink:'Lär känna Spiken',
-};
-const feelings = [
-{sv:'Kärlek',en:'Love',id:'karlek',image:'kategori-karlek-v2'},
-{sv:'Längtan',en:'Longing',id:'langtan',image:'kategori-langtan-v2'},
-{sv:'Begär',en:'Desire',id:'begar',image:'kategori-begar-v2'},
-{sv:'Hjärtesorg',en:'Heartbreak',id:'hjartesorg',image:'kategori-hjartesorg-v2'},
-{sv:'Saknad',en:'Missing',id:'saknad',image:'kategori-saknad-v2'},
-];
-const works = [
-{sv:'Noveller',en:'Stories',icon:'✒',id:'noveller'},
-{sv:'Recensioner',en:'Reviews',icon:'▤',id:'recensioner'},
-{sv:'Mörk poesi',en:'Dark poetry',icon:'☾',id:'mork-poesi'},
-{sv:'Reflektioner',en:'Reflections',icon:'✧',id:'reflektioner'},
-{sv:'Min Bibel',en:'My Bible',icon:'✝',id:'min-bibel'},
-];
+const img = name => base + '/images/' + name + '.webp';
 const poemPath = base + (en ? '/en/poems/' : '/dikter/');
 const worldPath = base + (en ? '/en/worlds/' : '/varldar/');
 const latest = en ? [] : [...dikter].slice(-3).reverse();
+const t = en ? {
+ eyebrow:'WORDS UNDER THE SKIN',
+ title:'For everything you never got to say.',
+ intro:'Poetry about love, longing and everything that lingers.',
+ read:'Read the poems',
+ feelings:'Find the words for your feelings.',
+ feelingsSub:'Where would you like to begin?',
+ poems:'From the archive',
+ poemsSub:'Words to return to.',
+ empty:'The poetry archive is taking shape. Here, the poems will soon find their place.',
+ explore:'Explore the archive',
+ worlds:'Spiken’s Worlds',
+ worldsText:'Stories, reviews, dark poetry, reflections and mythology. Another side of the same author.',
+ worldsLink:'Explore the worlds',
+} : {
+ eyebrow:'ORD UNDER HUDEN',
+ title:'För allt du aldrig fick sagt.',
+ intro:'Dikter om kärlek, längtan och allt som dröjer sig kvar.',
+ read:'Läs dikterna',
+ feelings:'Hitta orden för din känsla.',
+ feelingsSub:'Var vill du börja?',
+ poems:'Ur diktarkivet',
+ poemsSub:'Ord att återvända till.',
+ empty:'Diktarkivet tar form. Här får dikterna snart sin plats.',
+ explore:'Utforska arkivet',
+ worlds:'Spikens världar',
+ worldsText:'Noveller, recensioner, mörk poesi, reflektioner och mytologi. En annan sida av samma författare.',
+ worldsLink:'Utforska världarna',
+};
+const feelings = [
+ {sv:'Kärlek',en:'Love',theme:'Kärlek'},
+ {sv:'Längtan',en:'Longing',theme:'Längtan'},
+ {sv:'Begär',en:'Desire',theme:'Begär'},
+ {sv:'Hjärtesorg',en:'Heartbreak',theme:'Hjärtesorg'},
+ {sv:'Saknad',en:'Missing',theme:'Saknad'},
+];
 ---
-<div class="spiken-v2" style={`--v2-hero:url("${image('hero-romantik')}");--v2-library:url("${image('varldar-bibliotek')}");--v2-letter:url("${image('hero-brev')}")`}>
- <section class="v2-hero" aria-labelledby="v2-title">
-   <div class="v2-hero-image" aria-hidden="true"></div>
-   <div class="v2-container v2-hero-content">
-     <div class="v2-eyebrow">{t.eyebrow}</div>
-     <h1 id="v2-title"><span>{t.titleA}</span><em>{t.titleB}</em></h1>
-     <p class="v2-hero-lead">{t.subtitle}</p>
-     <div class="v2-actions"><a href={poemPath} class="v2-button v2-button-primary">{t.read} <span aria-hidden="true">↗</span></a><a class="v2-button v2-button-ghost" href={worldPath}>{t.worlds} <span aria-hidden="true">↗</span></a></div>
-   </div>
-   <div class="v2-bottom-caption v2-container"><span>{en ? 'INTIMACY · LONGING · WORDS' : 'NÄRHET · LÄNGTAN · ORD'}</span><span>SPIKEN / 01</span></div>
- </section>
- <section class="v2-feelings" aria-labelledby="v2-feelings-title">
-   <div class="v2-container">
-     <div class="v2-section-tag"><span></span><small>01 / {en?'FIND A FEELING':'HITTA EN KÄNSLA'}</small><span></span></div>
-     <h2 id="v2-feelings-title">{t.question}</h2>
-     <p class="v2-sub">{t.questionSub}</p>
-     <div class="v2-feeling-grid">{feelings.map((f,i)=><a class="v2-feeling" href={poemPath + '?tema=' + encodeURIComponent(f.sv)} aria-label={en?f.en:f.sv}>
-       <img src={image(f.image)} alt="" loading="lazy" width="650" height="790"/>
-       <span class="v2-feeling-overlay"></span><span class="v2-feeling-number">0{i+1}</span>
-       <span class="v2-feeling-label">{en?f.en:f.sv}</span><span class="v2-feeling-arrow" aria-hidden="true">↗</span>
-     </a>)}</div>
-   </div>
- </section>
- <section class="v2-selected" aria-labelledby="v2-selected-title">
-   <div class="v2-container">
-    <div class="v2-section-tag"><span></span><small>02 / {en?'FROM THE ARCHIVE':'UR ARKIVET'}</small><span></span></div>
-    <h2 id="v2-selected-title">{t.picks}</h2><p class="v2-sub">{t.picksSub}</p>
-    {latest.length > 0 ? <div class="v2-poem-grid">{latest.map((d,i)=><a class="v2-poem" href={poemPath + d.slug + '/'}>
-       <span class="v2-poem-no">0{i+1} / SPIKEN</span><h3>{d.titel}</h3><p>{d.text?.slice(0,125)}{d.text?.length>125?'…':''}</p><small>{d.tema} <span aria-hidden="true">↗</span></small>
-     </a>)}</div> : <div class="v2-opening">
-        <img src={image('dikt-arkiv-v2')} width="1050" height="610" alt={en?'Letters, books and a burgundy flower by candlelight':'Brev, böcker och en vinröd blomma i levande ljus'} loading="lazy"/>
-        <div class="v2-opening-text"><span class="v2-eyebrow">SPIKEN · {en?'THE ARCHIVE':'ARKIVET'}</span><h3>{t.emptyTitle}</h3><p>{t.emptyText}</p><a href={poemPath}>{t.all} <span aria-hidden="true">↗</span></a></div>
-       </div>}
-   </div>
- </section>
- <section class="v2-worlds" aria-labelledby="v2-worlds-title">
-   <div class="v2-worlds-photo" aria-hidden="true"></div>
-   <div class="v2-container v2-worlds-inner">
-    <div class="v2-section-tag"><span></span><small>03 / {en?'BEYOND THE POEMS':'BORTOM DIKTERNA'}</small><span></span></div>
-    <h2 id="v2-worlds-title">{en?"Spiken’s Worlds":"Spikens världar"}</h2><p class="v2-worlds-lead">{t.worldsSub}</p>
-    <div class="v2-worlds-grid">{works.map(w=><a href={worldPath + '#'+w.id} class="v2-world-tile"><span aria-hidden="true">{w.icon}</span><strong>{en?w.en:w.sv}</strong></a>)}</div>
-    <a href={worldPath} class="v2-button v2-button-primary">{t.worldsButton} <span aria-hidden="true">↗</span></a>
-   </div>
- </section>
- <section class="v2-signoff"><div class="v2-container"><span class="v2-signoff-divider">✧</span><p>{t.closing}</p><a href={base + (en?'/en/about/':'/om/')}>{t.footerLink} ↗</a></div></section>
+<div class="spiken-simple" style={`--sp-hero:url("${img('hero-romantik')}");--sp-archive:url("${img('dikt-arkiv-v2')}");--sp-library:url("${img('varldar-bibliotek')}")`}>
+  <section class="sp-hero" aria-labelledby="sp-hero-title">
+    <div class="sp-wrap sp-hero-inner">
+      <p class="sp-eyebrow">{t.eyebrow}</p>
+      <h1 id="sp-hero-title">{t.title}</h1>
+      <p class="sp-lead">{t.intro}</p>
+      <a class="sp-cta" href={poemPath}>{t.read}<span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <section class="sp-feelings" aria-labelledby="sp-feelings-title">
+    <div class="sp-wrap sp-feelings-inner">
+      <div class="sp-section-intro">
+        <h2 id="sp-feelings-title">{t.feelings}</h2>
+        <p>{t.feelingsSub}</p>
+      </div>
+      <nav class="sp-feeling-list" aria-label={en ? 'Poetry by feeling' : 'Dikter efter känsla'}>
+        {feelings.map(f => <a href={poemPath + '?tema=' + encodeURIComponent(f.theme)}><span>{en ? f.en : f.sv}</span><span class="sp-arrow" aria-hidden="true">↗</span></a>)}
+      </nav>
+    </div>
+  </section>
+
+  <section class="sp-archive" aria-labelledby="sp-archive-title">
+    <div class="sp-wrap sp-archive-inner">
+      <div class="sp-archive-image" role="img" aria-label={en ? 'Handwritten letters and a burgundy flower by candlelight' : 'Handskrivna brev och en vinröd blomma i levande ljus'}></div>
+      <div class="sp-archive-text">
+        <h2 id="sp-archive-title">{t.poems}</h2>
+        <p class="sp-section-sub">{t.poemsSub}</p>
+        {latest.length > 0 ?
+          <div class="sp-poems">
+            {latest.map(d => <a href={poemPath+d.slug+'/'}><span>{d.titel}</span><small>{d.tema} ↗</small></a>)}
+          </div>
+          : <p class="sp-empty">{t.empty}</p>}
+        <a class="sp-text-link" href={poemPath}>{t.explore} <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sp-worlds" aria-labelledby="sp-worlds-title">
+    <div class="sp-wrap sp-worlds-inner">
+      <h2 id="sp-worlds-title">{t.worlds}</h2>
+      <p>{t.worldsText}</p>
+      <a class="sp-text-link" href={worldPath}>{t.worldsLink} <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
 </div>
 <style>
-.spiken-v2{--paper:#f0e0db;--muted:#cbadb1;--red:#7d293d;background:#13080e;color:var(--paper);font-family:Georgia,'Times New Roman',serif;overflow:hidden}
-.v2-container{width:min(1220px,calc(100% - 72px));margin:auto}
-.v2-hero{position:relative;min-height:min(760px,88svh);display:flex;flex-direction:column;justify-content:center;isolation:isolate;background:#16090e}
-.v2-hero-image{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(16,5,11,.98) 0%,rgba(16,5,11,.92) 22%,rgba(16,5,11,.68) 43%,rgba(16,5,11,.07) 79%),var(--v2-hero) center right/cover no-repeat}
-.v2-hero:after{content:'';position:absolute;inset:auto 0 0;height:120px;z-index:-1;background:linear-gradient(transparent,#14080d)}
-.v2-hero-content{padding:100px 0 95px}
-.v2-eyebrow{font:700 11px/1.6 Arial,sans-serif;letter-spacing:.3em;color:#d0a0a9;text-transform:uppercase}
-.v2-hero h1{font-size:clamp(60px,6.5vw,105px);line-height:1.03;letter-spacing:-.047em;font-weight:400;max-width:730px;margin:29px 0 28px}
-.v2-hero h1 span,.v2-hero h1 em{display:block}.v2-hero h1 em{font-weight:400;color:#e5b9b6}
-.v2-hero-lead{font-size:clamp(19px,2vw,25px);line-height:1.6;color:#f0dcd7;max-width:530px}
-.v2-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
-.v2-button{display:inline-flex;align-items:center;justify-content:space-between;gap:20px;font:14px Arial,sans-serif;min-height:51px;padding:15px 22px;border:1px solid #a46d74;transition:transform .2s,border-color .2s,background .2s}
-.v2-button-primary{background:linear-gradient(120deg,#6e1d2f,#8e3444);color:#fff1f0}
-.v2-button-ghost{background:#16080bc9;color:#f6e5e3}
-.v2-button:hover{color:#fff;transform:translateY(-2px);border-color:#f1c1c7}
-.v2-bottom-caption{display:flex;justify-content:space-between;gap:20px;position:absolute;bottom:15px;left:50%;transform:translateX(-50%);font:10px Arial,sans-serif;letter-spacing:.19em;color:#a68b8f;border-top:1px solid #c48c8c35;padding-top:15px}
-.v2-feelings,.v2-selected{position:relative;padding:92px 0 106px;background:radial-gradient(ellipse at 52% 3%,#35121b80,transparent 56%),#16090e}
-.v2-selected{background:linear-gradient(180deg,#190a10,#10070b)}
-.v2-section-tag{display:flex;justify-content:center;align-items:center;gap:18px;color:#c694a0;margin-bottom:16px}
-.v2-section-tag span{width:50px;height:1px;background:#85515d}.v2-section-tag small{font:700 10px Arial,sans-serif;letter-spacing:.23em}
-.v2-feelings h2,.v2-selected h2,.v2-worlds h2{font:400 clamp(38px,4.7vw,66px)/1.16 Georgia,serif;letter-spacing:-.025em;text-align:center;margin:0}
-.v2-sub{font:italic 20px/1.6 Georgia,serif;color:#d4b2b7;text-align:center;margin:10px 0 45px}
-.v2-feeling-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px}
-.v2-feeling{position:relative;display:block;min-height:310px;overflow:hidden;background:#261019;border:1px solid #79505a}
-.v2-feeling>img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;transition:transform .45s}
-.v2-feeling:hover>img{transform:scale(1.06)}
-.v2-feeling-overlay{position:absolute;inset:0;background:linear-gradient(0deg,#090407dc,transparent 72%)}
-.v2-feeling-label{position:absolute;bottom:40px;left:18px;font:italic clamp(25px,2.5vw,38px) Georgia,serif;color:#fff0e9}
-.v2-feeling-number{position:absolute;top:16px;left:18px;color:#ebc7c7b8;font:11px Arial,sans-serif}
-.v2-feeling-arrow{position:absolute;bottom:14px;right:17px;font:21px Arial,sans-serif;color:#f4c2c8}
-.v2-feeling:hover{border-color:#e0a6b2;color:white}
-.v2-opening{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:5%;border:1px solid #52313a;background:#1f0e16}
-.v2-opening>img{display:block;width:100%;height:370px;object-fit:cover}
-.v2-opening-text{padding:36px 30px 36px 0}
-.v2-opening-text h3{font-size:clamp(30px,3.2vw,45px);font-weight:400;margin:16px 0}
-.v2-opening-text p{font-size:18px;color:#dec5c7}
-.v2-opening-text a{display:inline-block;margin-top:15px;border-bottom:1px solid #ac6c78;padding-bottom:8px;font:14px Arial,sans-serif}
-.v2-poem-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.v2-poem{background:linear-gradient(150deg,#351621,#1b0c13);border:1px solid #6f404a;min-height:300px;padding:27px;display:flex;flex-direction:column}
-.v2-poem h3{font-size:clamp(26px,2.8vw,39px);font-style:italic;font-weight:400;margin:35px 0 10px}
-.v2-poem p{font:17px/1.6 Georgia,serif;color:#e4c9cd;white-space:pre-line}
-.v2-poem small{margin-top:auto;display:flex;justify-content:space-between;text-transform:uppercase;letter-spacing:.17em;color:#caa4ac}
-.v2-poem-no{font:11px Arial,sans-serif;letter-spacing:.14em;color:#c1939e}
-.v2-worlds{position:relative;isolation:isolate;padding:105px 0 110px;border-top:1px solid #724956;background:#180d13}
-.v2-worlds-photo{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#10070edc,#10070e9c 48%,#10070ec7),var(--v2-library) center/cover no-repeat}
-.v2-worlds-inner{text-align:center}
-.v2-worlds-lead{font:italic 21px/1.6 Georgia,serif;color:#e3c7c9;margin:15px auto 35px}
-.v2-worlds-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:11px;margin-bottom:35px}
-.v2-world-tile{display:flex;align-items:center;flex-direction:column;justify-content:center;min-height:110px;gap:10px;border:1px solid #986b71;background:#16090ec9}
-.v2-world-tile span{font:28px Georgia,serif;color:#dfb4ac}.v2-world-tile strong{font:italic 19px Georgia,serif}
-.v2-world-tile:hover{background:#652238;color:white}
-.v2-signoff{text-align:center;padding:70px 0;background:#11080c;border-top:1px solid #4d2d36}
-.v2-signoff-divider{color:#cb92a0}
-.v2-signoff p{font:italic clamp(24px,3vw,39px) Georgia,serif;margin:18px}
-.v2-signoff a{font:13px Arial,sans-serif;border-bottom:1px solid #975262;padding-bottom:7px;color:#e4c4c8}
-@media(max-width:1050px){.v2-feeling-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.v2-feeling{min-height:270px}.v2-worlds-grid{grid-template-columns:repeat(3,1fr)}}
+.spiken-simple{background:#12080d;color:#f5e8e5;font-family:Georgia,'Times New Roman',serif}
+.sp-wrap{width:min(1120px,calc(100% - 72px));margin-inline:auto}
+.sp-hero{min-height:660px;display:flex;align-items:center;background:linear-gradient(90deg,#10070dfb 0%,#10070de6 30%,#10070d79 58%,#10070d1e 100%),var(--sp-hero) center right/cover no-repeat}
+.sp-hero-inner{padding-block:105px}
+.sp-eyebrow{margin:0 0 22px;color:#d7a8ae;font:600 11px/1.5 Arial,sans-serif;letter-spacing:.24em}
+.sp-hero h1{max-width:650px;margin:0;font:400 clamp(55px,6.6vw,95px)/1.07 Georgia,serif;letter-spacing:-.044em;text-wrap:balance}
+.sp-lead{max-width:480px;margin:27px 0 32px;color:#ead5d3;font:21px/1.6 Georgia,serif}
+.sp-cta{display:inline-flex;align-items:center;gap:35px;background:#78293b;color:#fff3f0;padding:16px 23px;font:14px Arial,sans-serif;transition:background .2s}
+.sp-cta:hover{background:#a13d54;color:#fff;text-decoration:none}
+.sp-feelings{padding:100px 0;background:#160a10}
+.sp-feelings-inner{display:grid;grid-template-columns:1fr 1fr;gap:9%;align-items:start}
+.sp-section-intro h2,.sp-archive h2,.sp-worlds h2{font:400 clamp(39px,4.5vw,62px)/1.16 Georgia,serif;letter-spacing:-.03em;margin:0}
+.sp-section-intro p,.sp-section-sub{font:italic 20px/1.6 Georgia,serif;color:#cbaeb2;margin:19px 0 0}
+.sp-feeling-list{display:flex;flex-direction:column;border-top:1px solid #5f3943}
+.sp-feeling-list a{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 5px;border-bottom:1px solid #5f3943;color:#f2dddb;font:italic clamp(24px,2.5vw,33px) Georgia,serif;transition:padding .2s,color .2s}
+.sp-feeling-list a:hover{padding-inline:12px;color:#e9acb7;text-decoration:none}
+.sp-arrow{font:20px Arial,sans-serif;color:#c78996}
+.sp-archive{padding:100px 0;background:#10070b}
+.sp-archive-inner{display:grid;grid-template-columns:.95fr 1fr;align-items:center;gap:8%}
+.sp-archive-image{min-height:380px;background:var(--sp-archive) center/cover no-repeat}
+.sp-archive-text{max-width:500px}
+.sp-archive-text .sp-section-sub{margin:16px 0 25px}
+.sp-empty{max-width:420px;color:#ddc5c7;font:18px/1.7 Georgia,serif}
+.sp-text-link{display:inline-block;margin-top:20px;padding-bottom:8px;border-bottom:1px solid #ae6474;color:#f1d3d7;font:14px Arial,sans-serif}
+.sp-text-link:hover{color:#fff}
+.sp-poems{border-top:1px solid #5f3943;margin:30px 0 5px}
+.sp-poems a{display:flex;align-items:baseline;justify-content:space-between;gap:15px;border-bottom:1px solid #5f3943;padding:14px 0;font:italic 23px Georgia,serif}
+.sp-poems small{color:#c696a2;font:12px Arial,sans-serif}
+.sp-worlds{display:flex;align-items:center;min-height:380px;padding:82px 0;background:linear-gradient(90deg,#10080deb 0%,#10080dbf 50%,#10080d69 100%),var(--sp-library) center/cover no-repeat}
+.sp-worlds-inner{max-width:1120px}
+.sp-worlds h2,.sp-worlds p{max-width:580px}
+.sp-worlds p{font:19px/1.65 Georgia,serif;color:#e0c5cb;margin:18px 0 10px}
+@media(max-width:850px){.sp-hero{background-position:65% center}.sp-feelings-inner{gap:6%}}
 @media(max-width:700px){
-.v2-container{width:calc(100% - 36px)}
-.v2-hero{min-height:660px}
-.v2-hero-image{background-image:linear-gradient(0deg,#11070df0,transparent 83%),linear-gradient(90deg,#11070de8,#11070d50),var(--v2-hero);background-position:center,center,66% center;background-size:cover}
-.v2-hero-content{padding:120px 0 95px;align-self:end}
-.v2-hero h1{font-size:clamp(49px,11.7vw,75px);max-width:95%;margin:24px 0}
-.v2-hero-lead{font-size:19px}
-.v2-actions{gap:10px}
-.v2-button{padding:13px 15px;font-size:12px}
-.v2-feelings,.v2-selected{padding:64px 0}
-.v2-feeling-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.v2-feeling{min-height:220px}
-.v2-feeling-label{font-size:27px;left:12px}
-.v2-feeling-number{left:12px}
-.v2-sub{font-size:17px;margin-bottom:28px}
-.v2-opening{grid-template-columns:1fr;gap:0}
-.v2-opening>img{height:240px}
-.v2-opening-text{padding:26px}
-.v2-poem-grid{grid-template-columns:1fr}
-.v2-worlds{padding:70px 0}
-.v2-worlds-grid{grid-template-columns:repeat(2,1fr)}
-.v2-world-tile{min-height:100px}
-.v2-worlds-lead{font-size:17px}
+.sp-wrap{width:calc(100% - 40px)}
+.sp-hero{min-height:610px;align-items:flex-end;background-image:linear-gradient(0deg,#10070df7 0%,#10070d94 48%,#10070d4a 100%),linear-gradient(90deg,#10070d88,transparent),var(--sp-hero);background-position:center,center,68% center;background-size:cover}
+.sp-hero-inner{padding-block:100px 67px}
+.sp-hero h1{font-size:clamp(47px,11vw,69px);max-width:520px}
+.sp-lead{font-size:18px}
+.sp-feelings{padding:70px 0}
+.sp-feelings-inner{grid-template-columns:1fr;gap:30px}
+.sp-feeling-list a{padding-block:14px}
+.sp-archive{padding:65px 0}
+.sp-archive-inner{grid-template-columns:1fr;gap:33px}
+.sp-archive-image{min-height:250px}
+.sp-worlds{min-height:340px;padding:65px 0}
+.sp-worlds p{font-size:17px}
 }
-@media(max-width:390px){.v2-feeling-grid{grid-template-columns:1fr}.v2-feeling{min-height:200px}}
-@media(prefers-reduced-motion:reduce){.v2-feeling>img,.v2-button{transition:none}}
+@media(prefers-reduced-motion:reduce){.sp-feeling-list a,.sp-cta{transition:none}}
 </style>
