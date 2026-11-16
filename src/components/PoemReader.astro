@@ -6,6 +6,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/,'');
 const archive = base + (en?'/en/poems/':'/dikter/');
 const paired = poem.translatedSlug ? base + (en?'/dikter/':'/en/poems/') + encodeURIComponent(poem.translatedSlug) + '/' : null;
 const related = getRelatedPoems(lang,poem,3);
+const categoryLink = !en && ['karlek','langtan','begar','existens','hjartesorg','saknad'].includes(poem.category?.toLocaleLowerCase('sv') || '')
+ ? base+'/dikter/kategori/'+poem.category.toLocaleLowerCase('sv')+'/' : null;
 const all = getPoems(lang);
 const adjacent = all.filter(p=>p.slug!==poem.slug);
 const hasImage = Boolean(poem.image);
@@ -29,12 +31,13 @@ const labels = en ? {
     <div class="prv3-wide">
       <nav class="prv3-crumb" aria-label={en?'Breadcrumb':'Sökväg'}>
         <a href={archive}>← {labels.back}</a><span aria-hidden="true">/</span>
-        <a href={archive+'?tema='+encodeURIComponent(poem.theme)}>{poem.theme}</a>
+        {categoryLink ? <a href={categoryLink}>{poem.theme}</a> : <span>{poem.theme}</span>}
       </nav>
       <div class="prv3-hero-copy">
         <span class="prv3-eyebrow">{labels.poem} <span aria-hidden="true">·</span> {poem.theme}</span>
         <h1 id="prv3-title">{poem.title}</h1>
         <p class="prv3-summary">{poem.description}</p>
+        {categoryLink && <a class="prv3-theme-link" href={categoryLink}>{en ? 'More on this theme' : 'Fler dikter om '+poem.theme.toLowerCase()} →</a>}
         <a class="prv3-read-button" href="#dikten">{labels.read} <span aria-hidden="true">↓</span></a>
       </div>
     </div>
@@ -107,6 +110,7 @@ copyButton?.addEventListener('click',async()=>{
 .prv3-eyebrow{font:700 11px/1.6 Arial,sans-serif;letter-spacing:.23em;color:#efd1c9}
 .prv3-hero h1{font:italic 400 clamp(56px,6.2vw,89px)/1.08 Georgia,serif;letter-spacing:-.035em;max-width:790px;margin:18px 0 17px;text-wrap:balance}
 .prv3-summary{max-width:490px;font:18px/1.55 Georgia,serif;color:#ead9d1;margin:0}
+.prv3-theme-link{display:inline-block;color:#e7cbc6;border-bottom:1px solid #a45250;padding-bottom:5px;margin-top:13px;font:13px Arial,sans-serif}
 .prv3-read-button{display:inline-flex;gap:30px;align-items:center;margin-top:25px;padding:14px 22px;background:#921417;border:1px solid #b12d33;color:#fff;font:15px Arial,sans-serif}
 .prv3-read-button:hover{background:#bd2029;color:#fff}
 .prv3-reading{position:relative;background:radial-gradient(ellipse at 45% 18%,#26151a 0%,#140d10 43%,#0d0b0b 100%);padding:46px 0 82px;scroll-margin-top:18px}
