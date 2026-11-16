@@ -24,6 +24,6 @@ const schema = {
 };
 const alternatePath=poem.translatedSlug?'/en/poems/'+encodeURIComponent(poem.translatedSlug)+'/':null;
 ---
-<Layout title={poem.title + ' – Spiken'} description={poem.description} lang="sv" alternatePath={alternatePath} socialImage={imageUrl} socialImageAlt={poem.imageAlt} publishedAt={poem.published} structuredData={schema}>
+<Layout title={poem.metaTitle || poem.title + ' – Spiken'} description={poem.description} lang="sv" alternatePath={alternatePath} socialImage={imageUrl} socialImageAlt={poem.imageAlt} publishedAt={poem.published} structuredData={schema}>
   <PoemReader poem={poem} lang="sv" />
 </Layout>
