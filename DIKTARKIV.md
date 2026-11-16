@@ -32,3 +32,15 @@ När ändringen sparas i GitHub bygger GitHub Pages om sidorna automatiskt. Om G
 - Engelsk kategoriöversättning styrs av `category`-ID, inte maskinöversättning av dikttext.
 
 **Viktigt:** Arkivet är tomt tills riktiga dikter har förts in. Det är medvetet så; vi publicerar inga påhittade dikter eller ofärdiga översättningar.
+
+## Spiken 3.3 – bild och söksynlighet för varje dikt
+
+Varje publicerad svensk dikt får automatiskt en egen statisk HTML-sida med unik kanonisk URL, titel, beskrivning, språk, datum och strukturerad data av typen `CreativeWork`. Diktens bild används i sidans hero, arkivkort och Open Graph/Twitter-delning.
+
+Bildfilen anges i `works[].image.path`, exempelvis `dikt-mannen-bakom-masken.webp`. Lägg bildfilen i ett ZIP-arkiv med namn `Spiken_Diktbilder_001.zip` och ladda upp ZIP-filen till repositoryts rot. Byggflödet packar automatiskt upp alla `Spiken_Diktbilder_*.zip` till `public/images` före Astro-bygget. Samma bild återanvänds i olika format via CSS, så nya texter kräver inga ändringar i sidmallen.
+
+Kategorier med minst en publicerad dikt får egna statiska indexerbara landningssidor under `/dikter/kategori/<tema>/`, exempelvis `/dikter/kategori/existens/`. Tomma kategorier genererar ingen indexeringssida. Nya dikter i samma kategori listas automatiskt där.
+
+För större Google-synlighet: lägg bara ut verkliga originaltexter och genuina översättningar. En separat URL är möjlig att indexera, men inte en garanti för indexering eller trafik. GitHub Pages-sajtkartan kan hjälpa sökmotorer att hitta sidorna. Kontrollera senare status via Google Search Console.
+
+**Viktigt:** Den nya omslagsbilden blir synlig först efter att motsvarande ZIP-paket har laddats upp till GitHub. Fram till dess finns en reservbild.
