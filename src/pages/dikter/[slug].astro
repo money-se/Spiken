@@ -2,11 +2,20 @@
 import Layout from '../../layouts/Layout.astro';
 import dikter from '../../data/dikter.json';
 export function getStaticPaths() {
-  return dikter.map(d => ({ params: { slug: d.slug }, props: { dikt: d } }));
+ return dikter.map((d,index) => ({ params: { slug: d.slug }, props: { dikt: d, nummer: index+1 } }));
 }
-const { dikt } = Astro.props;
+const { dikt, nummer } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const relaterade = dikter.filter(d => d.slug !== dikt.slug && d.tema === dikt.tema).slice(0,3);
 ---
-<Layout title={dikt.titel + ' – Spiken'} description={'Läs ' + dikt.titel + ', en dikt av Spiken om ' + dikt.tema.toLocaleLowerCase('sv') + '.'}>
-<article class="poem wrap"><a class="eyebrow" href={base + '/dikter/'}>← Alla dikter</a><h1>{dikt.titel}</h1><p class="eyebrow">{dikt.tema}</p><div class="poem-body">{dikt.text}</div><p class="muted" style="margin-top:55px">— Spiken</p><a class="action" href={base + '/dikter/'}>Läs fler dikter →</a></article>
+<Layout title={dikt.titel + ' – Spiken'} description={'Läs dikten ' + dikt.titel + ' av Spiken. Tema: ' + dikt.tema + '.'}>
+<section class="wrap poem-stage">
+  <div class="poem-topline"><a href={base + '/dikter/'}>← TILL ARKIVET</a><span>SPIKEN / № {String(nummer).padStart(4,'0')}</span></div>
+  <article class="poem-page paper-sheet">
+    <div class="poem-meta"><span>ARKIVHANDLING / DIKT</span><span class="stamp">BEVARAD</span></div>
+    <h1>{dikt.titel}</h1><span class="poem-category">KATEGORI: {dikt.tema.toLocaleUpperCase('sv')}</span>
+    <div class="poem-body">{dikt.text}</div><p class="poem-signature">— Spiken</p>
+  </article>
+  <div class="poem-after"><a class="underlined-link" href={base + '/dikter/'}>← Tillbaka till arkivet</a>{relaterade.length > 0 && <div><h2>Fler ord om {dikt.tema.toLocaleLowerCase('sv')}</h2><ul>{relaterade.map(d => <li><a href={base + '/dikter/' + d.slug + '/'}>{d.titel} ↗</a></li>)}</ul></div>}</div>
+</section>
 </Layout>
