@@ -17,9 +17,9 @@ function temaLink(t) {
 const senaste = [...dikter].slice(-3).reverse();
 ---
 <Layout title="Spiken – Ord under huden" description="Spiken – dikter om kärlek, sorg, saknad och ensamhet. Ord som skaver, brinner och stannar kvar.">
-  <div class="under-huden">
+  <div class="under-huden" style={`--uh-backdrop:url("${img('hero-under-huden')}");--uh-transition:url("${img('overgang-rok')}")`}>
     <section class="uh-hero" aria-labelledby="uh-title">
-      <div class="uh-hero-image" style={`background-image:linear-gradient(90deg,#0b0707 0%,rgba(11,7,7,.98) 13%,rgba(11,7,7,.83) 39%,rgba(11,7,7,.08) 76%),url("${img('hero-under-huden')}")`}></div>
+      
       <div class="uh-container uh-hero-inner">
         <div class="uh-hero-copy">
           <p class="uh-overline">SPIKEN · ORD FRÅN UNDERSIDAN</p>
@@ -27,7 +27,7 @@ const senaste = [...dikter].slice(-3).reverse();
           <p class="uh-lead">Dikter om det som skaver, det som brinner, det som saknas – och det som ändå håller oss vid liv.</p>
           <div class="uh-hero-ctas"><a href={base + '/dikter/'} class="uh-primary">Läs dikter <span aria-hidden="true">↗</span></a><a href={base + '/om/'} class="uh-secondary">Om Spiken <span aria-hidden="true">↗</span></a></div>
         </div>
-        <div class="uh-emblem-wrap" aria-hidden="true"><div class="uh-emblem" style={`background-image:url("${img('spiken-emblem')}")`}></div></div>
+        <div class="uh-emblem-wrap" aria-hidden="true"><img class="uh-emblem" src={img('spiken-emblem')} width="132" height="175" alt="" loading="lazy" /></div>
       </div>
       <div class="uh-hero-edge uh-container"><span>DET MÄNSKLIGA. DET OBEKVÄMA. DET ÄKTA.</span><span>01 / 03</span></div>
     </section>
@@ -48,7 +48,7 @@ const senaste = [...dikter].slice(-3).reverse();
 
     <section class="uh-section uh-featured" aria-labelledby="uh-featured-title">
       <div class="uh-container">
-        <div class="uh-featured-heading"><div><p class="uh-overline">UR SPIKENS ARKIV</p><h2 id="uh-featured-title">Ord som <em>stannar kvar.</em></h2></div><a class="uh-inline-link" href={base + '/dikter/'}>Alla dikter ↗</a></div>
+        <div class="uh-featured-heading"><div><p class="uh-overline">UR SPIKENS ARKIV</p><h2 id="uh-featured-title">Ord som <em>stannar kvar.</em></h2></div><a class="uh-inline-link" href={base + '/dikter/'}>Alla dikter ↗</a></div><div class="uh-archive-visual"><img src={img('arkiv-bild')} width="560" height="700" loading="lazy" alt="En mörkröd blomma på en gammal skrivbok bredvid papper och bläck" /><div><p class="uh-overline">ORDEN SOM ÖVERLEVER OSS</p><p>Varje dikt har sin egen historia. Vissa gör ont att läsa. Andra påminner oss om att vi fortfarande känner.</p><a class="uh-inline-link" href={base + '/dikter/'}>Utforska arkivet ↗</a></div></div>
         {senaste.length > 0
           ? <div class="uh-poem-grid">{senaste.map((d,i) => <a class="uh-poem-card" href={base + '/dikter/' + d.slug + '/'}><span class="uh-poem-count">0{i+1}</span><span class="uh-poem-title">{d.titel}</span><span class="uh-poem-tag">{d.tema}</span><span class="uh-poem-link">Läs dikten ↗</span></a>)}</div>
           : <div class="uh-poem-grid">
@@ -60,7 +60,7 @@ const senaste = [...dikter].slice(-3).reverse();
 
     <section class="uh-closing" aria-labelledby="uh-close-title">
       <div class="uh-container uh-closing-inner">
-        <div class="uh-closing-symbol" style={`background-image:url("${img('spiken-emblem')}")`} aria-hidden="true"></div>
+        <img class="uh-closing-symbol" src={img('spiken-emblem')} width="110" height="145" loading="lazy" alt="" aria-hidden="true" />
         <p class="uh-overline">DET HÄR ÄR SPIKEN</p>
         <h2 id="uh-close-title">Det som aldrig sades<br /><em>kan fortfarande kännas.</em></h2>
         <a class="uh-inline-link" href={base + '/dikter/'}>Öppna diktarkivet ↗</a>
@@ -90,4 +90,26 @@ const senaste = [...dikter].slice(-3).reverse();
 @media(max-width:650px){.uh-container{width:calc(100% - 36px)}.uh-hero{min-height:630px}.uh-hero-image{background-position:67% center;opacity:.8;background-attachment:scroll}.uh-hero-inner{min-height:600px;align-items:end}.uh-hero-copy{width:100%;padding:80px 0 90px}.uh-hero h1{font-size:clamp(58px,13vw,78px)}.uh-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#0a0707b0,#0a07071a),linear-gradient(0deg,#0a0707f0,transparent 70%);z-index:-1}.uh-hero-edge{font-size:9px}.uh-section{padding:64px 0}.uh-theme-grid{gap:10px}.uh-theme{min-height:245px}.uh-theme-content{padding:18px 14px}.uh-theme-name{font-size:28px}.uh-theme-caption{font-size:11px}.uh-featured-heading{align-items:start;flex-direction:column}.uh-poem-grid{grid-template-columns:1fr;gap:12px}.uh-poem-card{min-height:175px}.uh-empty{min-height:125px}.uh-closing{padding:70px 0}.uh-hero-ctas{gap:9px}.uh-primary,.uh-secondary{min-width:140px;padding:15px 17px;gap:14px}}
 @media(max-width:380px){.uh-theme-grid{grid-template-columns:1fr}.uh-theme{min-height:210px}}
 @media(prefers-reduced-motion:reduce){.uh-theme-photo{transition:none}}
+
+/* Under huden: en sammanhängande fast bakgrund från under headern ned genom startsidan. */
+.under-huden{position:relative;isolation:isolate;background:transparent}
+.under-huden::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(90deg,rgba(8,4,5,.88) 0%,rgba(8,4,5,.59) 53%,rgba(8,4,5,.48) 100%),linear-gradient(0deg,rgba(10,5,7,.7),transparent 50%),var(--uh-backdrop);background-position:center center,center center,center right;background-size:cover;background-repeat:no-repeat;transform:translateZ(0)}
+.uh-hero{background:transparent;isolation:auto;min-height:760px}
+.uh-hero::after{background:linear-gradient(transparent,rgba(12,5,8,.24))}
+.uh-hero-inner{min-height:660px}
+.uh-hero-image{display:none}
+.uh-themes{position:relative;background:linear-gradient(180deg,rgba(13,6,8,.74),rgba(11,4,7,.59));backdrop-filter:blur(1px)}
+.uh-themes::before{content:"";position:absolute;inset:0;background-image:var(--uh-transition);background-position:center center;background-size:cover;opacity:.12;pointer-events:none}
+.uh-themes>.uh-container{position:relative}
+.uh-featured{background:rgba(14,6,9,.76);backdrop-filter:blur(3px)}
+.uh-closing{background:linear-gradient(180deg,rgba(19,7,11,.78),rgba(10,4,6,.75))}
+.uh-emblem{display:block;width:100%;height:auto;max-height:185px;object-fit:contain;mix-blend-mode:normal}
+.uh-emblem-wrap{width:125px}
+.uh-closing-symbol{display:block;width:100px;height:145px;object-fit:contain;margin:0 auto 16px;mix-blend-mode:normal}
+.uh-archive-visual{display:grid;grid-template-columns:minmax(170px,1fr) minmax(250px,1.1fr);gap:38px;align-items:center;max-width:930px;margin:0 auto 48px}
+.uh-archive-visual img{display:block;width:100%;height:320px;object-fit:cover;object-position:center 64%;border:1px solid #583035;box-shadow:0 20px 75px rgba(0,0,0,.3)}
+.uh-archive-visual p:not(.uh-overline){font-size:clamp(19px,2vw,26px);line-height:1.65;color:#ead6d2}
+.uh-archive-visual .uh-inline-link{display:inline-block;margin-top:8px}
+@media(max-width:700px){.under-huden::before{background-position:center center,center center,68% center;background-image:linear-gradient(90deg,rgba(8,4,5,.88),rgba(8,4,5,.62)),linear-gradient(0deg,rgba(8,4,5,.7),transparent 60%),var(--uh-backdrop)}.uh-hero::before{background:linear-gradient(0deg,rgba(8,4,5,.48),transparent 80%)}.uh-archive-visual{grid-template-columns:1fr;gap:20px}.uh-archive-visual img{height:265px}.uh-featured{background:rgba(12,5,8,.82)}}
+@media(prefers-reduced-motion:reduce){.under-huden::before{transform:none}}
 </style>
