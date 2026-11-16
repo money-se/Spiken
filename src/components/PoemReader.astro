@@ -1,0 +1,94 @@
+---
+import { getRelatedPoems } from '../lib/poetry.js';
+const { poem, lang = 'sv' } = Astro.props;
+const en = lang === 'en';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const archive = base + (en?'/en/poems/':'/dikter/');
+const self = archive + encodeURIComponent(poem.slug) + '/';
+const paired = poem.translatedSlug ? base + (en?'/dikter/':'/en/poems/') + encodeURIComponent(poem.translatedSlug) + '/' : null;
+const related=getRelatedPoems(lang,poem,3);
+const labels=en ? {
+  back:'All poems',poem:'A POEM BY SPIKEN',share:'Share this poem',copy:'Copy link',copied:'Link copied',
+  other:'More words to explore',browse:'Browse all poems',change:'Read in Swedish',
+  previous:'Previous poem',next:'Next poem'
+} : {
+  back:'Alla dikter',poem:'EN DIKT AV SPIKEN',share:'Dela dikten',copy:'Kopiera länk',copied:'Länken kopierad',
+  other:'Fler ord att läsa',browse:'Utforska diktarkivet',change:'Read in English',
+  previous:'Föregående dikt',next:'Nästa dikt'
+};
+const baseImage = base + '/images/dikt-arkiv-v2.webp';
+---
+<div class="pr-shell" style={`--pr-art:url("${baseImage}")`}>
+ <div class="pr-wrap">
+  <nav class="pr-breadcrumb" aria-label={en?'Breadcrumb':'Sökväg'}>
+    <a href={archive}>← {labels.back}</a>
+    <span aria-hidden="true">/</span><span>{poem.theme}</span>
+  </nav>
+  <article class="pr-article">
+    <header class="pr-heading">
+      <span class="pr-kicker">{labels.poem} <span aria-hidden="true">·</span> {poem.theme}</span>
+      <h1>{poem.title}</h1>
+      <span class="pr-divider" aria-hidden="true">✦</span>
+    </header>
+    {poem.image && <figure class="pr-figure"><img src={poem.image.startsWith('/')?base+poem.image:base+'/images/'+poem.image} alt={poem.imageAlt} loading="eager" /></figure>}
+    <div class="pr-body">{poem.text}</div>
+    <p class="pr-signature">— Spiken</p>
+    <div class="pr-sharing">
+      <span>{labels.share}</span>
+      <div class="pr-share-actions">
+        <a target="_blank" rel="noopener noreferrer" href={'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(new URL(self, Astro.site).toString())} aria-label={en?'Share on Facebook':'Dela på Facebook'}>Facebook ↗</a>
+        <button type="button" id="pr-copy">{labels.copy} <span aria-hidden="true">↗</span></button>
+      </div>
+    </div>
+  </article>
+  <aside class="pr-after" aria-label={labels.other}>
+    {paired && <a class="pr-language" href={paired}>{labels.change} ↗</a>}
+    {related.length>0 && <>
+      <h2>{labels.other}</h2>
+      <div class="pr-related">{related.map(p=><a href={archive+encodeURIComponent(p.slug)+'/'}><small>{p.theme}</small><strong>{p.title}</strong><span aria-hidden="true">↗</span></a>)}</div>
+    </>}
+    <div class="pr-back"><a href={archive}>← {labels.browse}</a></div>
+  </aside>
+ </div>
+</div>
+<script>
+const copyButton=document.querySelector('#pr-copy');
+copyButton?.addEventListener('click',async()=>{
+ try{
+  await navigator.clipboard.writeText(window.location.href);
+  const previous=copyButton.textContent;
+  copyButton.textContent=document.documentElement.lang==='en'?'Link copied ✓':'Länken kopierad ✓';
+  setTimeout(()=>{copyButton.textContent=previous},2200);
+ }catch{
+  window.prompt(document.documentElement.lang==='en'?'Copy this link':'Kopiera länken',window.location.href);
+ }
+});
+</script>
+<style>
+.pr-shell{background:radial-gradient(ellipse at 51% 9%,#30191e 0%,#120c0e 44%,#0b090a 100%);color:#f0e4da;min-height:85vh;font-family:Georgia,serif;padding:38px 0 90px;position:relative;overflow:hidden}
+.pr-shell:before{content:"";position:absolute;top:0;left:0;right:0;height:390px;pointer-events:none;background:linear-gradient(180deg,#0e0909c4,#140c0ef0 87%,transparent),var(--pr-art) center 35%/cover no-repeat;opacity:.45}
+.pr-wrap{width:min(1120px,calc(100% - 68px));margin:auto;position:relative;z-index:1}
+.pr-breadcrumb{display:flex;gap:15px;align-items:center;color:#c49d99;font:13px Arial,sans-serif;margin-bottom:68px}
+.pr-breadcrumb a{color:#f5e0dc;border-bottom:1px solid #a56465;padding-bottom:5px}
+.pr-article{max-width:790px;margin:0 auto}
+.pr-heading{text-align:center}.pr-kicker{color:#ce999a;letter-spacing:.22em;text-transform:uppercase;font:700 11px/1.65 Arial,sans-serif}
+.pr-heading h1{font:italic 400 clamp(43px,6.3vw,86px)/1.17 Georgia,serif;letter-spacing:-.03em;margin:20px 0 20px;overflow-wrap:anywhere}
+.pr-divider{font-size:17px;color:#be565c}
+.pr-figure{margin:30px auto 20px;max-width:760px}.pr-figure img{width:100%;height:auto;max-height:570px;object-fit:contain;display:block}
+.pr-body{max-width:610px;margin:58px auto 35px;font:20px/1.9 Georgia,serif;letter-spacing:.005em;color:#f3e8e0;white-space:pre-wrap;overflow-wrap:break-word}
+.pr-signature{text-align:right;max-width:610px;margin:0 auto 62px;font:italic 24px Georgia,serif;color:#cb9b9e}
+.pr-sharing{border-top:1px solid #71504e;border-bottom:1px solid #71504e;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:22px;font:13px Arial,sans-serif;color:#d5bcb7}
+.pr-share-actions{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.pr-share-actions a,.pr-share-actions button{background:none;border:0;padding:8px 0;color:#f1d9d7;cursor:pointer;border-bottom:1px solid #a54754;font:13px Arial,sans-serif}
+.pr-after{max-width:790px;margin:56px auto 0}
+.pr-after h2{font:italic 35px Georgia,serif;margin:0 0 24px}
+.pr-related{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.pr-related a{border:1px solid #664442;background:#211517;padding:21px;display:flex;flex-direction:column;gap:16px;min-height:145px}
+.pr-related a small{font:11px Arial,sans-serif;letter-spacing:.14em;color:#cd9da0}
+.pr-related a strong{font:italic 25px Georgia,serif;font-weight:400;overflow-wrap:anywhere}
+.pr-related a>span{margin-top:auto;text-align:right}
+.pr-related a:hover{border-color:#c5787b}
+.pr-language{display:inline-block;border-bottom:1px solid #b15c62;margin-bottom:35px;padding-bottom:8px;font:14px Arial,sans-serif}
+.pr-back{text-align:center;margin-top:54px}.pr-back a{border-bottom:1px solid #b4474e;padding-bottom:9px;font:14px Arial,sans-serif}
+@media(max-width:650px){.pr-wrap{width:calc(100% - 36px)}.pr-shell{padding:24px 0 70px}.pr-breadcrumb{margin-bottom:49px}.pr-heading h1{font-size:clamp(41px,10vw,65px)}.pr-body{font-size:18px;line-height:1.85;margin:40px auto 24px}.pr-signature{margin-bottom:43px}.pr-sharing{display:block}.pr-share-actions{margin-top:9px}.pr-related{grid-template-columns:1fr}.pr-related a{min-height:110px}.pr-after h2{font-size:30px}}
+</style>
