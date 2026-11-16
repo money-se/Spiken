@@ -111,6 +111,69 @@ body:has(.spiken-simple) .spiken-photo-footer .footer-inner{
   body:has(.spiken-simple) .spiken-photo-footer .footer-inner{padding-top:24px;padding-bottom:43px}
 }
 </style>
+
+<style>
+/* Spiken 3.0: sammanhängande sidhuvud och sidfot för startsidan. */
+body:has(.spiken-three){background:#0d0b0b}
+body:has(.spiken-three) .spiken-photo-header{
+ background-color:#090909;
+ background-image:linear-gradient(90deg,#0b0a0afa,#0c0a0afa);
+ border-bottom:1px solid #33221f;
+ box-shadow:none;
+}
+body:has(.spiken-three) .spiken-photo-header .header-inner{
+ width:min(1320px,calc(100% - 84px));
+ min-height:72px;
+}
+body:has(.spiken-three) .spiken-photo-header .brand{
+ font:italic 400 32px/1 Georgia,'Times New Roman',serif;
+ letter-spacing:-.045em;
+ gap:8px;
+}
+body:has(.spiken-three) .spiken-photo-header .spiken-brand-image{
+ width:28px;height:42px;
+}
+body:has(.spiken-three) .spiken-photo-header .main-nav a{
+ font:16px/1.5 Georgia,serif;
+ color:#f1e6dc;
+}
+body:has(.spiken-three) .spiken-photo-header .main-nav a:hover{color:#d94b50}
+body:has(.spiken-three) .spiken-photo-footer{
+ background:#0d0b0b;
+ border-top:1px solid #68453e;
+ box-shadow:none;
+}
+body:has(.spiken-three) .spiken-photo-footer .footer-inner{
+ width:min(1320px,calc(100% - 84px));
+ min-height:145px;
+ padding-block:28px;
+}
+body:has(.spiken-three) .spiken-photo-footer .footer-brand{
+ font:italic 400 29px Georgia,serif;
+ letter-spacing:0;
+}
+body:has(.spiken-three) .spiken-photo-footer .footer-right a{
+ border-bottom:0;
+ color:#d8cac1;
+ font:13px Arial,sans-serif;
+ padding-bottom:4px;
+}
+body:has(.spiken-three) .spiken-photo-footer .footer-right a:hover{color:#f2d3d2}
+body:has(.spiken-three) .spiken-photo-footer .footer-inner p{
+ font:italic 15px Georgia,serif;color:#d9bbb0
+}
+@media(max-width:900px){
+ body:has(.spiken-three) .spiken-photo-header .header-inner,
+ body:has(.spiken-three) .spiken-photo-footer .footer-inner{
+ width:calc(100% - 36px)}
+ body:has(.spiken-three) .spiken-photo-header .main-nav a{font-size:13px}
+}
+@media(max-width:700px){
+ body:has(.spiken-three) .spiken-photo-header .header-inner{padding:9px 0 11px;min-height:0}
+ body:has(.spiken-three) .spiken-photo-header .brand{font-size:26px}
+ body:has(.spiken-three) .spiken-photo-footer .footer-inner{min-height:0;padding-block:32px}
+}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#innehall">{en ? "Skip to content" : "Hoppa till innehållet"}</a>
