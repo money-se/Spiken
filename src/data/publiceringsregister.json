@@ -1,7 +1,49 @@
 {
   "version": 2,
-  "description": "Gemensamt register över alla verk. Varje verk har ett stabilt ID, en kanal/kategori och separata publiceringsdata per språk (sv/en). Ännu ej kopplat till webbmallarna.",
-  "works": [],
+  "description": "Gemensamt publiceringsregister för publicerade verk och utkast på svenska och engelska. Webbsidorna hämtar enbart publicerade språkversioner.",
+  "works": [
+    {
+      "id": "spiken-000001",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "existens",
+      "tags": [
+        "självständighet",
+        "psykiskt våld",
+        "manipulation",
+        "inre styrka",
+        "frigörelse"
+      ],
+      "original_language": "sv",
+      "original_text": "Äntligen satte jag ned foten emot ditt psykiska våld\nNär jag kan börja reflektera, se tydligt, mellan raderna av ord\nSå förstår jag hur du försöker manipulera mig \nHur du spelar på känslor, tar på dig din offerroll etcetera\nMen det är nog nu. Jag väljer att gå min väg\n\nOch ej längre skall den eld som bundit dig\nNu längre kunna kontrollera det liv du lever\nOch din Fria själ har rätten att få vandra\nAtt utforska världen utan våldet\nOch äntligen se lite rättvisa skippas\n\nFör det är nya tider nu\nDin kontroll över mig blåser bort\nJag blir starkare, skapar inre kontroll\nvågar vara den jag föddes till\nHittar äntligen tillbaka\nTill mannen bakom den trasiga masken\n\nOch vet du vad. Vet du vad?\nDu är stark, du börjar äntligen att se\nklart och tydligt den du faktiskt i ditt inre är\nOch detta. Detta är styrka på riktigt\nAtt finna orden, att finna modet\nTrotsa det som gödslat sorgen\nFör hon har ej längre kontrollen\nÖver mannen jag länge velat bli",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "Mannen bakom masken",
+          "slug": "mannen-bakom-masken",
+          "text": "Äntligen satte jag ned foten emot ditt psykiska våld\nNär jag kan börja reflektera, se tydligt, mellan raderna av ord\nSå förstår jag hur du försöker manipulera mig \nHur du spelar på känslor, tar på dig din offerroll etcetera\nMen det är nog nu. Jag väljer att gå min väg\n\nOch ej längre skall den eld som bundit dig\nNu längre kunna kontrollera det liv du lever\nOch din Fria själ har rätten att få vandra\nAtt utforska världen utan våldet\nOch äntligen se lite rättvisa skippas\n\nFör det är nya tider nu\nDin kontroll över mig blåser bort\nJag blir starkare, skapar inre kontroll\nvågar vara den jag föddes till\nHittar äntligen tillbaka\nTill mannen bakom den trasiga masken\n\nOch vet du vad. Vet du vad?\nDu är stark, du börjar äntligen att se\nklart och tydligt den du faktiskt i ditt inre är\nOch detta. Detta är styrka på riktigt\nAtt finna orden, att finna modet\nTrotsa det som gödslat sorgen\nFör hon har ej längre kontrollen\nÖver mannen jag länge velat bli",
+          "meta_title": "Mannen bakom masken – Spiken",
+          "meta_description": "En dikt om psykiskt våld, manipulation och modet att lämna kontrollen bakom sig för att hitta tillbaka till sig själv.",
+          "image_alt": "",
+          "status": "published",
+          "published_at": "2026-11-16"
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    }
+  ],
   "locales": [
     "sv",
     "en"
