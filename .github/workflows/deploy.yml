@@ -43,6 +43,14 @@ jobs:
           else
             echo "Inget bildpaket hittades."
           fi
+      - name: Installera genomgående bakgrundsbild
+        run: |
+          if [ -f Spiken_Helbakgrund.zip ]; then
+            unzip -o -j Spiken_Helbakgrund.zip 'spiken-helbakgrund.webp' -d public/images
+            echo "Ny helbakgrund installerad."
+          else
+            echo "Spiken_Helbakgrund.zip saknas. Reservbilden används tills den laddas upp."
+          fi
       - name: Bygg webbplatsen
         run: npm run build
       - name: Ladda upp webbplatsen
