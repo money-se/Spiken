@@ -14,6 +14,15 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 <meta property="og:type" content="website" /><meta property="og:locale" content="sv_SE" /><meta property="og:url" content={canonical} />
 <meta property="og:site_name" content="Spiken" /><meta property="og:image" content={new URL(base + '/images/social-delning.webp', Astro.site).toString()} /><meta property="og:title" content={title} /><meta property="og:description" content={description} />
 <title>{title}</title>
+<style>
+.spiken-photo-header{background-image:linear-gradient(90deg,rgba(13,7,8,.92),rgba(13,7,8,.75)),var(--header-art);background-size:cover;background-position:center center;position:relative}
+.spiken-photo-header .header-inner{position:relative}
+.spiken-brand-image{display:block;object-fit:contain;width:34px;height:48px}
+.spiken-photo-footer{background-image:linear-gradient(90deg,rgba(12,5,8,.91),rgba(12,5,8,.7)),var(--footer-art);background-size:cover;background-position:center center}
+.spiken-photo-footer .footer-inner{min-height:180px;align-items:center}
+@media(max-width:700px){.spiken-photo-header{background-position:right center}.spiken-photo-footer{background-position:65% center}}
+</style>
+
 </head>
 <body>
 <a class="skip-link" href="#innehall">Hoppa till innehållet</a>
@@ -28,11 +37,3 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 <footer class="site-footer spiken-photo-footer" style={`--footer-art:url("${base}/images/footer-bakgrund.webp")`}><div class="wrap footer-inner"><div><span class="footer-brand">SPIKEN.</span><p>Ord under huden · Dikter från undersidan.</p></div><div class="footer-right"><a href={base + '/dikter/'}>Diktarkiv</a><a href={base + '/om/'}>Om Spiken</a><small>© {new Date().getFullYear()} Spiken. Alla rättigheter förbehållna.</small></div></div></footer>
 </body>
 </html>
-<style>
-.spiken-photo-header{background-image:linear-gradient(90deg,rgba(13,7,8,.92),rgba(13,7,8,.75)),var(--header-art);background-size:cover;background-position:center center;position:relative}
-.spiken-photo-header .header-inner{position:relative}
-.spiken-brand-image{display:block;object-fit:contain;width:34px;height:48px}
-.spiken-photo-footer{background-image:linear-gradient(90deg,rgba(12,5,8,.91),rgba(12,5,8,.7)),var(--footer-art);background-size:cover;background-position:center center}
-.spiken-photo-footer .footer-inner{min-height:180px;align-items:center}
-@media(max-width:700px){.spiken-photo-header{background-position:right center}.spiken-photo-footer{background-position:65% center}}
-</style>
