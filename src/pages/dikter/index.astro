@@ -1,38 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import dikter from '../../data/dikter.json';
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const list = [...dikter].reverse();
+import PoetryArchive from '../../components/PoetryArchive.astro';
 ---
-<Layout title="Diktarkivet – Spiken" description="Bläddra i Spikens diktarkiv: dikter om kärlek, sorg, saknad, ensamhet och livet.">
-<section class="section wrap archive-listing">
-  <div class="archive-intro-block"><span class="eyebrow">FÖRTECKNING / SPIKEN</span><h1>Diktarkivet<span class="rust">.</span></h1><p>Dikter, tankar och bekännelser. Varje text ett eget arkivblad. Välj en känsla eller sök bland orden.</p></div>
-  <div class="archive-search-panel">
-    <label for="sok" class="eyebrow">SÖK I ARKIVET</label>
-    <input id="sok" type="search" placeholder="Sök på titel, ord eller känsla…" autocomplete="off" />
-    <div class="filter-row"><a href={base + '/dikter/'}>Alla</a>{['Kärlek','Längtan','Begär','Existens','Sorg','Saknad'].map(t => <a href={base + '/dikter/?tema=' + encodeURIComponent(t)}>{t}</a>)}</div>
-  </div>
-  <div class="archive-ledger paper-sheet full-ledger">
-    <div class="ledger-heading"><span class="micro-label ink">INDEX / SAMTLIGA PUBLICERADE TEXTER</span><h2>Arkivhandlingar</h2></div>
-    {list.length ? <ol id="lista" class="ledger-list">{list.map((d,i) => <li data-search={(d.titel + ' ' + d.tema + ' ' + d.text).toLocaleLowerCase('sv')} data-tema={d.tema.toLocaleLowerCase('sv')}><span class="entry-number">№ {String(dikter.length-i).padStart(4,'0')}</span><a href={base + '/dikter/' + d.slug + '/'}><strong>{d.titel}</strong><small>{d.tema}</small></a><span aria-hidden="true">→</span></li>)}</ol> : <div class="ledger-empty"><span class="entry-number">№ 0000</span><p>Arkivet är öppet men väntar fortfarande på sina första dikter.</p><span class="red-mark">UNDER UPPBYGGNAD</span></div>}
-    <p id="tomt" hidden>Inga arkivhandlingar matchar sökningen.</p>
-  </div>
-</section>
-<script>
-const input = document.querySelector('#sok');
-const items = [...document.querySelectorAll('#lista li')];
-const selected = new URLSearchParams(window.location.search).get('tema')?.toLocaleLowerCase('sv') || '';
-function filter(){
- const q = input?.value.trim().toLocaleLowerCase('sv') || '';
- let visible = 0;
- for(const item of items){
-  const match = (item.dataset.search || '').includes(q) && (!selected || item.dataset.tema === selected);
-  item.hidden = !match;
-  if(match) visible++;
- }
- const empty = document.querySelector('#tomt');
- if(empty) empty.hidden = visible > 0 || items.length === 0;
-}
-input?.addEventListener('input',filter); filter();
-</script>
+<Layout title="Diktarkivet – Spiken | Ord under huden" description="Utforska Spikens dikter om kärlek, längtan, begär, hjärtesorg och livet. Sök efter ord och läs det som stannar kvar." lang="sv" alternatePath="/en/poems/">
+  <PoetryArchive lang="sv" />
 </Layout>
