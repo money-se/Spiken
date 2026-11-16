@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "default_locale": "sv",
+  "locales": [
+    {
+      "code": "sv",
+      "name": "Svenska",
+      "html_lang": "sv",
+      "url_prefix": "",
+      "enabled": true
+    },
+    {
+      "code": "en",
+      "name": "English",
+      "html_lang": "en",
+      "url_prefix": "/en",
+      "enabled_when_translated": true
+    }
+  ],
+  "translation_policy": {
+    "original_language": "sv",
+    "preserve_original": true,
+    "english_tone": "literary, emotionally direct, natural, not literal word-for-word",
+    "generate_hreflang_only_for_published_translations": true,
+    "auto_redirect_by_location": false
+  },
+  "sections": {
+    "under_huden": {
+      "sv": "Under huden",
+      "en": "Under the Skin"
+    },
+    "varldar": {
+      "sv": "Spikens världar",
+      "en": "Spiken's Worlds"
+    }
+  }
+}
