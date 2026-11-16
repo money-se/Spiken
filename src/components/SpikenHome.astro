@@ -203,4 +203,48 @@ const journeys = [
  .s3-latest-list{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){.s3-mood img,.s3-world-card img,.s3-primary,.s3-secondary{transition:none}}
+
+/* Spiken 3.1 – kompositionen matchar den godkända referensbilden:
+   sammanhållen rubrik, kortare hero och tätare övergång till korten. */
+@media(min-width:1050px){
+ .s3-hero{min-height:440px}
+ .s3-hero-inner{padding-block:52px 70px}
+ .s3-hero-copy{max-width:630px}
+ .s3-hero h1{max-width:720px;font-size:clamp(50px,4.7vw,73px);line-height:1.08;letter-spacing:-.035em;margin:21px 0 17px;white-space:nowrap}
+ .s3-hero-copy>p{max-width:480px;font-size:18px;line-height:1.52}
+ .s3-actions{margin-top:22px}
+ .s3-feelings{padding:0 0 20px;background:linear-gradient(180deg,#100d0c,#0e0b0b)}
+ .s3-mood-grid{gap:12px}
+ .s3-mood{aspect-ratio:2.12}
+ .s3-mood-label{font-size:clamp(28px,2.3vw,36px);bottom:24px}
+ .s3-mood-rule{bottom:12px}
+ .s3-author{padding:6px 0 22px}
+ .s3-author-grid{grid-template-columns:29% 36% 1fr;gap:26px}
+ .s3-author-portrait{min-height:255px}
+ .s3-author-text h2{font-size:clamp(30px,2.75vw,42px);margin-bottom:10px}
+ .s3-author-text p{font-size:16px;line-height:1.55}
+ .s3-quote{padding-left:35px}
+ .s3-quote p{font-size:clamp(20px,1.9vw,28px)}
+ .s3-worlds{padding:28px 0 42px;border-top:1px solid #30221e}
+ .s3-worlds-heading{margin-bottom:22px}
+ .s3-worlds-heading h2{font-size:clamp(40px,3.9vw,56px)}
+ .s3-world-card{min-height:210px}
+}
+@media(min-width:701px) and (max-width:1049px){
+ .s3-hero{min-height:455px}
+ .s3-hero-inner{padding-block:55px}
+ .s3-hero h1{font-size:clamp(44px,5.2vw,60px);line-height:1.12}
+ .s3-hero-copy{max-width:470px}
+ .s3-hero-copy>p{font-size:17px}
+ .s3-feelings{padding:10px 0 25px}
+ .s3-mood-label{font-size:clamp(23px,2.8vw,30px)}
+ .s3-author-portrait{min-height:250px}
+ .s3-author{padding-bottom:25px}
+}
+@media(max-width:700px){
+ .s3-hero h1{font-size:clamp(43px,10.4vw,69px);line-height:1.07}
+ .s3-hero-copy{max-width:560px}
+ .s3-mood{aspect-ratio:1.6}
+ .s3-worlds-heading h2{font-size:clamp(37px,9vw,55px)}
+}
 </style>
