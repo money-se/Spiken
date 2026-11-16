@@ -295,6 +295,39 @@ body:has(.pa-shell) .spiken-photo-footer .footer-right a{
  body:has(.pa-shell) .spiken-photo-footer .footer-inner{padding-block:32px;min-height:0}
 }
 </style>
+
+<style>
+/* Diktsidorna har samma navigering och footer som Spiken 3.0. */
+body:has(.pr-shell) .spiken-photo-header{
+ background:#0d0b0b;background-image:none;border-bottom:1px solid #362722;box-shadow:none
+}
+body:has(.pr-shell) .spiken-photo-header .header-inner{
+ width:min(1320px,calc(100% - 84px));min-height:74px
+}
+body:has(.pr-shell) .spiken-photo-header .brand{
+ font-family:'Segoe Script','Brush Script MT',Georgia,serif;font-size:clamp(29px,2.5vw,41px);
+ font-style:italic;font-weight:400;letter-spacing:-.08em;gap:8px
+}
+body:has(.pr-shell) .spiken-photo-header .brand>span{order:1}
+body:has(.pr-shell) .spiken-photo-header .brand .spiken-brand-image{order:2;width:28px;height:45px}
+body:has(.pr-shell) .spiken-photo-header .brand .brand-stop{color:#b9212c}
+body:has(.pr-shell) .spiken-photo-header .main-nav a{font:16px/1.5 Georgia,serif;color:#f1e6dc}
+body:has(.pr-shell) .spiken-photo-footer{background:#0d0b0b;border-top:1px solid #68453e;box-shadow:none}
+body:has(.pr-shell) .spiken-photo-footer .footer-inner{width:min(1320px,calc(100% - 84px));min-height:145px;padding-block:28px}
+body:has(.pr-shell) .spiken-photo-footer .footer-brand{font:italic 400 29px Georgia,serif;letter-spacing:0}
+body:has(.pr-shell) .spiken-photo-footer .footer-inner p{font:italic 15px Georgia,serif;color:#d9bbb0}
+body:has(.pr-shell) .spiken-photo-footer .footer-right a{border-bottom:0;color:#d8cac1;font:13px Arial,sans-serif}
+@media(max-width:900px){
+ body:has(.pr-shell) .spiken-photo-header .header-inner,
+ body:has(.pr-shell) .spiken-photo-footer .footer-inner{width:calc(100% - 36px)}
+ body:has(.pr-shell) .spiken-photo-header .main-nav a{font-size:13px}
+}
+@media(max-width:700px){
+ body:has(.pr-shell) .spiken-photo-header .header-inner{min-height:0;padding:9px 0 11px}
+ body:has(.pr-shell) .spiken-photo-header .brand{font-size:29px}
+ body:has(.pr-shell) .spiken-photo-footer .footer-inner{min-height:0;padding-block:32px}
+}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#innehall">{en ? "Skip to content" : "Hoppa till innehållet"}</a>
