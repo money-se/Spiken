@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import analytics from '../data/analytics.json';
-const { title = 'Spiken – Ord under huden', description = 'Dikter om kärlek, sorg, saknad och allt det som inte alltid får sägas högt.', lang = 'sv', alternatePath = null } = Astro.props;
+const { title = 'Spiken – Ord under huden', description = 'Dikter om kärlek, sorg, saknad och allt det som inte alltid får sägas högt.', lang = 'sv', alternatePath = null, socialImage = null, socialImageAlt = null, publishedAt = null, structuredData = null } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 const en = lang === 'en';
@@ -15,6 +15,7 @@ const about = base + (en ? '/en/about/' : '/om/');
 const worlds = base + (en ? '/en/worlds/' : '/varldar/');
 const analyticsEnabled = analytics.enabled && Boolean(analytics.site_token);
 const analyticsToken = analyticsEnabled ? analytics.site_token : '';
+const ogImage = new URL(socialImage || base + '/images/social-delning.webp', Astro.site).toString();
 ---
 <!doctype html>
 <html lang={lang}>
@@ -24,8 +25,15 @@ const analyticsToken = analyticsEnabled ? analytics.site_token : '';
 <meta name="description" content={description} /><meta name="theme-color" content="#151310" />
 <link rel="canonical" href={canonical} />
 {alternatePath && <><link rel="alternate" hreflang="sv" href={urlSwedish} /><link rel="alternate" hreflang="en" href={urlEnglish} /><link rel="alternate" hreflang="x-default" href={urlSwedish} /></>}
-<meta property="og:type" content="website" /><meta property="og:locale" content={en ? "en_US" : "sv_SE"} /><meta property="og:url" content={canonical} />
-<meta property="og:site_name" content="Spiken" /><meta property="og:image" content={new URL(base + '/images/social-delning.webp', Astro.site).toString()} /><meta property="og:title" content={title} /><meta property="og:description" content={description} />
+<meta property="og:type" content={publishedAt ? "article" : "website"} /><meta property="og:locale" content={en ? "en_US" : "sv_SE"} /><meta property="og:url" content={canonical} />
+<meta property="og:site_name" content="Spiken" /><meta property="og:image" content={ogImage} /><meta property="og:title" content={title} /><meta property="og:description" content={description} />
+{socialImageAlt && <meta property="og:image:alt" content={socialImageAlt} />}
+{publishedAt && <meta property="article:published_time" content={publishedAt} />}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
 <title>{title}</title>
 <style>
 .spiken-photo-header{background-color:#10080b;background-image:linear-gradient(90deg,rgba(12,6,8,.93),rgba(12,6,8,.9)),var(--header-art);background-size:cover;background-position:center center;position:relative;isolation:isolate;z-index:30;box-shadow:0 3px 0 rgba(20,7,10,.85)}
