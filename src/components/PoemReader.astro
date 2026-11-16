@@ -23,7 +23,7 @@ const labels = en ? {
   facebook:'Dela på Facebook'
 };
 ---
-<div class="prv3" style={`--prv3-img:url("${photo}")`}>
+<div class="prv3" style={`--prv3-img:url("${photo}");--prv3-fallback:url("${base}/images/dikt-arkiv-v2.webp")`}>
   <section class="prv3-hero" aria-labelledby="prv3-title">
     <div class="prv3-visual" aria-hidden="true"></div>
     <div class="prv3-wide">
@@ -98,7 +98,7 @@ copyButton?.addEventListener('click',async()=>{
 .prv3{background:#0d0b0b;color:#f2e6df;font-family:Georgia,serif}
 .prv3-wide{width:min(1320px,calc(100% - 84px));margin-inline:auto}
 .prv3-hero{position:relative;min-height:610px;isolation:isolate;display:flex;align-items:flex-end;background:#0b0909}
-.prv3-visual{position:absolute;z-index:-1;inset:0;background-image:linear-gradient(90deg,#090808eb 0%,#090808be 26%,#09080875 47%,#09080812 100%),linear-gradient(0deg,#0d0b0b 0%,transparent 42%),var(--prv3-img);background-size:cover;background-position:center,center,center 42%;background-repeat:no-repeat}
+.prv3-visual{position:absolute;z-index:-1;inset:0;background-image:linear-gradient(90deg,#090808eb 0%,#090808be 26%,#09080875 47%,#09080812 100%),linear-gradient(0deg,#0d0b0b 0%,transparent 42%),var(--prv3-img),var(--prv3-fallback);background-size:cover;background-position:center,center,center 42%,center 42%;background-repeat:no-repeat}
 .prv3-hero .prv3-wide{padding:100px 0 78px}
 .prv3-crumb{position:absolute;top:125px;display:flex;align-items:center;gap:14px;font:13px Arial,sans-serif;color:#e0c5bc}
 .prv3-crumb a{padding-bottom:5px;border-bottom:1px solid #aa6f66}
@@ -149,7 +149,7 @@ copyButton?.addEventListener('click',async()=>{
 @media(max-width:600px){
  .prv3-wide,.prv3-reading-inner{width:calc(100% - 36px)}
  .prv3-hero{min-height:680px}
- .prv3-visual{background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0bd7 42%,#0d0b0b0a 100%),var(--prv3-img);background-position:center,60% 18%}
+ .prv3-visual{background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0bd7 42%,#0d0b0b0a 100%),var(--prv3-img),var(--prv3-fallback);background-position:center,60% 18%,60% 18%}
  .prv3-hero .prv3-wide{padding:340px 0 55px}
  .prv3-crumb{top:120px;font-size:12px;gap:8px}
  .prv3-hero h1{font-size:clamp(46px,11vw,67px)}
