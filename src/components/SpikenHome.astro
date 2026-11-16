@@ -170,4 +170,10 @@ const feelings = [
 .sp-chapter-section::before{width:calc(100% - 40px)}
 .sp-archive-image{min-height:265px}
 }
+
+/* Mjuk övergång: biblioteket slutar i samma vinröda ton som sidfoten börjar. */
+.sp-worlds{position:relative;isolation:isolate;overflow:hidden;padding-bottom:126px;background-image:linear-gradient(180deg,rgba(22,8,16,.36) 0%,rgba(22,8,16,.22) 35%,rgba(20,8,15,.82) 76%,#160a10 100%),linear-gradient(90deg,#160810e8 0%,#160810d6 38%,#1608108b 72%,#16081072 100%),var(--sp-library);background-size:cover;background-position:center;border-bottom:0}
+.sp-worlds::after{content:"";position:absolute;inset:auto 0 0;height:135px;z-index:0;pointer-events:none;background:linear-gradient(180deg,transparent,#160a10)}
+.sp-worlds-inner{position:relative;z-index:1}
+@media(max-width:700px){.sp-worlds{padding-bottom:92px;background-image:linear-gradient(180deg,rgba(22,8,16,.3) 0%,rgba(22,8,16,.48) 43%,#160a10 100%),linear-gradient(90deg,#160810e3,#160810b8),var(--sp-library)}.sp-worlds::after{height:90px}}
 </style>
