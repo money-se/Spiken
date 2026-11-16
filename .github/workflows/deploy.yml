@@ -59,6 +59,13 @@ jobs:
           else
             echo "Spiken_3_0_Bildpaket.zip saknas ännu. Tidigare bilder visas som reserv."
           fi
+      - name: Installera unika diktbilder
+        run: |
+          shopt -s nullglob
+          for archive in Spiken_Diktbilder_*.zip; do
+            unzip -o -j "$archive" '*.webp' -d public/images
+            echo "Diktbilder från $archive installerade."
+          done
       - name: Bygg webbplatsen
         run: npm run build
       - name: Ladda upp webbplatsen
