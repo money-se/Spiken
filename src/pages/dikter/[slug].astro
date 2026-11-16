@@ -6,8 +6,8 @@ export function getStaticPaths(){
  return getPoems('sv').map(poem=>({params:{slug:poem.slug},props:{poem}}));
 }
 const {poem}=Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\\/$/,'');
-const imageUrl = poem.image ? base+'/images/'+poem.image.replace(/^\\/+/, '') : null;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const imageUrl = poem.image ? base+'/images/'+poem.image.replace(/^\/+/, '') : null;
 const schema = {
   '@context':'https://schema.org',
   '@type':'CreativeWork',
