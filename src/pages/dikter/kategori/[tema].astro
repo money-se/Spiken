@@ -1,15 +1,15 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { getPoems, poemExcerpt } from '../../../lib/poetry.js';
-const categories = {
-  existens:{title:'Existens',lead:'Dikter om att vara människa, hitta sin röst och våga bli den man är.'},
-  karlek:{title:'Kärlek',lead:'Dikter om närhet, sårbarhet och allt det hjärtat bär.'},
-  langtan:{title:'Längtan',lead:'Dikter om det som saknas och det vi väntar på.'},
-  begar:{title:'Begär',lead:'Dikter om attraktion, kropp och känslan av att vilja närmare.'},
-  hjartesorg:{title:'Hjärtesorg',lead:'Dikter om förlust, sorg och vägen vidare.'},
-  saknad:{title:'Saknad',lead:'Dikter om avstånd, minnen och de människor som dröjer kvar.'}
-};
 export function getStaticPaths(){
+  const categories = {
+    existens:{title:'Existens',lead:'Dikter om att vara människa, hitta sin röst och våga bli den man är.'},
+    karlek:{title:'Kärlek',lead:'Dikter om närhet, sårbarhet och allt det hjärtat bär.'},
+    langtan:{title:'Längtan',lead:'Dikter om det som saknas och det vi väntar på.'},
+    begar:{title:'Begär',lead:'Dikter om attraktion, kropp och känslan av att vilja närmare.'},
+    hjartesorg:{title:'Hjärtesorg',lead:'Dikter om förlust, sorg och vägen vidare.'},
+    saknad:{title:'Saknad',lead:'Dikter om avstånd, minnen och de människor som dröjer kvar.'}
+  };
   const poems=getPoems('sv');
   return Object.entries(categories)
     .filter(([,category])=>poems.some(p=>p.theme===category.title))
