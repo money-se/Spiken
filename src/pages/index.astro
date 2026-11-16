@@ -29,7 +29,7 @@ const senaste = [...dikter].slice(-3).reverse();
         </div>
         
       </div>
-      <div class="uh-hero-edge uh-container"><span>DET MÄNSKLIGA. DET OBEKVÄMA. DET ÄKTA.</span><span>01 / 03</span></div>
+      <div class="uh-hero-edge uh-container"><span>DET MÄNSKLIGA. DET OBEKVÄMA. DET ÄKTA.</span><span>SPIKEN / POESI</span></div>
     </section>
 
     <section class="uh-section uh-themes" aria-labelledby="uh-themes-title">
@@ -131,4 +131,24 @@ const senaste = [...dikter].slice(-3).reverse();
 .uh-hero-edge{position:relative}
 .uh-emblem-wrap{display:none!important}
 .uh-themes,.uh-featured,.uh-closing{position:relative}
+
+/* Finjustering november: behåll den fasta bakgrunden men tonas ner mot arkivet. */
+.uh-themes{background:linear-gradient(180deg,rgba(12,5,8,.27) 0%,rgba(16,5,10,.43) 100%);padding-top:84px;padding-bottom:90px}
+.uh-featured{background:linear-gradient(180deg,rgba(17,5,10,.55),rgba(20,6,12,.71));padding-top:90px;padding-bottom:82px}
+.uh-featured::before{content:"";position:absolute;inset:0;background-image:var(--uh-transition);background-size:cover;background-position:center;opacity:.065;pointer-events:none}
+.uh-featured>.uh-container{position:relative}
+.uh-closing{padding:56px 0 65px;background:linear-gradient(180deg,rgba(20,6,12,.72),rgba(13,5,9,.85))}
+.uh-closing-symbol{width:76px;height:99px;margin-bottom:4px}
+.uh-closing h2{font-size:clamp(33px,4.2vw,53px);margin:12px auto 25px}
+.uh-archive-visual{gap:46px}
+.uh-theme{transition:border-color .2s ease,transform .2s ease}
+.uh-theme:hover{border-color:#ae6d70;transform:translateY(-3px)}
+.uh-primary:focus-visible,.uh-secondary:focus-visible,.uh-theme:focus-visible,.uh-inline-link:focus-visible{outline:2px solid #e8baa9;outline-offset:4px}
+@media(max-width:700px){
+  .uh-themes{padding:61px 0;background:linear-gradient(180deg,rgba(12,5,8,.43),rgba(16,5,10,.57))}
+  .uh-featured{padding:64px 0;background:linear-gradient(180deg,rgba(17,5,10,.67),rgba(20,6,12,.8))}
+  .uh-closing{padding:48px 0 56px}
+  .uh-closing-symbol{width:66px;height:85px}
+}
+@media(prefers-reduced-motion:reduce){.uh-theme{transition:none}}
 </style>
