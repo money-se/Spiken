@@ -1,94 +1,170 @@
 ---
-import { getRelatedPoems } from '../lib/poetry.js';
+import { getPoems, getRelatedPoems } from '../lib/poetry.js';
 const { poem, lang = 'sv' } = Astro.props;
 const en = lang === 'en';
-const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const base = import.meta.env.BASE_URL.replace(/\/$/,'');
 const archive = base + (en?'/en/poems/':'/dikter/');
-const self = archive + encodeURIComponent(poem.slug) + '/';
 const paired = poem.translatedSlug ? base + (en?'/dikter/':'/en/poems/') + encodeURIComponent(poem.translatedSlug) + '/' : null;
-const related=getRelatedPoems(lang,poem,3);
-const labels=en ? {
-  back:'All poems',poem:'A POEM BY SPIKEN',share:'Share this poem',copy:'Copy link',copied:'Link copied',
-  other:'More words to explore',browse:'Browse all poems',change:'Read in Swedish',
-  previous:'Previous poem',next:'Next poem'
+const related = getRelatedPoems(lang,poem,3);
+const all = getPoems(lang);
+const adjacent = all.filter(p=>p.slug!==poem.slug);
+const hasImage = Boolean(poem.image);
+const photo = hasImage ? (poem.image.startsWith('/')?base+poem.image:base+'/images/'+poem.image) : base+'/images/dikt-arkiv-v2.webp';
+const textBlocks = poem.text.split(/\n\s*\n/);
+const labels = en ? {
+  back:'All poems', poem:'A POEM BY SPIKEN',read:'Read the poem',
+  share:'Share these words',copy:'Copy link',related:'You may also like',all:'Browse all poems',
+  language:'Read in Swedish', more:'Discover more words', by:'Written by Spiken',category:'Theme',
+  facebook:'Share on Facebook'
 } : {
-  back:'Alla dikter',poem:'EN DIKT AV SPIKEN',share:'Dela dikten',copy:'Kopiera länk',copied:'Länken kopierad',
-  other:'Fler ord att läsa',browse:'Utforska diktarkivet',change:'Read in English',
-  previous:'Föregående dikt',next:'Nästa dikt'
+  back:'Alla dikter',poem:'EN DIKT AV SPIKEN',read:'Läs dikten',
+  share:'Dela dessa ord',copy:'Kopiera länken',related:'Fler ord som berör',all:'Utforska alla dikter',
+  language:'Read in English',more:'Upptäck fler ord',by:'Skriven av Spiken',category:'Tema',
+  facebook:'Dela på Facebook'
 };
-const baseImage = base + '/images/dikt-arkiv-v2.webp';
 ---
-<div class="pr-shell" style={`--pr-art:url("${baseImage}")`}>
- <div class="pr-wrap">
-  <nav class="pr-breadcrumb" aria-label={en?'Breadcrumb':'Sökväg'}>
-    <a href={archive}>← {labels.back}</a>
-    <span aria-hidden="true">/</span><span>{poem.theme}</span>
-  </nav>
-  <article class="pr-article">
-    <header class="pr-heading">
-      <span class="pr-kicker">{labels.poem} <span aria-hidden="true">·</span> {poem.theme}</span>
-      <h1>{poem.title}</h1>
-      <span class="pr-divider" aria-hidden="true">✦</span>
-    </header>
-    {poem.image && <figure class="pr-figure"><img src={poem.image.startsWith('/')?base+poem.image:base+'/images/'+poem.image} alt={poem.imageAlt} loading="eager" /></figure>}
-    <div class="pr-body">{poem.text}</div>
-    <p class="pr-signature">— Spiken</p>
-    <div class="pr-sharing">
-      <span>{labels.share}</span>
-      <div class="pr-share-actions">
-        <a target="_blank" rel="noopener noreferrer" href={'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(new URL(self, Astro.site).toString())} aria-label={en?'Share on Facebook':'Dela på Facebook'}>Facebook ↗</a>
-        <button type="button" id="pr-copy">{labels.copy} <span aria-hidden="true">↗</span></button>
+<div class="prv3" style={`--prv3-img:url("${photo}")`}>
+  <section class="prv3-hero" aria-labelledby="prv3-title">
+    <div class="prv3-visual" aria-hidden="true"></div>
+    <div class="prv3-wide">
+      <nav class="prv3-crumb" aria-label={en?'Breadcrumb':'Sökväg'}>
+        <a href={archive}>← {labels.back}</a><span aria-hidden="true">/</span>
+        <a href={archive+'?tema='+encodeURIComponent(poem.theme)}>{poem.theme}</a>
+      </nav>
+      <div class="prv3-hero-copy">
+        <span class="prv3-eyebrow">{labels.poem} <span aria-hidden="true">·</span> {poem.theme}</span>
+        <h1 id="prv3-title">{poem.title}</h1>
+        <p class="prv3-summary">{poem.description}</p>
+        <a class="prv3-read-button" href="#dikten">{labels.read} <span aria-hidden="true">↓</span></a>
       </div>
     </div>
-  </article>
-  <aside class="pr-after" aria-label={labels.other}>
-    {paired && <a class="pr-language" href={paired}>{labels.change} ↗</a>}
-    {related.length>0 && <>
-      <h2>{labels.other}</h2>
-      <div class="pr-related">{related.map(p=><a href={archive+encodeURIComponent(p.slug)+'/'}><small>{p.theme}</small><strong>{p.title}</strong><span aria-hidden="true">↗</span></a>)}</div>
-    </>}
-    <div class="pr-back"><a href={archive}>← {labels.browse}</a></div>
-  </aside>
- </div>
+  </section>
+
+  <section class="prv3-reading" id="dikten" aria-label={labels.read}>
+    <div class="prv3-reading-inner">
+      <div class="prv3-ornament" aria-hidden="true"><span></span><i>✦</i><span></span></div>
+      <article class="prv3-article">
+        <div class="prv3-body">
+          {textBlocks.map((block,i)=><p class="prv3-stanza" data-stanza={i+1}>{block}</p>)}
+        </div>
+        <p class="prv3-signature">— Spiken</p>
+      </article>
+      <div class="prv3-share">
+        <span class="prv3-share-title">{labels.share}</span>
+        <div class="prv3-share-actions">
+          <a href={'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(new URL(Astro.url.pathname,Astro.site).toString())} target="_blank" rel="noopener noreferrer">{labels.facebook} <span aria-hidden="true">↗</span></a>
+          <button id="prv3-copy" type="button">{labels.copy} <span aria-hidden="true">↗</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="prv3-next">
+    <div class="prv3-wide">
+      {paired && <a class="prv3-translation" href={paired}>{labels.language} ↗</a>}
+      <div class="prv3-next-head">
+        <h2>{related.length ? labels.related : labels.more}</h2>
+        <a href={archive}>{labels.all} →</a>
+      </div>
+      {related.length>0 ?
+        <div class="prv3-related">
+          {related.map(other=><a href={archive+encodeURIComponent(other.slug)+'/'} class="prv3-related-card">
+            <span class="prv3-related-type">{other.theme}</span>
+            <strong>{other.title}</strong>
+            <span class="prv3-related-arrow" aria-hidden="true">↗</span>
+          </a>)}
+        </div>
+      : <a class="prv3-next-panel" href={archive}>
+          <span class="prv3-panel-kicker">SPIKEN · {en?'POETRY':'DIKTER'}</span>
+          <strong>{labels.all}</strong><span aria-hidden="true">→</span>
+        </a>}
+    </div>
+  </section>
 </div>
 <script>
-const copyButton=document.querySelector('#pr-copy');
+const copyButton = document.querySelector('#prv3-copy');
 copyButton?.addEventListener('click',async()=>{
  try{
-  await navigator.clipboard.writeText(window.location.href);
-  const previous=copyButton.textContent;
-  copyButton.textContent=document.documentElement.lang==='en'?'Link copied ✓':'Länken kopierad ✓';
-  setTimeout(()=>{copyButton.textContent=previous},2200);
+   await navigator.clipboard.writeText(window.location.href);
+   const previous=copyButton.textContent;
+   copyButton.textContent=document.documentElement.lang==='en'?'Link copied ✓':'Länken kopierad ✓';
+   setTimeout(()=>copyButton.textContent=previous,2200);
  }catch{
-  window.prompt(document.documentElement.lang==='en'?'Copy this link':'Kopiera länken',window.location.href);
+   window.prompt(document.documentElement.lang==='en'?'Copy this link':'Kopiera länken',window.location.href);
  }
 });
 </script>
 <style>
-.pr-shell{background:radial-gradient(ellipse at 51% 9%,#30191e 0%,#120c0e 44%,#0b090a 100%);color:#f0e4da;min-height:85vh;font-family:Georgia,serif;padding:38px 0 90px;position:relative;overflow:hidden}
-.pr-shell:before{content:"";position:absolute;top:0;left:0;right:0;height:390px;pointer-events:none;background:linear-gradient(180deg,#0e0909c4,#140c0ef0 87%,transparent),var(--pr-art) center 35%/cover no-repeat;opacity:.45}
-.pr-wrap{width:min(1120px,calc(100% - 68px));margin:auto;position:relative;z-index:1}
-.pr-breadcrumb{display:flex;gap:15px;align-items:center;color:#c49d99;font:13px Arial,sans-serif;margin-bottom:68px}
-.pr-breadcrumb a{color:#f5e0dc;border-bottom:1px solid #a56465;padding-bottom:5px}
-.pr-article{max-width:790px;margin:0 auto}
-.pr-heading{text-align:center}.pr-kicker{color:#ce999a;letter-spacing:.22em;text-transform:uppercase;font:700 11px/1.65 Arial,sans-serif}
-.pr-heading h1{font:italic 400 clamp(43px,6.3vw,86px)/1.17 Georgia,serif;letter-spacing:-.03em;margin:20px 0 20px;overflow-wrap:anywhere}
-.pr-divider{font-size:17px;color:#be565c}
-.pr-figure{margin:30px auto 20px;max-width:760px}.pr-figure img{width:100%;height:auto;max-height:570px;object-fit:contain;display:block}
-.pr-body{max-width:610px;margin:58px auto 35px;font:20px/1.9 Georgia,serif;letter-spacing:.005em;color:#f3e8e0;white-space:pre-wrap;overflow-wrap:break-word}
-.pr-signature{text-align:right;max-width:610px;margin:0 auto 62px;font:italic 24px Georgia,serif;color:#cb9b9e}
-.pr-sharing{border-top:1px solid #71504e;border-bottom:1px solid #71504e;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:22px;font:13px Arial,sans-serif;color:#d5bcb7}
-.pr-share-actions{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
-.pr-share-actions a,.pr-share-actions button{background:none;border:0;padding:8px 0;color:#f1d9d7;cursor:pointer;border-bottom:1px solid #a54754;font:13px Arial,sans-serif}
-.pr-after{max-width:790px;margin:56px auto 0}
-.pr-after h2{font:italic 35px Georgia,serif;margin:0 0 24px}
-.pr-related{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.pr-related a{border:1px solid #664442;background:#211517;padding:21px;display:flex;flex-direction:column;gap:16px;min-height:145px}
-.pr-related a small{font:11px Arial,sans-serif;letter-spacing:.14em;color:#cd9da0}
-.pr-related a strong{font:italic 25px Georgia,serif;font-weight:400;overflow-wrap:anywhere}
-.pr-related a>span{margin-top:auto;text-align:right}
-.pr-related a:hover{border-color:#c5787b}
-.pr-language{display:inline-block;border-bottom:1px solid #b15c62;margin-bottom:35px;padding-bottom:8px;font:14px Arial,sans-serif}
-.pr-back{text-align:center;margin-top:54px}.pr-back a{border-bottom:1px solid #b4474e;padding-bottom:9px;font:14px Arial,sans-serif}
-@media(max-width:650px){.pr-wrap{width:calc(100% - 36px)}.pr-shell{padding:24px 0 70px}.pr-breadcrumb{margin-bottom:49px}.pr-heading h1{font-size:clamp(41px,10vw,65px)}.pr-body{font-size:18px;line-height:1.85;margin:40px auto 24px}.pr-signature{margin-bottom:43px}.pr-sharing{display:block}.pr-share-actions{margin-top:9px}.pr-related{grid-template-columns:1fr}.pr-related a{min-height:110px}.pr-after h2{font-size:30px}}
+.prv3{background:#0d0b0b;color:#f2e6df;font-family:Georgia,serif}
+.prv3-wide{width:min(1320px,calc(100% - 84px));margin-inline:auto}
+.prv3-hero{position:relative;min-height:610px;isolation:isolate;display:flex;align-items:flex-end;background:#0b0909}
+.prv3-visual{position:absolute;z-index:-1;inset:0;background-image:linear-gradient(90deg,#090808eb 0%,#090808be 26%,#09080875 47%,#09080812 100%),linear-gradient(0deg,#0d0b0b 0%,transparent 42%),var(--prv3-img);background-size:cover;background-position:center,center,center 42%;background-repeat:no-repeat}
+.prv3-hero .prv3-wide{padding:100px 0 78px}
+.prv3-crumb{position:absolute;top:125px;display:flex;align-items:center;gap:14px;font:13px Arial,sans-serif;color:#e0c5bc}
+.prv3-crumb a{padding-bottom:5px;border-bottom:1px solid #aa6f66}
+.prv3-crumb a:hover{color:#fff}
+.prv3-hero-copy{max-width:680px}
+.prv3-eyebrow{font:700 11px/1.6 Arial,sans-serif;letter-spacing:.23em;color:#efd1c9}
+.prv3-hero h1{font:italic 400 clamp(56px,6.2vw,89px)/1.08 Georgia,serif;letter-spacing:-.035em;max-width:790px;margin:18px 0 17px;text-wrap:balance}
+.prv3-summary{max-width:490px;font:18px/1.55 Georgia,serif;color:#ead9d1;margin:0}
+.prv3-read-button{display:inline-flex;gap:30px;align-items:center;margin-top:25px;padding:14px 22px;background:#921417;border:1px solid #b12d33;color:#fff;font:15px Arial,sans-serif}
+.prv3-read-button:hover{background:#bd2029;color:#fff}
+.prv3-reading{position:relative;background:radial-gradient(ellipse at 45% 18%,#26151a 0%,#140d10 43%,#0d0b0b 100%);padding:46px 0 82px;scroll-margin-top:18px}
+.prv3-reading:before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,#fff1 0 1px,transparent 1px 7px);opacity:.04}
+.prv3-reading-inner{width:min(840px,calc(100% - 84px));margin:auto;position:relative}
+.prv3-ornament{display:flex;align-items:center;justify-content:center;gap:22px;margin-bottom:55px;color:#ba343a}
+.prv3-ornament span{width:85px;height:1px;background:linear-gradient(90deg,transparent,#8a494b)}
+.prv3-ornament span:last-child{transform:scaleX(-1)}
+.prv3-ornament i{font:italic 20px Georgia,serif}
+.prv3-article{width:min(620px,100%);margin-inline:auto}
+.prv3-body{font:400 clamp(18px,1.7vw,21px)/1.8 Georgia,serif;letter-spacing:.003em;color:#f0e2da}
+.prv3-stanza{white-space:pre-line;margin:0 0 43px;overflow-wrap:break-word;line-height:inherit}
+.prv3-stanza:last-child{margin-bottom:0}
+.prv3-signature{font:italic 25px Georgia,serif;color:#d2a1a1;text-align:right;margin:55px 0 0}
+.prv3-share{margin-top:82px;padding:24px 0;border-top:1px solid #74504e;border-bottom:1px solid #74504e;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.prv3-share-title{font:13px Arial,sans-serif;color:#ddc4bc}
+.prv3-share-actions{display:flex;gap:26px;flex-wrap:wrap}
+.prv3-share-actions a,.prv3-share-actions button{border:0;border-bottom:1px solid #a7434b;background:none;color:#f0ded9;font:13px Arial,sans-serif;cursor:pointer;padding:8px 0}
+.prv3-next{background:linear-gradient(180deg,#120d0d,#0d0b0b);padding:50px 0 80px;border-top:1px solid #392521}
+.prv3-next-head{display:flex;align-items:end;justify-content:space-between;gap:25px;margin-bottom:27px}
+.prv3-next-head h2{font:italic 400 clamp(34px,3.8vw,54px)/1.15 Georgia,serif;margin:0}
+.prv3-next-head a{font:14px Arial,sans-serif;border-bottom:1px solid #bc464b;padding-bottom:6px;color:#ebd4d0}
+.prv3-related{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.prv3-related-card{display:flex;flex-direction:column;gap:15px;min-height:175px;padding:24px;border:1px solid #634540;background:#1c1112}
+.prv3-related-card strong{font:italic 29px Georgia,serif;font-weight:400}
+.prv3-related-type,.prv3-panel-kicker{font:11px Arial,sans-serif;letter-spacing:.2em;color:#d6a29d;text-transform:uppercase}
+.prv3-related-arrow{text-align:right;margin-top:auto}
+.prv3-related-card:hover{border-color:#bd4145;color:#fff}
+.prv3-next-panel{min-height:180px;border:1px solid #62463f;display:flex;align-items:center;gap:22px;padding:30px 38px;background:linear-gradient(90deg,#170d11f5,#170d11bb),url("/Spiken/images/varldar-bibliotek.webp") center/cover}
+.prv3-next-panel strong{font:italic 34px Georgia,serif;font-weight:400;margin-right:auto}
+.prv3-next-panel>span:last-child{font:25px Arial,sans-serif}
+.prv3-translation{display:inline-block;margin-bottom:32px;border-bottom:1px solid #af4349;padding-bottom:6px}
+@media(max-width:850px){
+ .prv3-hero{min-height:580px}
+ .prv3-hero .prv3-wide{padding:155px 0 62px}
+ .prv3-visual{background-position:center,center,58% center}
+ .prv3-related{grid-template-columns:1fr}
+ .prv3-related-card{min-height:125px}
+}
+@media(max-width:600px){
+ .prv3-wide,.prv3-reading-inner{width:calc(100% - 36px)}
+ .prv3-hero{min-height:680px}
+ .prv3-visual{background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0bd7 42%,#0d0b0b0a 100%),var(--prv3-img);background-position:center,60% 18%}
+ .prv3-hero .prv3-wide{padding:340px 0 55px}
+ .prv3-crumb{top:120px;font-size:12px;gap:8px}
+ .prv3-hero h1{font-size:clamp(46px,11vw,67px)}
+ .prv3-summary{font-size:16px}
+ .prv3-reading{padding:30px 0 57px}
+ .prv3-ornament{margin-bottom:39px}
+ .prv3-body{font-size:18px;line-height:1.8}
+ .prv3-stanza{margin-bottom:37px}
+ .prv3-share{margin-top:58px;display:block}
+ .prv3-share-actions{margin-top:12px}
+ .prv3-next{padding:38px 0 60px}
+ .prv3-next-head{display:block}
+ .prv3-next-head a{display:inline-block;margin-top:16px}
+ .prv3-next-panel{padding:20px;display:grid;grid-template-columns:1fr auto;gap:12px}
+ .prv3-panel-kicker{grid-column:1/-1}
+ .prv3-next-panel strong{font-size:26px}
+}
 </style>
