@@ -31,7 +31,10 @@ jobs:
       - name: Installera Spikens bildpaket
         run: |
           mkdir -p public/images
-          if [ -f Spiken_Under_Huden_Bildpaket_Komplett.zip ]; then
+          if [ -f Spiken_2_0_Bildpaket.zip ]; then
+            unzip -o -j Spiken_2_0_Bildpaket.zip '*.webp' -d public/images
+            echo "Spiken 2.0-bilder installerade."
+          elif [ -f Spiken_Under_Huden_Bildpaket_Komplett.zip ]; then
             unzip -o -j Spiken_Under_Huden_Bildpaket_Komplett.zip '*.webp' -d public/images
             echo "Komplett bildpaket installerat."
           elif [ -f Spiken_Under_Huden_Bildpaket.zip ]; then
