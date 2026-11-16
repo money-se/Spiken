@@ -222,6 +222,27 @@ body:has(.spiken-three) .spiken-photo-header .header-inner{
  }
 }
 </style>
+
+<style>
+/* Spiken 3.2: faktiskt genomskinlig navigation över hela hero-fotot. */
+body:has(.spiken-three) .spiken-photo-header{
+ background:transparent !important;
+ background-color:transparent !important;
+ background-image:none !important;
+ border:0 !important;
+ box-shadow:none !important;
+}
+body:has(.spiken-three) .spiken-photo-header .brand,
+body:has(.spiken-three) .spiken-photo-header .main-nav a,
+body:has(.spiken-three) .spiken-photo-header .spiken-languages a{
+ text-shadow:0 1px 7px rgba(0,0,0,.88),0 2px 14px rgba(0,0,0,.55);
+}
+@media(max-width:700px){
+ body:has(.spiken-three) .spiken-photo-header{
+  background:linear-gradient(180deg,rgba(5,4,5,.34),transparent) !important;
+ }
+}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#innehall">{en ? "Skip to content" : "Hoppa till innehållet"}</a>
