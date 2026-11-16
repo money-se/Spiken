@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import dikter from '../data/dikter.json';
-const base = import.meta.env.BASE_URL.replace(/\\/$/, '');
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL.slice(0, -1) : import.meta.env.BASE_URL;
 const img = (name) => base + '/images/' + name + '.webp';
 const teman = [
   { namn: 'Kärlek', slug: 'karlek', bild: 'kategori-karlek', text: 'För allt som brinner, även när det gör ont.' },
