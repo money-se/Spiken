@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import analytics from '../../data/analytics.json';
+const active = analytics.enabled && !!analytics.site_token;
+---
+<Layout title="Integritet och statistik – Spiken" description="Information om integritet och frivillig besöksstatistik på Spikens webbplats.">
+  <section class="wrap section spiken-privacy">
+    <p class="eyebrow">SPIKEN / INTEGRITET</p>
+    <h1>Din läsning är din.</h1>
+    <p>Spiken är en plats för ord och berättelser. Du ska kunna läsa utan att vi bygger en personlig profil av dig.</p>
+    <h2>Besöksstatistik</h2>
+    {active
+      ? <p>Vi använder Cloudflare Web Analytics för att se vilka sidor som är populära och hur webbplatsen fungerar. Vi laddar analysverktyget endast om du väljer att godkänna frivillig statistik. Leverantören är Cloudflare. Vi använder inte statistik för individanpassad reklam eller för att identifiera enskilda läsare.</p>
+      : <p>Frivillig webbanalys är inte aktiverad för närvarande. Inga Cloudflare Web Analytics-skript laddas av Spiken.</p>}
+    <h2>Ditt val</h2>
+    <p>Om analys aktiveras kan du välja ja eller nej till frivillig statistik och ändra ditt val via länken ”Statistikinställningar” längst ned på sidan. Det påverkar inte möjligheten att läsa.</p>
+    <h2>Vad vi inte samlar in genom vårt analysupplägg</h2>
+    <p>Vi samlar inte in namn, kontaktuppgifter, personliga dagböcker, exakta positioner eller känsliga profiler genom webbstatistiken. Webbplatsens hosting kan däremot innebära tekniska serverloggar som hanteras av plattformsleverantören.</p>
+    <h2>Frågor</h2>
+    <p>Informationen uppdateras när webbplatsens analysfunktioner ändras. Någon kontaktadress för integritetsfrågor har ännu inte lagts till.</p>
+  </section>
+</Layout>
+<style>
+.spiken-privacy{max-width:820px;min-height:65vh;color:#ebdad7}
+.spiken-privacy h1{font-size:clamp(42px,6vw,75px);line-height:1.15;margin:12px 0 25px}
+.spiken-privacy h2{font:normal 26px Georgia,serif;margin:36px 0 8px;color:#e9c1c4}
+.spiken-privacy p{font-size:17px;line-height:1.85}
+</style>
