@@ -174,13 +174,34 @@ body:has(.spiken-three) .spiken-photo-footer .footer-inner p{
  body:has(.spiken-three) .spiken-photo-footer .footer-inner{min-height:0;padding-block:32px}
 }
 </style>
+
+<style>
+/* Spiken 3.1: handskriftskänsla och signatur i sidhuvudet, som i referensen. */
+body:has(.spiken-three) .spiken-photo-header .brand{
+  font-family:'Segoe Script','Brush Script MT',Georgia,serif;
+  font-size:clamp(29px,2.5vw,41px);
+  font-style:italic;
+  font-weight:400;
+  letter-spacing:-.08em;
+  text-transform:none;
+}
+body:has(.spiken-three) .spiken-photo-header .brand .brand-stop{color:#b9212c}
+body:has(.spiken-three) .spiken-photo-header .brand .spiken-brand-image{order:2;width:28px;height:45px}
+body:has(.spiken-three) .spiken-photo-header .brand>span{order:1}
+body:has(.spiken-three) .spiken-photo-header .header-inner{min-height:62px}
+body:has(.spiken-three) .spiken-photo-header{border-bottom-color:#2e2421}
+@media(max-width:700px){
+ body:has(.spiken-three) .spiken-photo-header .brand{font-size:29px}
+ body:has(.spiken-three) .spiken-photo-header .header-inner{min-height:0}
+}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#innehall">{en ? "Skip to content" : "Hoppa till innehållet"}</a>
 <header class="site-header spiken-photo-header" style={`--header-art:url("${base}/images/header-bakgrund.webp")`}><div class="wrap header-inner">
 <a class="brand" href={home} aria-label={en ? "Spiken – homepage" : "Spiken – startsidan"}>
 <img class="brand-symbol spiken-brand-image" src={base + '/images/spiken-emblem.webp'} width="34" height="48" alt="" />
-<span>SPIKEN<span class="brand-stop">.</span></span></a>
+<span>Spiken<span class="brand-stop">.</span></span></a>
 <nav class="main-nav" aria-label={en ? "Main navigation" : "Huvudmeny"}><a href={home}>{nav.home}</a><a href={poems}>{nav.poems}</a><a href={about}>{nav.about}</a><a href={worlds}>{nav.worlds}</a></nav>
 <div class="spiken-header-actions"><a class="header-link" href={poems}>{nav.archive} ↗</a><nav class="spiken-languages" aria-label={en ? "Language" : "Språk"}><a href={urlSwedish} lang="sv" aria-current={!en ? "page" : undefined}>SV</a><span aria-hidden="true">/</span><a href={urlEnglish} lang="en" aria-current={en ? "page" : undefined}>EN</a></nav></div>
 </div></header>
