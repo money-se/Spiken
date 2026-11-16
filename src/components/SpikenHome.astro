@@ -1,5 +1,5 @@
 ---
-import dikter from '../data/dikter.json';
+import { getPoems } from '../lib/poetry.js';
 const { lang = 'sv' } = Astro.props;
 const en = lang === 'en';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -8,7 +8,7 @@ const home = base + (en ? '/en/' : '/');
 const poems = base + (en ? '/en/poems/' : '/dikter/');
 const about = base + (en ? '/en/about/' : '/om/');
 const worlds = base + (en ? '/en/worlds/' : '/varldar/');
-const currentPoems = en ? [] : [...dikter].slice(-3).reverse();
+const currentPoems = getPoems(lang).slice(0,3);
 const copy = en ? {
   eyebrow: 'SPIKEN · WORDS UNDER THE SKIN',
   titleStart: 'Words beneath', titleEnd:'the skin.',
@@ -98,7 +98,7 @@ const journeys = [
   {currentPoems.length > 0 && <section class="s3-latest" aria-label={copy.recent}>
     <div class="s3-width">
       <div class="s3-latest-heading"><h2>{copy.recent}</h2><a href={poems}>{copy.archive} →</a></div>
-      <div class="s3-latest-list">{currentPoems.map(d => <a href={poems + d.slug + '/'}><strong>{d.titel}</strong><span>{d.tema} →</span></a>)}</div>
+      <div class="s3-latest-list">{currentPoems.map(d => <a href={poems + d.slug + '/'}><strong>{d.title}</strong><span>{d.theme} →</span></a>)}</div>
     </div>
   </section>}
 
