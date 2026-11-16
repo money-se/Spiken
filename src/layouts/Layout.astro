@@ -90,6 +90,27 @@ const analyticsToken = analyticsEnabled ? analytics.site_token : '';
 .spiken-photo-footer .footer-inner{align-items:start}
 }
 </style>
+
+<style>
+/* Endast startsidan: bibliotek och sidfot flyter ihop utan skarv. */
+body:has(.spiken-simple) .spiken-photo-footer{
+  border-top:0;
+  box-shadow:none;
+  background-color:#160a10;
+  background-image:linear-gradient(180deg,#160a10 0%,rgba(22,10,16,.93) 26%,rgba(22,10,16,.75) 63%,rgba(22,10,16,.57) 100%),var(--footer-art);
+  background-size:cover;
+  background-position:center center;
+}
+body:has(.spiken-simple) .spiken-photo-footer .footer-inner{
+  padding-top:34px;
+  padding-bottom:56px;
+  min-height:190px;
+}
+@media(max-width:700px){
+  body:has(.spiken-simple) .spiken-photo-footer{background-position:center center}
+  body:has(.spiken-simple) .spiken-photo-footer .footer-inner{padding-top:24px;padding-bottom:43px}
+}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#innehall">{en ? "Skip to content" : "Hoppa till innehållet"}</a>
