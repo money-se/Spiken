@@ -112,4 +112,13 @@ const senaste = [...dikter].slice(-3).reverse();
 .uh-archive-visual .uh-inline-link{display:inline-block;margin-top:8px}
 @media(max-width:700px){.under-huden::before{background-position:center center,center center,68% center;background-image:linear-gradient(90deg,rgba(8,4,5,.88),rgba(8,4,5,.62)),linear-gradient(0deg,rgba(8,4,5,.7),transparent 60%),var(--uh-backdrop)}.uh-hero::before{background:linear-gradient(0deg,rgba(8,4,5,.48),transparent 80%)}.uh-archive-visual{grid-template-columns:1fr;gap:20px}.uh-archive-visual img{height:265px}.uh-featured{background:rgba(12,5,8,.82)}}
 @media(prefers-reduced-motion:reduce){.under-huden::before{transform:none}}
+
+/* Visuell sammanhållning: ta bort hårda avbrott mellan sektionerna */
+.under-huden::before{background-image:linear-gradient(90deg,rgba(8,4,5,.78) 0%,rgba(8,4,5,.50) 48%,rgba(8,4,5,.34) 100%),linear-gradient(0deg,rgba(10,5,7,.46),transparent 55%),var(--uh-backdrop)}
+.uh-hero::after{background:none}
+.uh-hero-edge{border-top-color:rgba(170,100,105,.24)}
+.uh-themes,.uh-featured,.uh-closing{background:rgba(12,5,8,.42);backdrop-filter:none;border-top-color:transparent}
+.uh-themes::before{opacity:.035}
+.uh-closing{background:linear-gradient(180deg,rgba(12,5,8,.42),rgba(12,5,8,.57))}
+@media(max-width:700px){.under-huden::before{background-image:linear-gradient(90deg,rgba(8,4,5,.75),rgba(8,4,5,.42)),linear-gradient(0deg,rgba(8,4,5,.55),transparent 60%),var(--uh-backdrop)}}
 </style>
