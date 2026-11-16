@@ -1,0 +1,81 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getPoems, poemExcerpt } from '../../../lib/poetry.js';
+const categories = {
+  existens:{title:'Existens',lead:'Dikter om att vara människa, hitta sin röst och våga bli den man är.'},
+  karlek:{title:'Kärlek',lead:'Dikter om närhet, sårbarhet och allt det hjärtat bär.'},
+  langtan:{title:'Längtan',lead:'Dikter om det som saknas och det vi väntar på.'},
+  begar:{title:'Begär',lead:'Dikter om attraktion, kropp och känslan av att vilja närmare.'},
+  hjartesorg:{title:'Hjärtesorg',lead:'Dikter om förlust, sorg och vägen vidare.'},
+  saknad:{title:'Saknad',lead:'Dikter om avstånd, minnen och de människor som dröjer kvar.'}
+};
+export function getStaticPaths(){
+  const poems=getPoems('sv');
+  return Object.entries(categories)
+    .filter(([,category])=>poems.some(p=>p.theme===category.title))
+    .map(([slug,category])=>({
+      params:{tema:slug},
+      props:{category,poems:poems.filter(p=>p.theme===category.title)}
+    }));
+}
+const {category,poems}=Astro.props;
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const archive=base+'/dikter/';
+---
+<Layout title={'Dikter om '+category.title.toLowerCase()+' – Spiken'} description={category.lead+' Läs Spikens originaldikter på svenska.'} lang="sv">
+  <div class="sp-category">
+    <section class="sp-category-head">
+      <div class="sp-category-wrap">
+        <a class="sp-category-back" href={archive}>← Till diktarkivet</a>
+        <p class="sp-category-label">SPIKEN · ORD UNDER HUDEN</p>
+        <h1>Dikter om <em>{category.title.toLowerCase()}</em></h1>
+        <p class="sp-category-lead">{category.lead}</p>
+        <a class="sp-category-jump" href="#dikter">Läs dikterna ↓</a>
+      </div>
+    </section>
+    <section class="sp-category-content" id="dikter">
+      <div class="sp-category-wrap">
+        <h2>{category.title} <span>({poems.length})</span></h2>
+        <div class="sp-category-grid">
+          {poems.map(p=><a href={archive+encodeURIComponent(p.slug)+'/'} class="sp-category-card">
+            <div class="sp-category-thumb" style={'--card-photo:url("'+(p.image?base+'/images/'+p.image:base+'/images/dikt-arkiv-v2.webp')+'")'}></div>
+            <div class="sp-category-card-text">
+              <span>SPIKEN · {p.theme}</span>
+              <h3>{p.title}</h3>
+              <p>{poemExcerpt(p.text,125)}</p>
+              <strong>Läs dikten →</strong>
+            </div>
+          </a>)}
+        </div>
+        <a class="sp-category-return" href={archive}>← Utforska hela diktarkivet</a>
+      </div>
+    </section>
+  </div>
+</Layout>
+<style>
+.sp-category{background:#0d0b0b;color:#f2e4dc;font-family:Georgia,serif}
+.sp-category-wrap{width:min(1320px,calc(100% - 84px));margin:auto}
+.sp-category-head{min-height:465px;display:flex;align-items:end;background:linear-gradient(90deg,#0a0809f7,#0a0809ce 55%,#0a080974),linear-gradient(0deg,#0d0b0b,transparent 55%),url("/Spiken/images/dikt-arkiv-v2.webp") right center/cover}
+.sp-category-head .sp-category-wrap{padding:130px 0 63px}
+.sp-category-back{display:inline-block;border-bottom:1px solid #945b59;padding-bottom:6px;font:13px Arial,sans-serif;color:#e9d1cc}
+.sp-category-label{font:700 11px Arial,sans-serif;letter-spacing:.25em;color:#e4acaa;margin-top:42px}
+.sp-category h1{font:italic 400 clamp(48px,6vw,84px)/1.12 Georgia,serif;margin:17px 0 19px}
+.sp-category h1 em{color:#bc252d}
+.sp-category-lead{font:19px/1.65 Georgia,serif;max-width:590px;color:#e6cfc8}
+.sp-category-jump{display:inline-block;margin-top:20px;padding:13px 20px;background:#921417;color:#fff;font:14px Arial,sans-serif}
+.sp-category-content{padding:38px 0 85px}
+.sp-category-content h2{font:italic 39px Georgia,serif}
+.sp-category-content h2 span{font:15px Arial,sans-serif;color:#c79898}
+.sp-category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sp-category-card{background:#191111;border:1px solid #65443c;display:block;overflow:hidden}
+.sp-category-card:hover{border-color:#b54c54;color:#fff}
+.sp-category-thumb{height:190px;background-image:linear-gradient(0deg,#1a0c0c50,transparent),var(--card-photo);background-position:center;background-size:cover}
+.sp-category-card-text{padding:22px}
+.sp-category-card-text>span{font:11px Arial,sans-serif;letter-spacing:.14em;color:#cb9895}
+.sp-category-card h3{font:italic 31px Georgia,serif;margin:14px 0}
+.sp-category-card p{font:15px/1.6 Georgia,serif;color:#d7c1bc}
+.sp-category-card strong{display:inline-block;border-top:1px solid #78534b;padding-top:16px;margin-top:13px;width:100%;font:13px Arial,sans-serif}
+.sp-category-return{display:inline-block;margin-top:40px;border-bottom:1px solid #b84c51;padding-bottom:7px}
+@media(max-width:900px){.sp-category-wrap{width:calc(100% - 36px)}.sp-category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.sp-category-grid{grid-template-columns:1fr}.sp-category-head{min-height:460px}.sp-category-head .sp-category-wrap{padding:100px 0 55px}.sp-category h1{font-size:clamp(43px,11vw,62px)}.sp-category-lead{font-size:17px}}
+</style>
