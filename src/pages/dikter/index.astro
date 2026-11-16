@@ -10,7 +10,7 @@ const list = [...dikter].reverse();
   <div class="archive-search-panel">
     <label for="sok" class="eyebrow">SÖK I ARKIVET</label>
     <input id="sok" type="search" placeholder="Sök på titel, ord eller känsla…" autocomplete="off" />
-    <div class="filter-row"><a href={base + '/dikter/'}>Alla</a>{['Kärlek','Sorg','Saknad','Ensamhet','Livet'].map(t => <a href={base + '/dikter/?tema=' + encodeURIComponent(t)}>{t}</a>)}</div>
+    <div class="filter-row"><a href={base + '/dikter/'}>Alla</a>{['Kärlek','Längtan','Begär','Existens','Sorg','Saknad'].map(t => <a href={base + '/dikter/?tema=' + encodeURIComponent(t)}>{t}</a>)}</div>
   </div>
   <div class="archive-ledger paper-sheet full-ledger">
     <div class="ledger-heading"><span class="micro-label ink">INDEX / SAMTLIGA PUBLICERADE TEXTER</span><h2>Arkivhandlingar</h2></div>
