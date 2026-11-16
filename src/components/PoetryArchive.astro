@@ -1,0 +1,155 @@
+---
+import { getPoems, poemExcerpt } from '../lib/poetry.js';
+const { lang = 'sv' } = Astro.props;
+const en = lang === 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/,'');
+const archiveRoot = base + (en ? '/en/poems/' : '/dikter/');
+const poems = getPoems(lang);
+const labels = en ? {
+  kicker:'SPIKEN / WORDS UNDER THE SKIN',title:'The poetry',titleAccent:'archive.',
+  intro:'For everything that stayed beneath the surface. Find a feeling, a title or the words that speak to you.',
+  search:'Search the poems',placeholder:'Search titles, feelings or words…',all:'All',
+  emptyTitle:'A place for words not yet published.',emptyText:'English translations will appear here when they have been carefully prepared and published. In the meantime, you can explore the Swedish original archive.',
+  toSwedish:'Explore Swedish poems',count:'poems',read:'Read poem',noMatch:'No poems match your search.',clear:'Show all poems',
+  filters:'Browse by feeling'
+} : {
+  kicker:'SPIKEN / ORD UNDER HUDEN',title:'Dikt',titleAccent:'arkivet.',
+  intro:'För allt som aldrig riktigt fick plats i ett samtal. Sök en känsla, en titel eller de ord du behöver läsa just nu.',
+  search:'Sök bland dikterna',placeholder:'Sök titel, känsla eller ord…',all:'Alla',
+  emptyTitle:'Här får orden snart sin plats.',emptyText:'Arkivet är förberett för dina dikter. Så snart de publiceras kommer de att visas här, med egna lässidor och möjlighet att dela.',
+  toSwedish:'',count:'dikter',read:'Läs dikten',noMatch:'Inga dikter matchar din sökning.',clear:'Visa alla dikter',
+  filters:'Välj en känsla'
+};
+const moods = en ? [
+  ['Love','Love'],['Longing','Longing'],['Desire','Desire'],['Existence','Existence'],['Heartbreak','Heartbreak'],['Missing','Missing']
+] : [
+  ['Kärlek','Kärlek'],['Längtan','Längtan'],['Begär','Begär'],['Existens','Existens'],['Hjärtesorg','Hjärtesorg'],['Saknad','Saknad']
+];
+const image = base + '/images/dikt-arkiv-v2.webp';
+---
+<div class="pa-shell">
+  <section class="pa-intro" aria-labelledby="pa-title" style={`--pa-image:url("${image}")`}>
+    <div class="pa-wrap pa-intro-inner">
+      <p class="pa-eyebrow">{labels.kicker}</p>
+      <h1 id="pa-title">{labels.title}<em>{labels.titleAccent}</em></h1>
+      <p class="pa-lead">{labels.intro}</p>
+      <div class="pa-count">{String(poems.length).padStart(2,'0')} / {labels.count}</div>
+    </div>
+  </section>
+  <section class="pa-library" aria-label={en ? 'Browse poetry' : 'Utforska dikter'}>
+    <div class="pa-wrap">
+      <div class="pa-controls">
+        <div class="pa-search">
+          <label for="pa-search-input">{labels.search}</label>
+          <div class="pa-input-wrap"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input type="search" id="pa-search-input" placeholder={labels.placeholder} autocomplete="off"/></div>
+        </div>
+        <div class="pa-filters" role="group" aria-label={labels.filters}>
+          <button class="pa-filter" type="button" data-theme="" aria-pressed="true">{labels.all}</button>
+          {moods.map(([name,theme])=><button class="pa-filter" type="button" data-theme={theme.toLocaleLowerCase(lang)} aria-pressed="false">{name}</button>)}
+        </div>
+      </div>
+      {poems.length > 0 ?
+      <div class="pa-results">
+        <div class="pa-result-line"><span>{en ? 'THE COLLECTION' : 'SAMLINGEN'}</span><output id="pa-result-count">{poems.length} {labels.count}</output></div>
+        <div class="pa-grid" id="pa-poem-list">
+          {poems.map((poem,i)=><article class="pa-item" data-search={(poem.title+' '+poem.theme+' '+poem.text+' '+poem.tags.join(' ')).toLocaleLowerCase(lang)} data-theme={poem.theme.toLocaleLowerCase(lang)}>
+            <a href={archiveRoot + encodeURIComponent(poem.slug) + '/'} class="pa-item-link">
+              <div class="pa-item-top"><span>SPIKEN / {String(i+1).padStart(3,'0')}</span><span aria-hidden="true">↗</span></div>
+              <div class="pa-item-body"><span class="pa-category">{poem.theme}</span><h2>{poem.title}</h2><p>{poemExcerpt(poem.text,145)}</p></div>
+              <span class="pa-read">{labels.read} <span aria-hidden="true">→</span></span>
+            </a>
+          </article>)}
+        </div>
+        <div class="pa-no-results" id="pa-no-results" hidden><p>{labels.noMatch}</p><button id="pa-clear" type="button">{labels.clear} →</button></div>
+      </div>
+      : <div class="pa-unpublished"><span class="pa-unpublished-icon" aria-hidden="true">✧</span><h2>{labels.emptyTitle}</h2><p>{labels.emptyText}</p>{en && <a href={base+'/dikter/'}>{labels.toSwedish} →</a>}</div>}
+    </div>
+  </section>
+</div>
+<script>
+const search = document.querySelector('#pa-search-input');
+const buttons = [...document.querySelectorAll('.pa-filter')];
+const cards = [...document.querySelectorAll('.pa-item')];
+const noResults = document.querySelector('#pa-no-results');
+const count = document.querySelector('#pa-result-count');
+const clear = document.querySelector('#pa-clear');
+const locale = document.documentElement.lang || 'sv';
+const params = new URLSearchParams(window.location.search);
+let selected = (params.get('tema') || '').toLocaleLowerCase(locale);
+function refresh(){
+  const q = (search?.value||'').trim().toLocaleLowerCase(locale);
+  let visible=0;
+  for(const card of cards){
+    const matchingTheme = !selected || card.dataset.theme===selected;
+    const matchingText = !q || (card.dataset.search||'').includes(q);
+    card.hidden=!(matchingTheme && matchingText);
+    if(!card.hidden)visible++;
+  }
+  buttons.forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.theme||'')===selected)));
+  if(count)count.textContent=String(visible);
+  if(noResults)noResults.hidden=visible>0 || cards.length===0;
+}
+buttons.forEach(b=>b.addEventListener('click',()=>{
+  selected=b.dataset.theme||'';
+  const url=new URL(window.location.href);
+  if(selected)url.searchParams.set('tema',selected);
+  else url.searchParams.delete('tema');
+  window.history.replaceState({},'',url);
+  refresh();
+}));
+search?.addEventListener('input',refresh);
+clear?.addEventListener('click',()=>{
+  selected='';
+  if(search)search.value='';
+  const url=new URL(window.location.href);url.searchParams.delete('tema');window.history.replaceState({},'',url);
+  refresh();search?.focus();
+});
+refresh();
+</script>
+<style>
+.pa-shell{background:#0d0b0b;color:#eee2d9;font-family:Georgia,'Times New Roman',serif;min-height:80vh}
+.pa-wrap{width:min(1160px,calc(100% - 64px));margin-inline:auto}
+.pa-intro{position:relative;isolation:isolate;min-height:355px;display:flex;align-items:center;overflow:hidden}
+.pa-intro:before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,#0d0b0bfa 2%,#0d0b0be1 45%,#0d0b0b66 100%),linear-gradient(0deg,#0d0b0b,transparent 55%),var(--pa-image) right 40%/cover no-repeat}
+.pa-intro-inner{padding:72px 0 56px}
+.pa-eyebrow{font:700 11px Arial,sans-serif;letter-spacing:.24em;color:#d7a8a1}
+.pa-intro h1{font:italic 400 clamp(53px,7.8vw,102px)/1.1 Georgia,serif;letter-spacing:-.045em;margin:22px 0 20px}
+.pa-intro h1 em{color:#c02a34;font-weight:400}
+.pa-lead{max-width:630px;font:19px/1.7 Georgia,serif;color:#e7d7cf;margin:0}
+.pa-count{font:11px Arial,sans-serif;letter-spacing:.2em;color:#be9693;text-transform:uppercase;margin-top:28px}
+.pa-library{background:linear-gradient(180deg,#151010,#0d0b0b);padding:34px 0 100px}
+.pa-controls{display:flex;flex-direction:column;gap:22px;border-bottom:1px solid #5c3835;padding-bottom:32px}
+.pa-search label{display:block;margin-bottom:10px;font:13px Arial,sans-serif;color:#e3c8c3}
+.pa-input-wrap{position:relative;max-width:480px}
+.pa-input-wrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#bd9690}
+.pa-input-wrap input{width:100%;padding:13px 16px 13px 43px;border:1px solid #674642;border-radius:0;background:#1d1515;color:#fff;font:16px Arial,sans-serif;outline-offset:4px}
+.pa-input-wrap input::placeholder{color:#a9928d}
+.pa-filters{display:flex;gap:9px;flex-wrap:wrap}
+.pa-filter{cursor:pointer;border:1px solid #65423d;background:transparent;color:#ead6cf;padding:11px 16px;font:14px Arial,sans-serif}
+.pa-filter[aria-pressed="true"]{border-color:#b72a34;background:#74202b;color:#fff}
+.pa-filter:hover{border-color:#d6a3a3}
+.pa-results{padding-top:30px}
+.pa-result-line{display:flex;justify-content:space-between;gap:20px;padding-bottom:19px;font:11px Arial,sans-serif;letter-spacing:.14em;color:#bca09a}
+.pa-result-line output{letter-spacing:normal}
+.pa-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.pa-item{background:linear-gradient(150deg,#2d1b1d,#170f11 72%);border:1px solid #6a4544;min-height:320px}
+.pa-item[hidden]{display:none!important}
+.pa-item-link{display:flex;flex-direction:column;min-height:320px;height:100%;padding:25px 25px 21px}
+.pa-item:hover{border-color:#ba6069;background:linear-gradient(155deg,#392125,#1e1116)}
+.pa-item-top{display:flex;justify-content:space-between;font:11px Arial,sans-serif;letter-spacing:.1em;color:#c6a39f}
+.pa-item-top span:last-child{font-size:20px}
+.pa-item-body{padding:23px 0;flex:1}
+.pa-category{display:block;font:11px Arial,sans-serif;text-transform:uppercase;letter-spacing:.16em;color:#d49a9e}
+.pa-item h2{font:italic 400 clamp(28px,3vw,40px)/1.16 Georgia,serif;margin:12px 0 14px;overflow-wrap:anywhere}
+.pa-item p{font:16px/1.6 Georgia,serif;color:#d9bfc0;white-space:pre-line;margin:0}
+.pa-read{border-top:1px solid #6d4341;padding-top:16px;display:flex;justify-content:space-between;font:13px Arial,sans-serif;color:#f3dbd8}
+.pa-unpublished{max-width:700px;text-align:center;margin:45px auto 10px;padding:50px 30px 70px;background:radial-gradient(ellipse at center,#301a1da0,transparent 75%)}
+.pa-unpublished-icon{font-size:37px;color:#d1999c}
+.pa-unpublished h2{font:italic 400 clamp(31px,4vw,48px)/1.2 Georgia,serif;margin:20px 0 18px}
+.pa-unpublished p{font:18px/1.8 Georgia,serif;color:#dec8c4}
+.pa-unpublished a,.pa-no-results button{display:inline-block;margin-top:13px;padding:10px 0;border:0;border-bottom:1px solid #b72a34;background:transparent;color:#f1e6df;font:14px Arial,sans-serif;cursor:pointer}
+.pa-no-results{text-align:center;padding:45px 0}.pa-no-results[hidden]{display:none}
+@media(max-width:850px){.pa-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.pa-wrap{width:calc(100% - 36px)}.pa-intro{min-height:310px}.pa-intro-inner{padding:56px 0}.pa-intro h1{font-size:clamp(48px,11vw,70px)}.pa-lead{font-size:17px}.pa-grid{grid-template-columns:1fr}.pa-item,.pa-item-link{min-height:265px}.pa-library{padding-bottom:65px}.pa-filter{padding:10px 12px;font-size:13px}.pa-unpublished{padding:40px 6px 60px}}
+@media(prefers-reduced-motion:reduce){.pa-item{transition:none}}
+</style>
