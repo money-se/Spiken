@@ -6,14 +6,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/,'');
 const archiveRoot = base + (en ? '/en/poems/' : '/dikter/');
 const poems = getPoems(lang);
 const labels = en ? {
-  kicker:'SPIKEN · WORDS BENEATH THE SKIN',title:'Words beneath',titleAccent:'the skin.',
+  kicker:'SPIKEN · WORDS BENEATH THE SKIN',title:'Poetry',titleAccent:'archive.',
   intro:'For everything that stayed beneath the surface. Find a feeling, a title or the words that speak to you.',
   search:'Search the poems',placeholder:'Search titles, feelings or words…',all:'All',
   emptyTitle:'A place for words not yet published.',emptyText:'English translations will appear here when they have been carefully prepared and published. In the meantime, you can explore the Swedish original archive.',
   toSwedish:'Explore Swedish poems',count:'poems',read:'Read poem',noMatch:'No poems match your search.',clear:'Show all poems',
   filters:'Browse by feeling'
 } : {
-  kicker:'SPIKEN · ORD UNDER HUDEN',title:'Ord under',titleAccent:'huden.',
+  kicker:'SPIKEN · ORD UNDER HUDEN',title:'Dikt',titleAccent:'arkivet.',
   intro:'För allt som aldrig riktigt fick plats i ett samtal. Sök en känsla, en titel eller de ord du behöver läsa just nu.',
   search:'Sök bland dikterna',placeholder:'Sök titel, känsla eller ord…',all:'Alla',
   emptyTitle:'Här får orden snart sin plats.',emptyText:'Arkivet är förberett för dina dikter. Så snart de publiceras kommer de att visas här, med egna lässidor och möjlighet att dela.',
@@ -218,4 +218,45 @@ refresh();
 .pa-item h2{font-size:clamp(26px,2.5vw,37px)}
 .pa-read{margin:0 22px 20px}
 @media(max-width:600px){.pa-card-photo{height:205px}.pa-item h2{font-size:34px}}
+
+/* Arkivets slutliga övergång från filmisk hero till den gemensamma bildvärlden. */
+.pa-intro{isolation:isolate;min-height:535px}
+.pa-intro:before{
+ background-image:
+  linear-gradient(90deg,#090808fa 0%,#090808d9 32%,#09080875 56%,#09080820 100%),
+  linear-gradient(0deg,#0d0b0b 0%,transparent 45%),
+  var(--pa-image);
+ background-position:center,center,right 32%;
+ background-repeat:no-repeat;
+ background-size:cover;
+}
+.pa-intro h1{
+ font:italic 400 clamp(49px,4.8vw,73px)/1.08 Georgia,serif;
+ max-width:740px;
+ margin-bottom:17px;
+}
+.pa-intro h1 em{color:#bf2029}
+.pa-library{
+ padding-top:26px;
+ background:radial-gradient(ellipse at 80% 12%,rgba(87,23,29,.12),transparent 45%),linear-gradient(180deg,#151010,#0d0b0b);
+}
+.pa-section-heading{padding:6px 0 22px}
+.pa-section-heading h2{font-size:clamp(33px,3.3vw,48px)}
+.pa-mood-gallery{margin-bottom:29px}
+.pa-item{background:#130e0e;border-color:#61433d}
+.pa-card-photo{height:205px}
+.pa-item-top{margin:18px 23px 0}
+.pa-item-body{padding:14px 23px 20px}
+.pa-item h2{line-height:1.12}
+.pa-item p{color:#d4bdb6}
+.pa-read{margin:0 23px 20px}
+@media(max-width:600px){
+ .pa-intro{min-height:570px}
+ .pa-intro:before{
+  background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0be8 36%,#0d0b0b1a 100%),var(--pa-image);
+  background-position:center,60% 25%;
+ }
+ .pa-intro h1{font-size:clamp(45px,10.3vw,66px)}
+ .pa-card-photo{height:205px}
+}
 </style>
