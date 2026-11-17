@@ -22,8 +22,8 @@ const t=en?{
  quote:'Ord under huden.',bottom:'Gå till diktarkivet'
 };
 ---
-<div class="sp-about">
- <section class="sp-about-hero" style={`--sp-about-photo:url("${base}/images/spiken-om-sovrum.webp");--sp-about-fallback:none`}>
+<div class="sp-about" style={`--sp-about-photo:url("${base}/images/spiken-om-sovrum.webp")`}>
+ <section class="sp-about-hero">
   <div class="sp-about-inner">
    <p class="sp-about-eyebrow">{t.eyebrow}</p>
    <h1>{t.title} <em>{t.accent}</em></h1>
@@ -54,79 +54,70 @@ const t=en?{
  </section>
 </div>
 <style>
-.sp-about{background:#0d0b0b;color:#eee2d8;font-family:Georgia,serif}
-.sp-about-inner{width:min(1320px,calc(100% - 84px));margin:auto}
-.sp-about-hero{position:relative;isolation:isolate;min-height:535px;display:flex;align-items:end;overflow:hidden}
-.sp-about-hero:before{content:"";position:absolute;z-index:-1;inset:0;background-image:linear-gradient(90deg,#090808fa,#090808e6 30%,#09080874 56%,#09080820),linear-gradient(0deg,#0d0b0b,transparent 52%),var(--sp-about-photo);background-size:cover;background-position:center,center,right 29%}
-.sp-about-hero:after{content:"";position:absolute;inset: auto 0 0;height:12px;background:#0d0b0b;clip-path:polygon(0 55%,10% 40%,19% 60%,29% 42%,38% 57%,47% 39%,58% 62%,69% 38%,78% 56%,89% 41%,100% 58%,100% 100%,0 100%)}
-.sp-about-hero .sp-about-inner{padding:130px 0 65px}
-.sp-about-eyebrow,.sp-about-label{font:700 11px Arial,sans-serif;letter-spacing:.23em;color:#e5c3ba}
-.sp-about-hero h1{font:italic 400 clamp(50px,4.8vw,73px)/1.08 Georgia,serif;letter-spacing:-.035em;max-width:650px;margin:22px 0 19px}
-.sp-about-hero h1 em{color:#bd2029}
-.sp-about-lead{max-width:500px;font:19px/1.62 Georgia,serif;color:#eee0d8}
-.sp-about-primary{display:inline-flex;gap:28px;margin-top:20px;align-items:center;background:#921417;border:1px solid #b12d33;color:#fff;padding:14px 22px;font:15px Arial,sans-serif}
-.sp-about-primary:hover{background:#bf2029;color:#fff}
-.sp-about-story{padding:38px 0 53px;background:radial-gradient(ellipse at 85% 20%,#5c222328,transparent 50%),#0d0b0b}
-.sp-about-grid{display:grid;grid-template-columns:42% 1fr;gap:6%;align-items:center}
-.sp-about-portrait{min-height:365px;overflow:hidden;border:1px solid #654b43}
-.sp-about-portrait img{width:100%;height:390px;object-fit:cover;object-position:center 30%;display:block;filter:grayscale(.65)}
-.sp-about-copy{max-width:630px}
-.sp-about-copy h2{font:italic 400 clamp(36px,3.8vw,53px)/1.12 Georgia,serif;margin:19px 0}
-.sp-about-copy>p:not(.sp-about-label){font:18px/1.7 Georgia,serif;color:#ddc8c0;margin:0 0 17px}
-.sp-about-outline{display:inline-block;border:1px solid #ae383c;padding:13px 19px;margin-top:12px;font:14px Arial,sans-serif}
-.sp-about-outline:hover{background:#501a20;color:#fff}
-.sp-about-ending{border-top:1px solid #553731;text-align:center;padding:43px 0 66px;background:linear-gradient(180deg,#150e0f,#0d0b0b)}
-.sp-about-ending p{font:italic 400 clamp(30px,4vw,53px)/1.2 Georgia,serif;margin:0 0 23px}
-.sp-about-ending a{font:14px Arial,sans-serif;border-bottom:1px solid #bf3a42;padding-bottom:7px}
-@media(max-width:800px){.sp-about-grid{grid-template-columns:1fr;gap:29px}.sp-about-portrait img{height:330px}.sp-about-story{padding-top:25px}}
-@media(max-width:600px){.sp-about-inner{width:calc(100% - 36px)}.sp-about-hero{min-height:620px}.sp-about-hero:before{background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0bd0 42%,#0d0b0b20),var(--sp-about-photo);background-position:center,60% 20%}.sp-about-hero .sp-about-inner{padding:250px 0 55px}.sp-about-hero h1{font-size:clamp(44px,11vw,66px)}.sp-about-lead{font-size:17px}.sp-about-copy>p:not(.sp-about-label){font-size:17px}}
-
-/* Spiken 3.6: ett specialskapad motiv, från bild till berättelse utan upprepade foton. */
-.sp-about-hero{min-height:545px}
-.sp-about-hero:before{
+/* Spiken 3.7 – ett sammanhängande bildplan för hela Om Spiken.
+   Motivet lever från hero in i berättelsen i stället för att kapas vid sektionsgränsen. */
+.sp-about{
+ position:relative;isolation:isolate;overflow:hidden;
+ min-height:85vh;background:#0d0b0b;color:#eee2d8;
+ font-family:Georgia,'Times New Roman',serif;
+}
+.sp-about::before{
+ content:"";position:absolute;z-index:-1;
+ top:0;left:0;right:0;height:min(950px,105vw);min-height:710px;
  background-image:
-  linear-gradient(90deg,#090808f9 0%,#090808df 27%,#09080882 52%,#09080818 100%),
-  linear-gradient(0deg,#0d0b0bf0 0%,transparent 49%),
-  var(--sp-about-photo),var(--sp-about-fallback);
- background-position:center,center,right 30%,right 30%;
+  linear-gradient(90deg,#090808fb 0%,#090808e9 25%,#09080882 53%,#09080825 100%),
+  linear-gradient(180deg,#0d0b0b00 0%,#0d0b0b13 42%,#0d0b0b9d 75%,#0d0b0b 100%),
+  var(--sp-about-photo);
  background-size:cover;
  background-repeat:no-repeat;
+ background-position:center,center,right 23%;
+ pointer-events:none;
 }
-.sp-about-hero .sp-about-inner{padding-top:140px;padding-bottom:78px}
-.sp-about-story{background:linear-gradient(180deg,#15100f,#0d0b0b 85%);padding:30px 0 53px}
-.sp-about-grid{grid-template-columns:40% 1fr;gap:7%;align-items:center}
-.sp-about-manifest{
- border-right:1px solid #75524a;
- padding:22px 35px 20px 4px;
- min-height:235px;
- display:flex;
- flex-direction:column;
- justify-content:center;
- align-items:flex-start;
-}
+.sp-about-inner{width:min(1320px,calc(100% - 84px));margin-inline:auto}
+.sp-about-hero{min-height:535px;display:flex;align-items:end;position:relative;background:transparent}
+.sp-about-hero .sp-about-inner{padding:138px 0 80px}
+.sp-about-eyebrow,.sp-about-label{font:700 11px/1.5 Arial,sans-serif;letter-spacing:.23em;color:#e5c3ba}
+.sp-about-hero h1{font:italic 400 clamp(50px,4.8vw,73px)/1.08 Georgia,serif;letter-spacing:-.035em;max-width:650px;margin:21px 0 19px}
+.sp-about-hero h1 em{color:#bd2029}
+.sp-about-lead{max-width:500px;font:19px/1.62 Georgia,serif;color:#eee0d8;margin:0}
+.sp-about-primary{display:inline-flex;align-items:center;justify-content:center;gap:26px;min-height:48px;padding:13px 22px;margin-top:24px;border:1px solid #b12d33;background:#921417;color:white;font:15px Arial,sans-serif;transition:background .2s}
+.sp-about-primary:hover{background:#bf2029;color:white}
+.sp-about-story{position:relative;background:linear-gradient(180deg,#0d0b0b00 0%,#0d0b0b99 36%,#0d0b0b 88%);padding:20px 0 62px}
+.sp-about-grid{display:grid;grid-template-columns:40% 1fr;gap:7%;align-items:center}
+.sp-about-manifest{border-right:1px solid #75524a;padding:22px 35px 20px 4px;min-height:235px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
 .sp-about-manifest-mark{font:700 70px/.85 Georgia,serif;color:#bf2a34}
 .sp-about-manifest p{font:italic 400 clamp(27px,3.2vw,43px)/1.3 Georgia,serif;color:#f1e4db;margin:17px 0;max-width:410px}
 .sp-about-manifest-signature{font:11px Arial,sans-serif;color:#c5a09a;letter-spacing:.25em;border-top:2px solid #bc2831;padding-top:17px}
-.sp-about-copy{padding:20px 0}
-.sp-about-copy h2{font-size:clamp(35px,3.4vw,50px);margin:17px 0 16px}
-.sp-about-copy>p:not(.sp-about-label){font-size:17px;line-height:1.68}
-.sp-about-ending{padding:39px 0 56px;background:linear-gradient(180deg,#130e0e,#0d0b0b)}
-.sp-about-ending p{font-size:clamp(29px,3.7vw,49px)}
+.sp-about-copy{max-width:630px;padding:20px 0}
+.sp-about-copy h2{font:italic 400 clamp(35px,3.4vw,50px)/1.12 Georgia,serif;margin:17px 0 16px}
+.sp-about-copy>p:not(.sp-about-label){font:17px/1.68 Georgia,serif;color:#ddc8c0;margin:0 0 17px}
+.sp-about-outline{display:inline-block;border:1px solid #ae383c;padding:13px 19px;margin-top:12px;font:14px Arial,sans-serif}
+.sp-about-outline:hover{background:#501a20;color:#fff}
+.sp-about-ending{background:linear-gradient(180deg,#120d0d,#0d0b0b);border-top:1px solid #553731;text-align:center;padding:43px 0 64px}
+.sp-about-ending p{font:italic 400 clamp(29px,3.7vw,49px)/1.2 Georgia,serif;margin:0 0 23px}
+.sp-about-ending a{display:inline-block;font:14px Arial,sans-serif;border-bottom:1px solid #bf3a42;padding-bottom:7px}
 @media(max-width:800px){
- .sp-about-grid{grid-template-columns:1fr;gap:17px}
+ .sp-about-grid{grid-template-columns:1fr;gap:14px}
  .sp-about-manifest{min-height:0;border-right:0;border-bottom:1px solid #6b4640;padding:15px 5px 26px}
- .sp-about-story{padding:19px 0 34px}
+ .sp-about-story{padding:5px 0 45px}
 }
 @media(max-width:600px){
- .sp-about-hero{min-height:655px}
- .sp-about-hero:before{
+ .sp-about-inner{width:calc(100% - 36px)}
+ .sp-about::before{
+  height:865px;min-height:0;
   background-image:
-   linear-gradient(0deg,#0d0b0bf0 0%,#0d0b0bc0 44%,#0d0b0b20 100%),
-   var(--sp-about-photo),var(--sp-about-fallback);
-  background-position:center,61% 21%,61% 21%;
+   linear-gradient(0deg,#0d0b0b 0%,#0d0b0bc8 33%,#0d0b0b23 83%),
+   linear-gradient(90deg,#0b0808a8,transparent 75%),
+   var(--sp-about-photo);
+  background-position:center,center,61% top;
  }
- .sp-about-hero .sp-about-inner{padding:285px 0 60px}
+ .sp-about-hero{min-height:625px}
+ .sp-about-hero .sp-about-inner{padding:285px 0 70px}
+ .sp-about-hero h1{font-size:clamp(44px,11vw,66px)}
+ .sp-about-lead{font-size:17px}
+ .sp-about-story{padding-top:0}
  .sp-about-manifest p{font-size:31px}
  .sp-about-copy>p:not(.sp-about-label){font-size:17px}
 }
+@media(prefers-reduced-motion:reduce){.sp-about-primary{transition:none}}
 </style>
