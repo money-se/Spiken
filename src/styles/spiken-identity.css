@@ -127,3 +127,80 @@
   transition:none;
  }
 }
+
+
+/* Även Om Spiken och Spikens världar ingår i samma visuella system. */
+:is(.sp-about,.sp-worlds){
+ color:var(--sp-cream);background:var(--sp-ink);font-family:Georgia,'Times New Roman',serif
+}
+body:has(.sp-about) .spiken-photo-header,
+body:has(.sp-worlds) .spiken-photo-header{
+ position:absolute!important;top:0;left:0;right:0;width:100%;z-index:40;
+ background:transparent!important;background-color:transparent!important;
+ background-image:none!important;border:0!important;box-shadow:none!important
+}
+body:has(.sp-about) .spiken-photo-header .header-inner,
+body:has(.sp-worlds) .spiken-photo-header .header-inner{
+ width:min(1320px,calc(100% - 84px));min-height:74px
+}
+body:has(.sp-about) .spiken-photo-header .brand,
+body:has(.sp-worlds) .spiken-photo-header .brand{
+ font-family:'Segoe Script','Brush Script MT',Georgia,serif;
+ font-weight:400;font-style:italic;font-size:clamp(29px,2.5vw,41px);
+ letter-spacing:-.08em;gap:8px
+}
+body:has(.sp-about) .spiken-photo-header .brand>span,
+body:has(.sp-worlds) .spiken-photo-header .brand>span{order:1}
+body:has(.sp-about) .spiken-photo-header .brand .spiken-brand-image,
+body:has(.sp-worlds) .spiken-photo-header .brand .spiken-brand-image{
+ order:2;width:28px;height:45px
+}
+body:has(.sp-about) .spiken-photo-header .brand .brand-stop,
+body:has(.sp-worlds) .spiken-photo-header .brand .brand-stop{color:#b9212c}
+body:has(.sp-about) .spiken-photo-header .main-nav a,
+body:has(.sp-worlds) .spiken-photo-header .main-nav a{
+ font:16px/1.5 Georgia,serif;color:#f1e6dc
+}
+body:has(.sp-about) .spiken-photo-header :is(.brand,.main-nav a,.spiken-languages a),
+body:has(.sp-worlds) .spiken-photo-header :is(.brand,.main-nav a,.spiken-languages a){
+ text-shadow:0 1px 7px #000e,0 2px 14px #0009
+}
+body:has(.sp-about) .spiken-photo-footer,
+body:has(.sp-worlds) .spiken-photo-footer{
+ background:#0d0b0b!important;background-image:none!important;
+ border-top:1px solid #68453e;box-shadow:none
+}
+body:has(.sp-about) .spiken-photo-footer .footer-inner,
+body:has(.sp-worlds) .spiken-photo-footer .footer-inner{
+ width:min(1320px,calc(100% - 84px));min-height:145px;padding-block:28px
+}
+body:has(.sp-about) .spiken-photo-footer .footer-brand,
+body:has(.sp-worlds) .spiken-photo-footer .footer-brand{
+ font:italic 400 29px Georgia,serif;letter-spacing:0
+}
+body:has(.sp-about) .spiken-photo-footer .footer-inner p,
+body:has(.sp-worlds) .spiken-photo-footer .footer-inner p{
+ font:italic 15px Georgia,serif;color:#d9bbb0
+}
+body:has(.sp-about) .spiken-photo-footer .footer-right a,
+body:has(.sp-worlds) .spiken-photo-footer .footer-right a{
+ font:13px Arial,sans-serif;color:#d8cac1;border-bottom:0
+}
+@media(max-width:900px){
+ body:has(.sp-about) .spiken-photo-header .header-inner,
+ body:has(.sp-worlds) .spiken-photo-header .header-inner,
+ body:has(.sp-about) .spiken-photo-footer .footer-inner,
+ body:has(.sp-worlds) .spiken-photo-footer .footer-inner{width:calc(100% - 36px)}
+ body:has(.sp-about) .spiken-photo-header .main-nav a,
+ body:has(.sp-worlds) .spiken-photo-header .main-nav a{font-size:13px}
+}
+@media(max-width:700px){
+ body:has(.sp-about) .spiken-photo-header,
+ body:has(.sp-worlds) .spiken-photo-header{
+  background:linear-gradient(180deg,#05040555,transparent)!important
+ }
+ body:has(.sp-about) .spiken-photo-header .header-inner,
+ body:has(.sp-worlds) .spiken-photo-header .header-inner{
+  min-height:0;padding:9px 0 11px
+ }
+}
