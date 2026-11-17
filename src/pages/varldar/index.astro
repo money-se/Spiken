@@ -1,30 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-const base = import.meta.env.BASE_URL.replace(/\/$/,'');
-const parts=[['noveller','Noveller','Berättelser om det mänskliga, det förbjudna och det märkliga.'],['recensioner','Recensioner','Litteratur, berättelser och upplevelser som lämnar spår.'],['mork-poesi','Mörk poesi','Ord från de delar av livet som inte alltid får synas.'],['reflektioner','Reflektioner','Tankar om livet, människan, kärleken och medvetandet.'],['min-bibel','Min Bibel','Ett pågående skönlitterärt religions- och mytologibygge.']];
+import SpikenWorlds from '../../components/SpikenWorlds.astro';
 ---
-<Layout title="Spikens världar – Noveller, reflektioner och mytologi" description="Upptäck Spikens världar: noveller, mörk poesi, recensioner, reflektioner och det skönlitterära projektet Min Bibel." lang="sv" alternatePath="/en/worlds/">
-<section class="worlds-page" style={`--world-image:url("${base}/images/varldar-bibliotek.webp")`}>
- <div class="worlds-overlay">
- <div class="wrap worlds-content">
-  <p class="worlds-kicker">SPIKEN / ETT LITTERÄRT UNIVERSUM</p><h1>Spikens <em>världar.</em></h1>
-  <p class="worlds-intro">Alla berättelser passar inte under huden. Här finns utrymme för allt annat som växer fram ur orden.</p>
-  <div class="worlds-entries">{parts.map(([id,name,desc])=><article id={id} class="worlds-entry"><small>EN DEL AV SPIKEN</small><h2>{name}</h2><p>{desc}</p><span class="worlds-soon">Under uppbyggnad</span></article>)}</div>
-  <a class="worlds-back" href={base+'/'}>← Tillbaka till Under huden</a>
- </div></div>
-</section>
+<Layout title="Spikens världar – Noveller, reflektioner och mytologi" description="Upptäck Spikens världar: noveller, mörk poesi, recensioner, reflektioner och Min Bibel." lang="sv" alternatePath="/en/worlds/">
+ <SpikenWorlds lang="sv"/>
 </Layout>
-<style>
-.worlds-page{background:#11090e;color:#f0e0dd;font-family:Georgia,serif;min-height:100vh;background-image:var(--world-image);background-size:cover;background-attachment:fixed;background-position:center top}
-.worlds-overlay{background:linear-gradient(90deg,#10080eea,#10080ea8),linear-gradient(0deg,#10080ef2,#10080e70);padding:115px 0}
-.worlds-content{max-width:1120px}.worlds-kicker{font:700 11px Arial,sans-serif;letter-spacing:.25em;color:#d2a0a8}
-.worlds-content h1{font-size:clamp(55px,8vw,112px);font-weight:400;margin:28px 0}.worlds-content h1 em{color:#d8a4b2}
-.worlds-intro{max-width:730px;font-size:clamp(19px,2.2vw,27px);line-height:1.65;color:#e3cbd0}
-.worlds-entries{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;margin:62px 0}
-.worlds-entry{padding:32px;background:#1b0c15e6;border:1px solid #784958;scroll-margin-top:20px}
-.worlds-entry small,.worlds-soon{font:11px Arial,sans-serif;letter-spacing:.16em;color:#c79ba8}
-.worlds-entry h2{font-size:clamp(27px,3.2vw,42px);font-weight:400;margin:14px 0 10px}
-.worlds-entry p{font-size:17px;color:#dec7cd}.worlds-soon{display:inline-block;border-top:1px solid #905b66;padding-top:12px}
-.worlds-back{display:inline-block;font:14px Arial,sans-serif;border-bottom:1px solid #b86f84;padding-bottom:9px}
-@media(max-width:700px){.worlds-overlay{padding:70px 0}.worlds-page{background-attachment:scroll}.worlds-entries{grid-template-columns:1fr;margin:35px 0}.worlds-entry{padding:24px}}
-</style>
