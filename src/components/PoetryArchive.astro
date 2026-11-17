@@ -28,8 +28,8 @@ const moods = en ? [
 const image = base + '/images/spiken-arkiv-hero.webp';
 const fallbackImage = base + '/images/spiken-3-forfattare.webp';
 ---
-<div class="pa-shell">
-  <section class="pa-intro" aria-labelledby="pa-title" style={`--pa-image:url("${image}");--pa-fallback:url("${fallbackImage}")`}>
+<div class="pa-shell" style={`--pa-image:url("${image}");--pa-fallback:url("${fallbackImage}")`}>
+  <section class="pa-intro" aria-labelledby="pa-title">
     <div class="pa-wrap pa-intro-inner">
       <p class="pa-eyebrow">{labels.kicker}</p>
       <h1 id="pa-title">{labels.title}<em>{labels.titleAccent}</em></h1>
@@ -39,7 +39,7 @@ const fallbackImage = base + '/images/spiken-3-forfattare.webp';
   </section>
   <section class="pa-library" id="pa-explore" aria-label={en ? 'Browse poetry' : 'Utforska dikter'}>
     <div class="pa-wrap">
-      <div class="pa-section-heading"><h2>{en ? 'Choose a feeling.' : 'Välj en känsla.'}</h2><p>{en ? 'Every feeling has its own words.' : 'Varje känsla har sina egna ord.'}</p></div>
+      
       <div class="pa-mood-gallery" role="group" aria-label={labels.filters}>
         {[
           {sv:'Kärlek',en:'Love',image:'kategori-karlek'},
@@ -51,6 +51,7 @@ const fallbackImage = base + '/images/spiken-3-forfattare.webp';
           <span>{en?m.en:m.sv}</span><i aria-hidden="true"></i>
         </button>)}
       </div>
+      <div class="pa-section-heading"><h2>{en ? 'Choose a feeling.' : 'Välj en känsla.'}</h2><p>{en ? 'Every feeling has its own words.' : 'Varje känsla har sina egna ord.'}</p></div>
       <div class="pa-controls">
         <div class="pa-search">
           <label for="pa-search-input">{labels.search}</label>
@@ -272,5 +273,76 @@ refresh();
   background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0bd8 43%,#0d0b0b10 100%),var(--pa-image),var(--pa-fallback);
   background-position:center,61% 25%,61% 25%;
  }
+}
+
+/* Spiken 3.4 – arkivet ska upplevas som en sammanhängande scen.
+   Känslobilderna lyfts in i hero-bildens mörka nederkant (samma rytm som startsidan).
+   Den dedikerade arkivbilden fortsätter som en svag bakgrund bakom korten. */
+.pa-shell{isolation:isolate;overflow:hidden}
+.pa-intro{min-height:535px;position:relative;overflow:visible}
+.pa-intro:before{
+ background-image:
+   linear-gradient(90deg,#090808fa 0%,#090808dc 32%,#09080878 57%,#09080820 100%),
+   linear-gradient(0deg,#0d0b0beb 0%,#0d0b0b22 51%,transparent 85%),
+   var(--pa-image),var(--pa-fallback);
+ background-position:center,center,right 35%,right 35%;
+ background-size:cover;
+}
+.pa-intro:after{display:none}
+.pa-intro-inner{padding-bottom:122px}
+.pa-library{
+ position:relative;
+ isolation:isolate;
+ z-index:2;
+ padding-top:0;
+ margin-top:-78px;
+ background:transparent;
+}
+.pa-library:before{
+ content:"";z-index:-1;position:absolute;inset:0;pointer-events:none;
+ background:
+  linear-gradient(180deg,#0d0b0b00 0px,#0d0b0baa 70px,#0d0b0bf4 190px,#0d0b0b 520px),
+  radial-gradient(ellipse at 72% 2%,#8b3c342c,transparent 35%);
+}
+.pa-mood-gallery{
+ margin:0 0 24px;
+ position:relative;
+ filter:drop-shadow(0 15px 22px #0009);
+}
+.pa-mood-button{border-color:#685148;background:#130d0d}
+.pa-section-heading{
+ text-align:left;
+ padding:22px 0 13px;
+ border-bottom:1px solid #513b36;
+ margin-bottom:19px;
+ display:flex;
+ align-items:baseline;
+ justify-content:space-between;
+ gap:20px;
+}
+.pa-section-heading h2{font:italic 400 clamp(30px,3vw,42px)/1.16 Georgia,serif;margin:0}
+.pa-section-heading p{font:15px/1.55 Georgia,serif;margin:0;color:#bba39a}
+.pa-controls{padding-top:7px;border-bottom-color:#50352f}
+.pa-results{padding-top:22px}
+.pa-item{background:#140e10}
+@media(max-width:900px){
+ .pa-intro-inner{padding-bottom:125px}
+ .pa-library{margin-top:-64px}
+ .pa-section-heading{display:block}
+ .pa-section-heading p{margin-top:8px}
+}
+@media(max-width:600px){
+ .pa-intro{min-height:590px}
+ .pa-intro:before{
+  background-image:
+   linear-gradient(0deg,#0d0b0bdc 0%,#0d0b0b8c 38%,#0d0b0b22 100%),
+   var(--pa-image),var(--pa-fallback);
+  background-position:center,61% 24%,61% 24%;
+ }
+ .pa-intro-inner{padding:225px 0 140px}
+ .pa-library{margin-top:-101px}
+ .pa-library:before{background:linear-gradient(180deg,transparent 0px,#0d0b0bcb 82px,#0d0b0b 210px)}
+ .pa-mood-gallery{margin-bottom:18px}
+ .pa-section-heading{padding-top:17px}
 }
 </style>
