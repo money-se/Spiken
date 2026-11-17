@@ -1,0 +1,129 @@
+/*
+ * SPIKEN / GEMENSAM IDENTITET
+ * Designreferens: startsidan Spiken 3.0 "Ord under huden".
+ * Samlar sidan gemensamma visuella regler; innehåll och SEO styrs av sidmallarna.
+ */
+:root{
+ --sp-ink:#0d0b0b;
+ --sp-ink-soft:#151010;
+ --sp-cream:#eee2d8;
+ --sp-muted:#cfbbb4;
+ --sp-red:#b9232d;
+ --sp-red-deep:#921417;
+ --sp-border:#63443d;
+ --sp-width:1320px;
+}
+:is(.spiken-three,.pa-shell,.prv3,.sp-category){
+ color:var(--sp-cream);
+ background:var(--sp-ink);
+ font-family:Georgia,'Times New Roman',serif;
+}
+:is(.spiken-three,.pa-shell,.prv3,.sp-category) :is(h1,h2,h3){
+ font-family:Georgia,'Times New Roman',serif;
+ font-weight:400;
+}
+:is(.spiken-three,.pa-shell,.prv3,.sp-category) a:focus-visible,
+:is(.spiken-three,.pa-shell,.prv3,.sp-category) button:focus-visible{
+ outline:2px solid #e6babb;
+ outline-offset:3px;
+}
+/* Gemensam bildkomposition: ett motiv bakom texten och en naturlig nedtoning. */
+:is(.pa-intro,.prv3-hero,.sp-category-head){
+ isolation:isolate;
+ position:relative;
+ overflow:hidden;
+}
+:is(.pa-intro,.prv3-hero,.sp-category-head) :is(.pa-eyebrow,.prv3-eyebrow,.sp-category-label){
+ font:700 11px/1.6 Arial,sans-serif;
+ letter-spacing:.24em;
+ color:#edcfc6;
+}
+.pa-intro h1,.prv3-hero h1,.sp-category h1{
+ font:italic 400 clamp(50px,4.8vw,73px)/1.09 Georgia,serif;
+ letter-spacing:-.035em;
+ text-wrap:balance;
+}
+:is(.pa-hero-link,.prv3-read-button,.sp-category-jump){
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ gap:24px;
+ padding:13px 22px;
+ background:var(--sp-red-deep);
+ border:1px solid #af2831;
+ color:#fff;
+ border-radius:0;
+ font:15px/1.4 Arial,sans-serif;
+ transition:background .2s ease,border-color .2s ease;
+}
+:is(.pa-hero-link,.prv3-read-button,.sp-category-jump):hover{
+ background:#bf2029;
+ color:#fff;
+ border-color:#d44d52;
+}
+/* Svagt handgjord, ojämn avgränsning mellan fotografi och textdel. */
+:is(.pa-intro,.prv3-hero,.sp-category-head)::after{
+ content:"";
+ position:absolute;
+ bottom:-1px;left:0;right:0;
+ height:14px;
+ background:#0d0b0b;
+ clip-path:polygon(0 56%,3% 45%,6% 62%,9% 43%,12% 55%,16% 42%,19% 61%,23% 51%,27% 63%,31% 38%,36% 57%,40% 42%,44% 65%,49% 45%,54% 59%,59% 39%,64% 61%,69% 43%,74% 58%,79% 42%,84% 61%,89% 45%,94% 60%,100% 46%,100% 100%,0 100%);
+ z-index:2;
+ pointer-events:none;
+ opacity:.92;
+}
+:is(.pa-library,.prv3-reading,.sp-category-content){
+ background:
+ radial-gradient(ellipse at 85% 4%,rgba(106,28,35,.12),transparent 43%),
+ linear-gradient(180deg,#151010,#0d0b0b 72%);
+}
+/* Fotografi + mörk toning, inte separata röda brickor. */
+:is(.pa-item,.sp-category-card,.prv3-related-card){
+ border:1px solid #61483f;
+ background:#161011;
+ overflow:hidden;
+ transition:border-color .25s ease,transform .25s ease;
+}
+:is(.pa-item,.sp-category-card,.prv3-related-card):hover{
+ border-color:#ba6262;
+ transform:translateY(-2px);
+}
+/* En och samma linje och typografiska färgskala för kategorier/metatext. */
+:is(.pa-category,.sp-category-card-text>span,.prv3-related-type){
+ color:#dbaba6;
+ letter-spacing:.15em;
+ text-transform:uppercase;
+ font:11px/1.5 Arial,sans-serif;
+}
+:is(.pa-item h2,.sp-category-card h3,.prv3-related-card strong){
+ font:italic 400 clamp(27px,2.3vw,35px)/1.2 Georgia,serif;
+ color:#f5e8df;
+}
+:is(.pa-item p,.sp-category-card p){
+ color:#d9c4bb;
+ font:15px/1.62 Georgia,serif;
+}
+:is(.pa-mood-button,.s3-mood){
+ box-shadow:0 2px 14px #0004;
+}
+:is(.pa-library,.sp-category-content,.prv3-next) :is(h2){
+ color:#f2e3da;
+}
+@media(min-width:901px){
+ .pa-intro,.sp-category-head{min-height:535px}
+ .pa-intro-inner,.sp-category-head .sp-category-wrap{padding-top:130px;padding-bottom:65px}
+ .prv3-hero{min-height:550px}
+ .prv3-hero .prv3-wide{padding:125px 0 62px}
+}
+@media(max-width:700px){
+ :is(.pa-intro,.prv3-hero,.sp-category-head)::after{height:9px}
+ .pa-intro h1,.prv3-hero h1,.sp-category h1{
+  font-size:clamp(43px,10.5vw,67px);
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ :is(.pa-item,.sp-category-card,.prv3-related-card,.pa-hero-link,.prv3-read-button,.sp-category-jump){
+  transition:none;
+ }
+}
