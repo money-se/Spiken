@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "dikter:kontrollera": "node scripts/importera-dikter.mjs --dry-run",
+    "dikter:importera": "node scripts/importera-dikter.mjs",
+    "test:import": "node --test scripts/importera-dikter.test.mjs"
   },
   "dependencies": {
     "astro": "^5.0.0",
