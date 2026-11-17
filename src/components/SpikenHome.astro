@@ -268,4 +268,39 @@ const journeys = [
  }
  .s3-hero-inner{padding-top:300px;padding-bottom:54px}
 }
+/* Spiken 3.8 – samma mjuka övergång som på Om Spiken och Diktarkivet.
+   Låt godkänd hero-bild och hela sidans komposition vara oförändrade. */
+.spiken-three{position:relative}
+.spiken-three::before{
+ content:"";position:absolute;z-index:-1;pointer-events:none;
+ left:0;right:0;top:0;height:850px;
+ background-image:
+  linear-gradient(90deg,#08090afa 0%,#090809eb 27%,#09080978 48%,#08090a26 76%,#08090a24 100%),
+  linear-gradient(180deg,transparent 0%,transparent 43%,#0d0b0b40 65%,#0d0b0b 100%),
+  var(--s3-hero),var(--s3-hero-fallback);
+ background-position:center,center,right 16%,right 16%;
+ background-size:cover;background-repeat:no-repeat;
+}
+.s3-hero{isolation:auto;background:transparent}
+.s3-hero-visual{background:none}
+.s3-hero::after{background:linear-gradient(180deg,transparent 74%,#0d0b0b21 100%)}
+.s3-feelings{background:linear-gradient(180deg,#0d0b0b0a 0%,#0d0b0b5c 55%,#0d0b0b 100%)}
+.s3-feelings::before{display:none}
+@media(min-width:1050px){
+ .s3-feelings{background:linear-gradient(180deg,#0d0b0b0a,#0d0b0b8a 60%,#0d0b0b 100%)}
+}
+@media(min-width:701px) and (max-width:1049px){
+ .spiken-three::before{height:900px;background-position:center,center,68% 13%,68% 13%}
+}
+@media(max-width:700px){
+ .spiken-three::before{
+  height:1070px;
+  background-image:
+   linear-gradient(0deg,#0d0b0b 0%,#0d0b0b99 29%,#09080ab8 55%,#09080a1c 90%),
+   var(--s3-hero),var(--s3-hero-fallback);
+  background-position:center,60% 10%,60% 10%;
+ }
+ .s3-feelings{background:linear-gradient(180deg,transparent,#0d0b0b77 46%,#0d0b0b 100%)}
+}
+
 </style>
