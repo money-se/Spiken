@@ -23,7 +23,7 @@ const t=en?{
 };
 ---
 <div class="sp-about">
- <section class="sp-about-hero" style={`--sp-about-photo:url("${base}/images/spiken-3-forfattare.webp")`}>
+ <section class="sp-about-hero" style={`--sp-about-photo:url("${base}/images/spiken-om-hero.webp");--sp-about-fallback:url("${base}/images/spiken-3-forfattare.webp")`}>
   <div class="sp-about-inner">
    <p class="sp-about-eyebrow">{t.eyebrow}</p>
    <h1>{t.title} <em>{t.accent}</em></h1>
@@ -33,8 +33,10 @@ const t=en?{
  </section>
  <section class="sp-about-story">
   <div class="sp-about-inner sp-about-grid">
-    <div class="sp-about-portrait">
-      <img src={base+'/images/spiken-3-forfattare.webp'} width="800" height="1000" loading="lazy" alt={en?'A writer working with his notebook':'En författare som skriver i sin anteckningsbok'}/>
+    <div class="sp-about-manifest">
+      <span aria-hidden="true" class="sp-about-manifest-mark">“</span>
+      <p>{en ? 'Some feelings need more than silence.' : 'Vissa känslor behöver mer än tystnad.'}</p>
+      <div class="sp-about-manifest-signature">— SPIKEN</div>
     </div>
     <div class="sp-about-copy">
      <p class="sp-about-label">{en?'THE HUMAN BEHIND THE WORDS':'MÄNNISKAN BAKOM ORDEN'}</p>
@@ -78,4 +80,53 @@ const t=en?{
 .sp-about-ending a{font:14px Arial,sans-serif;border-bottom:1px solid #bf3a42;padding-bottom:7px}
 @media(max-width:800px){.sp-about-grid{grid-template-columns:1fr;gap:29px}.sp-about-portrait img{height:330px}.sp-about-story{padding-top:25px}}
 @media(max-width:600px){.sp-about-inner{width:calc(100% - 36px)}.sp-about-hero{min-height:620px}.sp-about-hero:before{background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0bd0 42%,#0d0b0b20),var(--sp-about-photo);background-position:center,60% 20%}.sp-about-hero .sp-about-inner{padding:250px 0 55px}.sp-about-hero h1{font-size:clamp(44px,11vw,66px)}.sp-about-lead{font-size:17px}.sp-about-copy>p:not(.sp-about-label){font-size:17px}}
+
+/* Spiken 3.6: ett specialskapad motiv, från bild till berättelse utan upprepade foton. */
+.sp-about-hero{min-height:545px}
+.sp-about-hero:before{
+ background-image:
+  linear-gradient(90deg,#090808f9 0%,#090808df 27%,#09080882 52%,#09080818 100%),
+  linear-gradient(0deg,#0d0b0bf0 0%,transparent 49%),
+  var(--sp-about-photo),var(--sp-about-fallback);
+ background-position:center,center,right 30%,right 30%;
+ background-size:cover;
+ background-repeat:no-repeat;
+}
+.sp-about-hero .sp-about-inner{padding-top:140px;padding-bottom:78px}
+.sp-about-story{background:linear-gradient(180deg,#15100f,#0d0b0b 85%);padding:30px 0 53px}
+.sp-about-grid{grid-template-columns:40% 1fr;gap:7%;align-items:center}
+.sp-about-manifest{
+ border-right:1px solid #75524a;
+ padding:22px 35px 20px 4px;
+ min-height:235px;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:flex-start;
+}
+.sp-about-manifest-mark{font:700 70px/.85 Georgia,serif;color:#bf2a34}
+.sp-about-manifest p{font:italic 400 clamp(27px,3.2vw,43px)/1.3 Georgia,serif;color:#f1e4db;margin:17px 0;max-width:410px}
+.sp-about-manifest-signature{font:11px Arial,sans-serif;color:#c5a09a;letter-spacing:.25em;border-top:2px solid #bc2831;padding-top:17px}
+.sp-about-copy{padding:20px 0}
+.sp-about-copy h2{font-size:clamp(35px,3.4vw,50px);margin:17px 0 16px}
+.sp-about-copy>p:not(.sp-about-label){font-size:17px;line-height:1.68}
+.sp-about-ending{padding:39px 0 56px;background:linear-gradient(180deg,#130e0e,#0d0b0b)}
+.sp-about-ending p{font-size:clamp(29px,3.7vw,49px)}
+@media(max-width:800px){
+ .sp-about-grid{grid-template-columns:1fr;gap:17px}
+ .sp-about-manifest{min-height:0;border-right:0;border-bottom:1px solid #6b4640;padding:15px 5px 26px}
+ .sp-about-story{padding:19px 0 34px}
+}
+@media(max-width:600px){
+ .sp-about-hero{min-height:655px}
+ .sp-about-hero:before{
+  background-image:
+   linear-gradient(0deg,#0d0b0bf0 0%,#0d0b0bc0 44%,#0d0b0b20 100%),
+   var(--sp-about-photo),var(--sp-about-fallback);
+  background-position:center,61% 21%,61% 21%;
+ }
+ .sp-about-hero .sp-about-inner{padding:285px 0 60px}
+ .sp-about-manifest p{font-size:31px}
+ .sp-about-copy>p:not(.sp-about-label){font-size:17px}
+}
 </style>
