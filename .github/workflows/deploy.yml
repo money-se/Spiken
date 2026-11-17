@@ -93,6 +93,11 @@ jobs:
           else
             echo "Bildpaketet för Spikens världar saknas ännu."
           fi
+      - name: Kontrollera diktimporten
+        run: |
+          node --check scripts/importera-dikter.mjs
+          npm run test:import
+          npm run dikter:kontrollera
       - name: Bygg webbplatsen
         run: npm run build
       - name: Ladda upp webbplatsen
