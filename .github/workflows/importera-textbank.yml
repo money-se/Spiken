@@ -1,0 +1,45 @@
+name: Importera Spikens textbank som utkast
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'textbank/inkorg/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: spiken-textbank-import
+  cancel-in-progress: false
+
+jobs:
+  importera:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hämta kod och texter
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Installera Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Kontrollera importverktyg och testfall
+        run: |
+          node --check scripts/importera-dikter.mjs
+          npm run test:import
+          npm run dikter:kontrollera
+      - name: Importera som utkast
+        run: npm run dikter:importera
+      - name: Spara utkasten i GitHub
+        run: |
+          if git diff --quiet -- src/data/publiceringsregister.json; then
+            echo "Inga nya dikter att registrera."
+            exit 0
+          fi
+          git config user.name "spiken-textbank[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/publiceringsregister.json
+          git commit -m "Textbank: registrera nya dikter som utkast"
+          git push
