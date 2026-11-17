@@ -123,70 +123,70 @@ body:has(.spiken-simple) .spiken-photo-footer .footer-inner{
 
 <style>
 /* Spiken 3.0: sammanhängande sidhuvud och sidfot för startsidan. */
-body:has(.spiken-three){background:#0d0b0b}
-body:has(.spiken-three) .spiken-photo-header{
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)){background:#0d0b0b}
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header{
  background-color:#090909;
  background-image:linear-gradient(90deg,#0b0a0afa,#0c0a0afa);
  border-bottom:1px solid #33221f;
  box-shadow:none;
 }
-body:has(.spiken-three) .spiken-photo-header .header-inner{
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .header-inner{
  width:min(1320px,calc(100% - 84px));
  min-height:72px;
 }
-body:has(.spiken-three) .spiken-photo-header .brand{
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .brand{
  font:italic 400 32px/1 Georgia,'Times New Roman',serif;
  letter-spacing:-.045em;
  gap:8px;
 }
-body:has(.spiken-three) .spiken-photo-header .spiken-brand-image{
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .spiken-brand-image{
  width:28px;height:42px;
 }
-body:has(.spiken-three) .spiken-photo-header .main-nav a{
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .main-nav a{
  font:16px/1.5 Georgia,serif;
  color:#f1e6dc;
 }
-body:has(.spiken-three) .spiken-photo-header .main-nav a:hover{color:#d94b50}
-body:has(.spiken-three) .spiken-photo-footer{
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .main-nav a:hover{color:#d94b50}
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-footer{
  background:#0d0b0b;
  border-top:1px solid #68453e;
  box-shadow:none;
 }
-body:has(.spiken-three) .spiken-photo-footer .footer-inner{
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-footer .footer-inner{
  width:min(1320px,calc(100% - 84px));
  min-height:145px;
  padding-block:28px;
 }
-body:has(.spiken-three) .spiken-photo-footer .footer-brand{
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-footer .footer-brand{
  font:italic 400 29px Georgia,serif;
  letter-spacing:0;
 }
-body:has(.spiken-three) .spiken-photo-footer .footer-right a{
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-footer .footer-right a{
  border-bottom:0;
  color:#d8cac1;
  font:13px Arial,sans-serif;
  padding-bottom:4px;
 }
-body:has(.spiken-three) .spiken-photo-footer .footer-right a:hover{color:#f2d3d2}
-body:has(.spiken-three) .spiken-photo-footer .footer-inner p{
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-footer .footer-right a:hover{color:#f2d3d2}
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-footer .footer-inner p{
  font:italic 15px Georgia,serif;color:#d9bbb0
 }
 @media(max-width:900px){
- body:has(.spiken-three) .spiken-photo-header .header-inner,
- body:has(.spiken-three) .spiken-photo-footer .footer-inner{
+ body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .header-inner,
+ body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-footer .footer-inner{
  width:calc(100% - 36px)}
- body:has(.spiken-three) .spiken-photo-header .main-nav a{font-size:13px}
+ body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .main-nav a{font-size:13px}
 }
 @media(max-width:700px){
- body:has(.spiken-three) .spiken-photo-header .header-inner{padding:9px 0 11px;min-height:0}
- body:has(.spiken-three) .spiken-photo-header .brand{font-size:26px}
- body:has(.spiken-three) .spiken-photo-footer .footer-inner{min-height:0;padding-block:32px}
+ body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .header-inner{padding:9px 0 11px;min-height:0}
+ body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .brand{font-size:26px}
+ body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-footer .footer-inner{min-height:0;padding-block:32px}
 }
 </style>
 
 <style>
 /* Spiken 3.1: handskriftskänsla och signatur i sidhuvudet, som i referensen. */
-body:has(.spiken-three) .spiken-photo-header .brand{
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .brand{
   font-family:'Segoe Script','Brush Script MT',Georgia,serif;
   font-size:clamp(29px,2.5vw,41px);
   font-style:italic;
@@ -194,20 +194,20 @@ body:has(.spiken-three) .spiken-photo-header .brand{
   letter-spacing:-.08em;
   text-transform:none;
 }
-body:has(.spiken-three) .spiken-photo-header .brand .brand-stop{color:#b9212c}
-body:has(.spiken-three) .spiken-photo-header .brand .spiken-brand-image{order:2;width:28px;height:45px}
-body:has(.spiken-three) .spiken-photo-header .brand>span{order:1}
-body:has(.spiken-three) .spiken-photo-header .header-inner{min-height:62px}
-body:has(.spiken-three) .spiken-photo-header{border-bottom-color:#2e2421}
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .brand .brand-stop{color:#b9212c}
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .brand .spiken-brand-image{order:2;width:28px;height:45px}
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .brand>span{order:1}
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .header-inner{min-height:62px}
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header{border-bottom-color:#2e2421}
 @media(max-width:700px){
- body:has(.spiken-three) .spiken-photo-header .brand{font-size:29px}
- body:has(.spiken-three) .spiken-photo-header .header-inner{min-height:0}
+ body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .brand{font-size:29px}
+ body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .header-inner{min-height:0}
 }
 </style>
 
 <style>
 /* Startsidan: navigeringen flyter ovanpå själva hero-bilden, inte i ett separat band. */
-body:has(.spiken-three) .spiken-photo-header{
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header{
  position:absolute;
  top:0;
  left:0;
@@ -219,14 +219,14 @@ body:has(.spiken-three) .spiken-photo-header{
  border:0;
  box-shadow:none;
 }
-body:has(.spiken-three) .spiken-photo-header .header-inner{
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .header-inner{
  min-height:74px;
 }
 @media(max-width:700px){
- body:has(.spiken-three) .spiken-photo-header{
+ body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header{
   background-image:linear-gradient(180deg,rgba(9,7,8,.95),rgba(9,7,8,.76) 80%,rgba(9,7,8,.20));
  }
- body:has(.spiken-three) .spiken-photo-header .header-inner{
+ body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .header-inner{
   min-height:0;
  }
 }
@@ -234,180 +234,30 @@ body:has(.spiken-three) .spiken-photo-header .header-inner{
 
 <style>
 /* Spiken 3.2: faktiskt genomskinlig navigation över hela hero-fotot. */
-body:has(.spiken-three) .spiken-photo-header{
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header{
  background:transparent !important;
  background-color:transparent !important;
  background-image:none !important;
  border:0 !important;
  box-shadow:none !important;
 }
-body:has(.spiken-three) .spiken-photo-header .brand,
-body:has(.spiken-three) .spiken-photo-header .main-nav a,
-body:has(.spiken-three) .spiken-photo-header .spiken-languages a{
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .brand,
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .main-nav a,
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .spiken-languages a{
  text-shadow:0 1px 7px rgba(0,0,0,.88),0 2px 14px rgba(0,0,0,.55);
 }
 @media(max-width:700px){
- body:has(.spiken-three) .spiken-photo-header{
+ body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header{
   background:linear-gradient(180deg,rgba(5,4,5,.34),transparent) !important;
  }
 }
 </style>
 
-<style>
-/* Samma header/footer för Spiken 3.0 och dess diktarkiv. */
-body:has(.pa-shell) .spiken-photo-header{
- position:absolute;top:0;left:0;right:0;width:100%;z-index:40;
- background:transparent !important;background-color:transparent !important;
- background-image:none !important;border:0 !important;box-shadow:none !important;
-}
-body:has(.pa-shell) .spiken-photo-header .header-inner{
- width:min(1320px,calc(100% - 84px));min-height:74px
-}
-body:has(.pa-shell) .spiken-photo-header .brand{
- font-family:'Segoe Script','Brush Script MT',Georgia,serif;
- font-weight:400;font-size:clamp(29px,2.5vw,41px);font-style:italic;letter-spacing:-.08em;gap:8px
-}
-body:has(.pa-shell) .spiken-photo-header .brand>span{order:1}
-body:has(.pa-shell) .spiken-photo-header .brand .spiken-brand-image{order:2;width:28px;height:45px}
-body:has(.pa-shell) .spiken-photo-header .brand .brand-stop{color:#b9212c}
-body:has(.pa-shell) .spiken-photo-header .main-nav a{
- font:16px/1.5 Georgia,serif;color:#f1e6dc
-}
-body:has(.pa-shell) .spiken-photo-header .main-nav a:hover{color:#d94b50}
-body:has(.pa-shell) .spiken-photo-header .brand,
-body:has(.pa-shell) .spiken-photo-header .main-nav a,
-body:has(.pa-shell) .spiken-photo-header .spiken-languages a{
- text-shadow:0 1px 7px #000e,0 2px 14px #0009
-}
-body:has(.pa-shell) .spiken-photo-footer{
- background:#0d0b0b;border-top:1px solid #68453e;box-shadow:none
-}
-body:has(.pa-shell) .spiken-photo-footer .footer-inner{
- width:min(1320px,calc(100% - 84px));min-height:145px;padding-block:28px
-}
-body:has(.pa-shell) .spiken-photo-footer .footer-brand{
- font:italic 400 29px Georgia,serif;letter-spacing:0
-}
-body:has(.pa-shell) .spiken-photo-footer .footer-inner p{font:italic 15px Georgia,serif;color:#d9bbb0}
-body:has(.pa-shell) .spiken-photo-footer .footer-right a{
- border-bottom:0;color:#d8cac1;font:13px Arial,sans-serif;padding-bottom:4px
-}
-@media(max-width:900px){
- body:has(.pa-shell) .spiken-photo-header .header-inner,
- body:has(.pa-shell) .spiken-photo-footer .footer-inner{width:calc(100% - 36px)}
- body:has(.pa-shell) .spiken-photo-header .main-nav a{font-size:13px}
-}
-@media(max-width:700px){
- body:has(.pa-shell) .spiken-photo-header{background:linear-gradient(180deg,#05040555,transparent) !important}
- body:has(.pa-shell) .spiken-photo-header .header-inner{min-height:0;padding:9px 0 11px}
- body:has(.pa-shell) .spiken-photo-header .brand{font-size:29px}
- body:has(.pa-shell) .spiken-photo-footer .footer-inner{padding-block:32px;min-height:0}
-}
-</style>
 
-<style>
-/* Diktsidorna har samma navigering och footer som Spiken 3.0. */
-body:has(.pr-shell) .spiken-photo-header{
- background:#0d0b0b;background-image:none;border-bottom:1px solid #362722;box-shadow:none
-}
-body:has(.pr-shell) .spiken-photo-header .header-inner{
- width:min(1320px,calc(100% - 84px));min-height:74px
-}
-body:has(.pr-shell) .spiken-photo-header .brand{
- font-family:'Segoe Script','Brush Script MT',Georgia,serif;font-size:clamp(29px,2.5vw,41px);
- font-style:italic;font-weight:400;letter-spacing:-.08em;gap:8px
-}
-body:has(.pr-shell) .spiken-photo-header .brand>span{order:1}
-body:has(.pr-shell) .spiken-photo-header .brand .spiken-brand-image{order:2;width:28px;height:45px}
-body:has(.pr-shell) .spiken-photo-header .brand .brand-stop{color:#b9212c}
-body:has(.pr-shell) .spiken-photo-header .main-nav a{font:16px/1.5 Georgia,serif;color:#f1e6dc}
-body:has(.pr-shell) .spiken-photo-footer{background:#0d0b0b;border-top:1px solid #68453e;box-shadow:none}
-body:has(.pr-shell) .spiken-photo-footer .footer-inner{width:min(1320px,calc(100% - 84px));min-height:145px;padding-block:28px}
-body:has(.pr-shell) .spiken-photo-footer .footer-brand{font:italic 400 29px Georgia,serif;letter-spacing:0}
-body:has(.pr-shell) .spiken-photo-footer .footer-inner p{font:italic 15px Georgia,serif;color:#d9bbb0}
-body:has(.pr-shell) .spiken-photo-footer .footer-right a{border-bottom:0;color:#d8cac1;font:13px Arial,sans-serif}
-@media(max-width:900px){
- body:has(.pr-shell) .spiken-photo-header .header-inner,
- body:has(.pr-shell) .spiken-photo-footer .footer-inner{width:calc(100% - 36px)}
- body:has(.pr-shell) .spiken-photo-header .main-nav a{font-size:13px}
-}
-@media(max-width:700px){
- body:has(.pr-shell) .spiken-photo-header .header-inner{min-height:0;padding:9px 0 11px}
- body:has(.pr-shell) .spiken-photo-header .brand{font-size:29px}
- body:has(.pr-shell) .spiken-photo-footer .footer-inner{min-height:0;padding-block:32px}
-}
-</style>
 
-<style>
-/* Spiken 3.3 – samma genomskinliga navigation på dikt- och kategorisidor. */
-body:has(.prv3) .spiken-photo-header,
-body:has(.sp-category) .spiken-photo-header{
- position:absolute;top:0;left:0;right:0;width:100%;z-index:40;
- background:transparent !important;background-image:none !important;
- border:0!important;box-shadow:none!important
-}
-body:has(.prv3) .spiken-photo-header .header-inner,
-body:has(.sp-category) .spiken-photo-header .header-inner{
- width:min(1320px,calc(100% - 84px));min-height:74px
-}
-body:has(.prv3) .spiken-photo-header .brand,
-body:has(.sp-category) .spiken-photo-header .brand{
- font-family:'Segoe Script','Brush Script MT',Georgia,serif;
- font-weight:400;font-style:italic;font-size:clamp(29px,2.5vw,41px);
- letter-spacing:-.08em;gap:8px
-}
-body:has(.prv3) .spiken-photo-header .brand>span,
-body:has(.sp-category) .spiken-photo-header .brand>span{order:1}
-body:has(.prv3) .spiken-photo-header .brand .spiken-brand-image,
-body:has(.sp-category) .spiken-photo-header .brand .spiken-brand-image{order:2;width:28px;height:45px}
-body:has(.prv3) .spiken-photo-header .main-nav a,
-body:has(.sp-category) .spiken-photo-header .main-nav a{
- font:16px/1.5 Georgia,serif;color:#f1e6dc
-}
-body:has(.prv3) .spiken-photo-header .brand,
-body:has(.prv3) .spiken-photo-header .main-nav a,
-body:has(.prv3) .spiken-photo-header .spiken-languages a,
-body:has(.sp-category) .spiken-photo-header .brand,
-body:has(.sp-category) .spiken-photo-header .main-nav a{
- text-shadow:0 1px 7px #000e,0 2px 14px #0009
-}
-body:has(.prv3) .spiken-photo-footer,
-body:has(.sp-category) .spiken-photo-footer{
- background:#0d0b0b;border-top:1px solid #68453e;box-shadow:none
-}
-body:has(.prv3) .spiken-photo-footer .footer-inner,
-body:has(.sp-category) .spiken-photo-footer .footer-inner{
- width:min(1320px,calc(100% - 84px));min-height:145px;padding-block:28px
-}
-body:has(.prv3) .spiken-photo-footer .footer-brand,
-body:has(.sp-category) .spiken-photo-footer .footer-brand{
- font:italic 400 29px Georgia,serif;letter-spacing:0
-}
-body:has(.prv3) .spiken-photo-footer .footer-inner p,
-body:has(.sp-category) .spiken-photo-footer .footer-inner p{
- font:italic 15px Georgia,serif;color:#d9bbb0
-}
-@media(max-width:900px){
- body:has(.prv3) .spiken-photo-header .header-inner,
- body:has(.sp-category) .spiken-photo-header .header-inner,
- body:has(.prv3) .spiken-photo-footer .footer-inner,
- body:has(.sp-category) .spiken-photo-footer .footer-inner{
-  width:calc(100% - 36px)
- }
- body:has(.prv3) .spiken-photo-header .main-nav a,
- body:has(.sp-category) .spiken-photo-header .main-nav a{font-size:13px}
-}
-@media(max-width:700px){
- body:has(.prv3) .spiken-photo-header,
- body:has(.sp-category) .spiken-photo-header{
-  background:linear-gradient(180deg,#05040555,transparent)!important
- }
- body:has(.prv3) .spiken-photo-header .header-inner,
- body:has(.sp-category) .spiken-photo-header .header-inner{
-  min-height:0;padding:9px 0 11px
- }
-}
-</style>
+
+
+
 </head>
 <body>
 <a class="skip-link" href="#innehall">{en ? "Skip to content" : "Hoppa till innehållet"}</a>
