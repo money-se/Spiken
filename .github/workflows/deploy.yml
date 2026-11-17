@@ -66,6 +66,14 @@ jobs:
             unzip -o -j "$archive" '*.webp' -d public/images
             echo "Diktbilder från $archive installerade."
           done
+      - name: Installera unik bild för diktarkivet
+        run: |
+          if [ -f Spiken_Arkivbild_001.zip ]; then
+            unzip -o -j Spiken_Arkivbild_001.zip '*.webp' -d public/images
+            echo "Arkivbild installerad."
+          else
+            echo "Arkivbild saknas, reservbilden används."
+          fi
       - name: Bygg webbplatsen
         run: npm run build
       - name: Ladda upp webbplatsen
