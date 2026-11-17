@@ -6,8 +6,8 @@ const home=base+(en?'/en/':'/');
 const poems=base+(en?'/en/poems/':'/dikter/');
 const t=en?{
  kicker:'SPIKEN · THE WORLDS BEYOND',first:'Spiken’s',last:'worlds.',
- intro:'Beyond the poetry are stories, thoughts and other worlds. Different paths, but the same human curiosity.',
- explore:'Explore the worlds',sections:'Beyond the poems',soon:'A world in progress',back:'Back to the poems',
+ intro:'What is real? What makes us human? Beyond the poems, thoughts drift into stories, beliefs and worlds without simple answers.',
+ explore:'Explore the worlds',sections:'Where thoughts become worlds',soon:'A world in progress',back:'Back to the poems',
  novels:'Stories',novelText:'Human stories, the forbidden and the uncanny.',
  reflections:'Reflections',reflectionText:'Thoughts on being human, on love and consciousness.',
  bible:'My Bible',bibleText:'A fictional mythology and a world that continues to grow.',
@@ -15,8 +15,8 @@ const t=en?{
  dark:'Dark poetry',darkText:'The parts of life that are harder to put into words.'
 }:{
  kicker:'SPIKEN · BORTOM ORDEN',first:'Spikens',last:'världar.',
- intro:'Bortom dikterna finns berättelser, tankar och andra världar. Olika vägar, men samma mänskliga nyfikenhet.',
- explore:'Utforska världarna',sections:'Bortom dikterna',soon:'En värld under uppbyggnad',back:'Tillbaka till dikterna',
+ intro:'Vad är verkligt? Vad gör oss mänskliga? Bortom dikterna driver tankarna vidare mot berättelser, tro och världar utan enkla svar.',
+ explore:'Utforska världarna',sections:'Där tankar blir världar',soon:'En värld under uppbyggnad',back:'Tillbaka till dikterna',
  novels:'Noveller',novelText:'Berättelser om det mänskliga, det förbjudna och det märkliga.',
  reflections:'Reflektioner',reflectionText:'Tankar om livet, kärleken och medvetandet.',
  bible:'Min Bibel',bibleText:'En skönlitterär mytologi och en värld som fortsätter växa.',
@@ -33,8 +33,8 @@ const smaller=[
  {id:'mork-poesi',title:t.dark,description:t.darkText,image:'kategori-ensamhet'}
 ];
 ---
-<div class="sp-worlds">
- <section class="sp-worlds-hero" style={`--sp-worlds-hero:url("${base}/images/varldar-bibliotek.webp")`}>
+<div class="sp-worlds" style={`--sp-worlds-image:url("${base}/images/spiken-varldar-tankens-hav.webp")`}>
+ <section class="sp-worlds-hero">
    <div class="sp-worlds-wrap">
     <p class="sp-worlds-kicker">{t.kicker}</p>
     <h1>{t.first} <em>{t.last}</em></h1>
@@ -60,11 +60,11 @@ const smaller=[
  </section>
 </div>
 <style>
-.sp-worlds{background:#0d0b0b;color:#eee2d8;font-family:Georgia,serif}
+.sp-worlds{position:relative;isolation:isolate;overflow:hidden;background:#0d0b0b;color:#eee2d8;font-family:Georgia,serif}
+.sp-worlds::before{content:"";position:absolute;z-index:-1;pointer-events:none;inset:0 0 auto;height:min(1120px,110vw);min-height:760px;background-image:linear-gradient(90deg,#090808f9 0%,#090808e8 24%,#09080873 53%,#09080814 100%),linear-gradient(180deg,transparent 0%,#0d0b0b17 42%,#0d0b0bad 77%,#0d0b0b 100%),var(--sp-worlds-image);background-position:center,center,center 29%;background-size:cover;background-repeat:no-repeat}
 .sp-worlds-wrap{width:min(1320px,calc(100% - 84px));margin:auto}
-.sp-worlds-hero{position:relative;display:flex;align-items:end;isolation:isolate;min-height:535px;overflow:hidden}
-.sp-worlds-hero:before{content:"";position:absolute;z-index:-1;inset:0;background-image:linear-gradient(90deg,#090808fa 0%,#090808df 30%,#09080875 54%,#09080821 100%),linear-gradient(0deg,#0d0b0b 0%,transparent 44%),var(--sp-worlds-hero);background-size:cover;background-position:center,center,right 32%;background-repeat:no-repeat}
-.sp-worlds-hero:after{content:"";position:absolute;bottom:0;height:12px;left:0;right:0;background:#0d0b0b;clip-path:polygon(0 53%,9% 40%,19% 61%,28% 40%,39% 59%,48% 38%,58% 56%,70% 42%,79% 60%,91% 40%,100% 55%,100% 100%,0 100%)}
+.sp-worlds-hero{position:relative;display:flex;align-items:end;min-height:535px;background:transparent}
+.sp-worlds-hero:before,.sp-worlds-hero:after{display:none}
 .sp-worlds-hero .sp-worlds-wrap{padding:130px 0 66px}
 .sp-worlds-kicker{font:700 11px Arial,sans-serif;letter-spacing:.24em;color:#e7c7be}
 .sp-worlds-hero h1{font:italic 400 clamp(50px,4.8vw,73px)/1.08 Georgia,serif;letter-spacing:-.035em;margin:22px 0 18px}
@@ -72,7 +72,7 @@ const smaller=[
 .sp-worlds-lead{max-width:520px;font:19px/1.65 Georgia,serif;color:#ecd9d1;margin:0}
 .sp-worlds-cta{display:inline-flex;gap:24px;align-items:center;padding:13px 21px;background:#921417;border:1px solid #b12d33;color:#fff;font:15px Arial,sans-serif;margin-top:26px}
 .sp-worlds-cta:hover{background:#bf2029;color:#fff}
-.sp-worlds-content{padding:27px 0 75px;background:radial-gradient(ellipse at 80% 0%,#521d2329,transparent 45%),linear-gradient(180deg,#151010,#0d0b0b)}
+.sp-worlds-content{position:relative;padding:27px 0 75px;background:linear-gradient(180deg,#0d0b0b08 0%,#0d0b0b86 235px,#0d0b0bf4 520px,#0d0b0b 790px)}
 .sp-worlds-heading{text-align:center;padding-bottom:22px}
 .sp-worlds-heading h2{font:italic 400 clamp(35px,3.7vw,52px)/1.2 Georgia,serif;margin:0}
 .sp-worlds-main-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
@@ -90,6 +90,6 @@ const smaller=[
 .sp-worlds-return{text-align:center;padding-top:35px}
 .sp-worlds-return a{font:14px Arial,sans-serif;border-bottom:1px solid #ad343a;padding-bottom:8px}
 @media(max-width:900px){.sp-worlds-wrap{width:calc(100% - 36px)}.sp-worlds-main-grid{grid-template-columns:1fr}.sp-worlds-card{min-height:230px}}
-@media(max-width:600px){.sp-worlds-hero{min-height:610px}.sp-worlds-hero:before{background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0bd8 40%,#0d0b0b24),var(--sp-worlds-hero);background-position:center,62% 18%}.sp-worlds-hero .sp-worlds-wrap{padding:245px 0 55px}.sp-worlds-hero h1{font-size:clamp(44px,10.5vw,67px)}.sp-worlds-lead{font-size:17px}.sp-worlds-secondary{grid-template-columns:1fr}.sp-worlds-card{min-height:235px}.sp-worlds-small{min-height:165px}}
+@media(max-width:600px){.sp-worlds::before{height:1060px;min-height:0;background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0bb8 45%,#0d0b0b35 83%),linear-gradient(90deg,#0908089e,transparent 76%),var(--sp-worlds-image);background-position:center,center,61% top}.sp-worlds-hero{min-height:610px}.sp-worlds-hero .sp-worlds-wrap{padding:245px 0 55px}.sp-worlds-hero h1{font-size:clamp(44px,10.5vw,67px)}.sp-worlds-lead{font-size:17px}.sp-worlds-secondary{grid-template-columns:1fr}.sp-worlds-card{min-height:235px}.sp-worlds-small{min-height:165px}}
 @media(prefers-reduced-motion:reduce){.sp-worlds-card:before,.sp-worlds-small:before{transition:none}}
 </style>
