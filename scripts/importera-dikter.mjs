@@ -1,97 +1,108 @@
 #!/usr/bin/env node
 /**
- * Spiken – importera rena .txt/.md-filer till publiceringsregistret.
- * Säker grundregel: nya språkversioner importeras ENDAST som draft.
- * Kör: npm run dikter:importera (eller npm run dikter:kontrollera)
+ * Spikens textbank.
+ * En fil per dikt eller en samlingsfil med === DIKT === mellan dikterna.
+ * Alla poster importeras som UTKAST, aldrig direkt som publicerade.
  */
 import { readFile, readdir, writeFile, mkdir } from 'node:fs/promises';
-import { join, resolve, extname, basename } from 'node:path';
+import { join, resolve, extname } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..');
-const inputDir = join(root, 'textbank', 'inkorg');
+const inbox = join(root, 'textbank', 'inkorg');
 const registerFile = join(root, 'src', 'data', 'publiceringsregister.json');
 const dryRun = process.argv.includes('--dry-run');
 const normalize = value => String(value || '').trim().toLocaleLowerCase('sv');
+const normalizeText = value => normalize(String(value || '').replace(/\r\n?/g, '\n'));
 const slugify = value => normalize(value)
-  .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
   .replace(/å/g,'a').replace(/ä/g,'a').replace(/ö/g,'o')
-  .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80);
+  .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+  .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g,'').slice(0,80).replace(/-$/,'');
+const separator = /^===\s*DIKT\s*===$/i;
 
-function extract(file, content) {
-  const lines = content.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n').split('\n');
-  // Tillåt första rubrikraden "Titel" eller "# Titel" (Markdown).
-  const first = lines.findIndex(line => line.trim().length > 0);
-  if (first < 0) throw new Error('Filen är tom');
-  const title = lines[first].trim().replace(/^#\s+/, '').trim();
-  const text = lines.slice(first+1).join('\n').replace(/^\n+|\n+$/g, '');
-  if (title.length < 2 || title.length > 170) throw new Error('Titeln måste vara 2–170 tecken');
-  if (!text.trim()) throw new Error('Ingen dikttext efter titeln');
-  if (text.length > 150000) throw new Error('Dikten är oväntat lång');
+function parsePoem(source, raw) {
+  const lines = raw.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n').split('\n');
+  const first = lines.findIndex(line=>line.trim());
+  if (first < 0) throw Error('Tom dikt');
+  const title = lines[first].trim().replace(/^#\s+/,'').trim();
+  const text = lines.slice(first+1).join('\n').replace(/^\n+|\n+$/g,'');
+  if (title.length < 2 || title.length > 170) throw Error('Titeln måste ha 2–170 tecken');
+  if (!text.trim()) throw Error('Ingen dikttext efter titeln');
+  if (text.length > 150000) throw Error('Dikttexten är för lång för en post');
   const slug = slugify(title);
-  if (!slug) throw new Error('Rubriken kan inte användas som URL');
-  return {title, text, slug, file};
+  if (!slug) throw Error('Titeln kan inte bli en URL');
+  // Om filen innehåller flera rubriker utan avgränsare: stoppa hellre än feltolka.
+  if (lines.slice(first+1).some(line=>/^#{1,2}\s+\S/.test(line))) {
+    throw Error('Flera Markdown-rubriker utan === DIKT ===; kontrollera gränserna');
+  }
+  return {source,title,text,slug};
+}
+function parseFile(file, content) {
+  const normalized = content.replace(/^\uFEFF/,'').replace(/\r\n?/g,'\n');
+  const lines = normalized.split('\n');
+  const sections = []; let current = []; let hasSeparator = false;
+  for (const line of lines) {
+    if (separator.test(line.trim())) {
+      hasSeparator = true;
+      if (current.some(x=>x.trim())) sections.push(current.join('\n'));
+      current=[];
+    } else current.push(line);
+  }
+  if (current.some(x=>x.trim())) sections.push(current.join('\n'));
+  if (!sections.length) throw Error('Filen innehåller inga dikter');
+  if (!hasSeparator && /^\s*===/m.test(normalized)) throw Error('Okänd avgränsare. Använd exakt === DIKT ===');
+  return sections.map((part,index)=>parsePoem(file+(hasSeparator ? ' #'+(index+1) : ''),part));
 }
 function nextId(works) {
-  const numbers = works.map(w => /^spiken-(\d+)$/.exec(w.id || ''))
-    .filter(Boolean).map(match=>Number(match[1]));
-  return Math.max(0, ...numbers) + 1;
+  return Math.max(0,...works.map(w=>/^spiken-(\d+)$/.exec(w.id||'')).filter(Boolean).map(m=>Number(m[1])))+1;
 }
-const result = {imported:[], skipped:[], errors:[]};
-await mkdir(inputDir, {recursive:true});
-const registry = JSON.parse(await readFile(registerFile, 'utf8'));
-if (!Array.isArray(registry.works)) throw new Error('Registret saknar works-array');
-const sourceFiles = (await readdir(inputDir)).filter(name=>['.txt','.md'].includes(extname(name).toLowerCase())).sort((a,b)=>a.localeCompare(b,'sv'));
-const knownSlugs = new Set();
-const knownOriginals = new Set();
-for (const work of registry.works) {
-  for (const locale of Object.values(work.translations || {})) {
-    if (locale?.slug) knownSlugs.add(normalize(locale.slug));
-  }
-  if (work.original_language === 'sv' && typeof work.original_text === 'string') knownOriginals.add(normalize(work.original_text.replace(/\r\n?/g,'\n')));
+const result={imported:[],skipped:[],errors:[],poems:0,files:0};
+await mkdir(inbox,{recursive:true});
+const registry=JSON.parse(await readFile(registerFile,'utf8'));
+if(!Array.isArray(registry.works)) throw Error('Registret saknar works-array');
+const filenames=(await readdir(inbox)).filter(name=>['.txt','.md'].includes(extname(name).toLowerCase())).sort((a,b)=>a.localeCompare(b,'sv'));
+result.files=filenames.length;
+const knownSlugs=new Set(), knownTexts=new Set();
+for(const work of registry.works){
+  for(const t of Object.values(work.translations||{})) if(t?.slug)knownSlugs.add(normalize(t.slug));
+  if(work.original_language==='sv' && typeof work.original_text==='string') knownTexts.add(normalizeText(work.original_text));
 }
-let counter = nextId(registry.works);
-for (const file of sourceFiles) {
-  try {
-    const parsed = extract(file, await readFile(join(inputDir,file),'utf8'));
-    if (knownOriginals.has(normalize(parsed.text))) {
-      result.skipped.push(file + ': originaltexten finns redan'); continue;
-    }
-    if (knownSlugs.has(normalize(parsed.slug))) {
-      result.skipped.push(file + ': titeln/URL:en används redan ('+parsed.slug+')'); continue;
-    }
-    const id = 'spiken-'+String(counter++).padStart(6,'0');
+let next=nextId(registry.works);
+for(const file of filenames){
+  let entries;
+  try{ entries=parseFile(file,await readFile(join(inbox,file),'utf8')); }
+  catch(error){ result.errors.push(file+': '+error.message); continue; }
+  result.poems+=entries.length;
+  // All-or-nothing per file if one section is malformed.
+  for(const entry of entries){
+    if(knownTexts.has(normalizeText(entry.text))) { result.skipped.push(entry.source+': originaltexten finns redan'); continue; }
+    if(knownSlugs.has(normalize(entry.slug))) { result.skipped.push(entry.source+': URL upptagen ('+entry.slug+')'); continue; }
+    const id='spiken-'+String(next++).padStart(6,'0');
     registry.works.push({
-      id, type:'dikt', channel:'under-huden', category:'', tags:[],
-      original_language:'sv', original_text:parsed.text,
+      id,type:'dikt',channel:'under-huden',category:'',tags:[],
+      original_language:'sv',original_text:entry.text,
       image:{path:null,credit:null},
       translations:{
-        sv:{
-          title:parsed.title, slug:parsed.slug, text:parsed.text,
-          meta_title:parsed.title+' – Spiken',
-          meta_description:'', image_alt:'',
-          status:'draft', published_at:null
-        },
-        en:{
-          title:'',slug:'',text:'',meta_title:'',meta_description:'',
-          image_alt:'',status:'draft',published_at:null
-        }
+        sv:{title:entry.title,slug:entry.slug,text:entry.text,
+          meta_title:entry.title+' – Spiken',meta_description:'',image_alt:'',
+          status:'draft',published_at:null},
+        en:{title:'',slug:'',text:'',meta_title:'',meta_description:'',image_alt:'',
+          status:'draft',published_at:null}
       }
     });
-    knownSlugs.add(normalize(parsed.slug));
-    knownOriginals.add(normalize(parsed.text));
-    result.imported.push(file+' → '+id+' ('+parsed.slug+')');
-  } catch(error) {
-    result.errors.push(file+': '+error.message);
+    knownSlugs.add(normalize(entry.slug));knownTexts.add(normalizeText(entry.text));
+    result.imported.push(entry.source+' → '+id+' ('+entry.slug+')');
   }
 }
-if (!dryRun && result.imported.length) {
-  await writeFile(registerFile, JSON.stringify(registry,null,2)+'\n','utf8');
+console.log(dryRun?'FÖRHANDSGRANSKNING – inga ändringar':'IMPORT AV TEXTBANK');
+console.log('Filer:',result.files,'Identifierade dikter:',result.poems,'Nya utkast:',result.imported.length);
+for(const s of result.imported)console.log('  +',s);
+for(const s of result.skipped)console.log('  =',s);
+for(const s of result.errors)console.error('  !',s);
+// Vid ett enda fel skrivs INGENTING, för att undvika delvis importerade samlingar.
+if(result.errors.length){
+  console.error('Import avbruten: korrigera fel innan några ändringar sparas.');
+  process.exitCode=1;
+} else if(!dryRun && result.imported.length){
+  await writeFile(registerFile,JSON.stringify(registry,null,2)+'\n','utf8');
 }
-console.log(dryRun ? 'FÖRHANDSGRANSKNING – inga filer ändrade' : 'IMPORT RESULTAT');
-console.log('Textfiler funna:', sourceFiles.length);
-console.log('Nya utkast:', result.imported.length);
-for(const message of result.imported) console.log('  +',message);
-for(const message of result.skipped) console.log('  =',message);
-for(const message of result.errors) console.error('  !',message);
-console.log('Obs: nya dikter är UTKAST. Inget publiceras utan manuell godkänd språkversion.');
-if (result.errors.length) process.exitCode=1;
+console.log('Alla nya dikter förblir UTKAST. Ingen automatisk publicering.');
