@@ -85,6 +85,14 @@ jobs:
           else
             echo "Om Spiken-bild saknas, befintligt porträtt visas som reserv."
           fi
+      - name: Installera Tankens hav på Spikens världar
+        run: |
+          if [ -f Spiken_Varldar_Bildpaket_001.zip ]; then
+            unzip -o -j Spiken_Varldar_Bildpaket_001.zip 'spiken-varldar-tankens-hav.webp' -d public/images
+            echo "Tankens hav installerat."
+          else
+            echo "Bildpaketet för Spikens världar saknas ännu."
+          fi
       - name: Bygg webbplatsen
         run: npm run build
       - name: Ladda upp webbplatsen
