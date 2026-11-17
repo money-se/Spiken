@@ -76,9 +76,12 @@ jobs:
           fi
       - name: Installera specialskapad Om Spiken-bild
         run: |
-          if [ -f Spiken_Om_Bildpaket_001.zip ]; then
+          if [ -f Spiken_Om_Bildpaket_002.zip ]; then
+            unzip -o -j Spiken_Om_Bildpaket_002.zip '*.webp' -d public/images
+            echo "Om Spiken: sovrumsbild för test installerad."
+          elif [ -f Spiken_Om_Bildpaket_001.zip ]; then
             unzip -o -j Spiken_Om_Bildpaket_001.zip '*.webp' -d public/images
-            echo "Om Spiken-bild installerad."
+            echo "Om Spiken: tidigare bild installerad."
           else
             echo "Om Spiken-bild saknas, befintligt porträtt visas som reserv."
           fi
