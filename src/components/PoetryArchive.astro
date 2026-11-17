@@ -124,10 +124,21 @@ refresh();
 <style>
 /* En enda sammanhängande arkivdesign, utifrån startsidan Spiken 3.0. */
 .pa-shell{isolation:isolate;position:relative;overflow:hidden;background:#0d0b0b;color:#eee2d8;font-family:Georgia,'Times New Roman',serif;min-height:80vh}
+.pa-shell::before{
+ content:"";position:absolute;z-index:-1;pointer-events:none;
+ top:0;left:0;right:0;height:min(1050px,110vw);min-height:760px;
+ background-image:
+  linear-gradient(90deg,#090808f9 0%,#090808e8 26%,#09080885 53%,#09080828 100%),
+  linear-gradient(180deg,transparent 0%,#0d0b0b0d 38%,#0d0b0b91 73%,#0d0b0b 100%),
+  var(--pa-image),var(--pa-fallback);
+ background-size:cover;
+ background-repeat:no-repeat;
+ background-position:center,center,right 27%,right 27%;
+}
 .pa-wrap{width:min(1320px,calc(100% - 84px));margin-inline:auto}
-.pa-intro{position:relative;isolation:isolate;min-height:555px;display:flex;align-items:flex-end;background:#0d0b0b}
-.pa-intro::before{content:"";position:absolute;z-index:-1;inset:0;background-image:linear-gradient(90deg,#090808f9 0%,#090808df 28%,#09080885 52%,#09080815 100%),linear-gradient(0deg,#0d0b0bf0 0%,#0d0b0b3d 40%,transparent 73%),var(--pa-image),var(--pa-fallback);background-position:center,center,right 36%,right 36%;background-size:cover;background-repeat:no-repeat}
-.pa-intro::after{content:"";position:absolute;bottom:-1px;inset-inline:0;height:12px;background:#0d0b0b;clip-path:polygon(0 60%,8% 42%,15% 57%,22% 41%,31% 61%,41% 39%,49% 55%,58% 40%,68% 61%,77% 43%,88% 57%,100% 40%,100% 100%,0 100%);pointer-events:none}
+.pa-intro{position:relative;min-height:555px;display:flex;align-items:flex-end;background:transparent;isolation:auto}
+.pa-intro::before,.pa-intro::after{display:none}
+
 .pa-intro-inner{padding:140px 0 142px}
 .pa-eyebrow{font:700 11px/1.6 Arial,sans-serif;letter-spacing:.24em;color:#efcfc6;margin:0}
 .pa-intro h1{font:italic 400 clamp(51px,4.8vw,73px)/1.09 Georgia,serif;letter-spacing:-.035em;max-width:730px;margin:20px 0 18px}
@@ -135,8 +146,8 @@ refresh();
 .pa-lead{max-width:500px;font:19px/1.6 Georgia,serif;color:#ebdcd4;margin:0}
 .pa-hero-link{display:inline-flex;align-items:center;gap:26px;background:#921417;border:1px solid #b12d33;color:#fff;padding:13px 22px;margin-top:26px;font:15px Arial,sans-serif;transition:background .2s}
 .pa-hero-link:hover{background:#bc2229;color:#fff}
-.pa-library{position:relative;isolation:isolate;z-index:2;margin-top:-80px;padding:0 0 77px;background:transparent;scroll-margin-top:30px}
-.pa-library::before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(180deg,transparent 0px,#0d0b0b9e 58px,#0d0b0bf1 190px,#0d0b0b 500px),radial-gradient(ellipse at 70% 0%,#8a3d3430,transparent 38%);pointer-events:none}
+.pa-library{position:relative;z-index:2;margin-top:-80px;padding:0 0 77px;background:linear-gradient(180deg,transparent 0px,#0d0b0b30 150px,#0d0b0bef 480px,#0d0b0b 720px);scroll-margin-top:30px;isolation:auto}
+.pa-library::before{content:"";position:absolute;z-index:-1;inset:0;background:radial-gradient(ellipse at 72% 12%,#7a302a1d,transparent 42%);pointer-events:none}
 .pa-mood-gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 32px;filter:drop-shadow(0 12px 22px #0009)}
 .pa-mood-button{position:relative;isolation:isolate;aspect-ratio:2.12;overflow:hidden;border:1px solid #67504a;background:#241817;padding:0;color:#f7e9e0;cursor:pointer;text-align:left;box-shadow:0 2px 14px #0005}
 .pa-mood-button img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .3s}
@@ -193,13 +204,13 @@ refresh();
 @media(max-width:600px){
  .pa-wrap{width:calc(100% - 36px)}
  .pa-intro{min-height:595px}
- .pa-intro::before{background-image:linear-gradient(0deg,#0d0b0be8 0%,#0d0b0bac 39%,#0d0b0b20 100%),var(--pa-image),var(--pa-fallback);background-position:center,61% 21%,61% 21%}
+ .pa-shell::before{height:1000px;min-height:0;background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0b9e 47%,#0d0b0b28 84%),linear-gradient(90deg,#09080890,transparent 78%),var(--pa-image),var(--pa-fallback);background-position:center,center,60% top,60% top}
  .pa-intro-inner{padding:235px 0 142px}
  .pa-intro h1{font-size:clamp(45px,10.5vw,67px)}
  .pa-lead{font-size:17px}
  .pa-hero-link{font-size:14px}
  .pa-library{margin-top:-99px;padding-bottom:58px}
- .pa-library::before{background:linear-gradient(180deg,transparent 0px,#0d0b0ba6 76px,#0d0b0b 188px)}
+ .pa-library{background:linear-gradient(180deg,transparent 0px,#0d0b0b6b 140px,#0d0b0bee 450px,#0d0b0b 710px)}
  .pa-mood-gallery{gap:10px;margin-bottom:27px}
  .pa-mood-button{aspect-ratio:1.55}
  .pa-mood-button span{left:13px;bottom:22px;font-size:clamp(23px,6vw,30px)}
