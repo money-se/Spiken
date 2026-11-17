@@ -3,12 +3,12 @@ import Layout from '../../../layouts/Layout.astro';
 import { getPoems, poemExcerpt } from '../../../lib/poetry.js';
 export function getStaticPaths(){
   const categories = {
-    existens:{title:'Existens',lead:'Dikter om att vara människa, hitta sin röst och våga bli den man är.'},
-    karlek:{title:'Kärlek',lead:'Dikter om närhet, sårbarhet och allt det hjärtat bär.'},
-    langtan:{title:'Längtan',lead:'Dikter om det som saknas och det vi väntar på.'},
-    begar:{title:'Begär',lead:'Dikter om attraktion, kropp och känslan av att vilja närmare.'},
-    hjartesorg:{title:'Hjärtesorg',lead:'Dikter om förlust, sorg och vägen vidare.'},
-    saknad:{title:'Saknad',lead:'Dikter om avstånd, minnen och de människor som dröjer kvar.'}
+    existens:{title:'Existens',lead:'Dikter om att vara människa, hitta sin röst och våga bli den man är.',image:'kategori-ensamhet.webp'},
+    karlek:{title:'Kärlek',lead:'Dikter om närhet, sårbarhet och allt det hjärtat bär.',image:'kategori-karlek.webp'},
+    langtan:{title:'Längtan',lead:'Dikter om det som saknas och det vi väntar på.',image:'kategori-sorg.webp'},
+    begar:{title:'Begär',lead:'Dikter om attraktion, kropp och känslan av att vilja närmare.',image:'kategori-begar-v2.webp'},
+    hjartesorg:{title:'Hjärtesorg',lead:'Dikter om förlust, sorg och vägen vidare.',image:'kategori-saknad-v2.webp'},
+    saknad:{title:'Saknad',lead:'Dikter om avstånd, minnen och de människor som dröjer kvar.',image:'kategori-saknad-v2.webp'}
   };
   const poems=getPoems('sv');
   return Object.entries(categories)
@@ -24,7 +24,7 @@ const archive=base+'/dikter/';
 ---
 <Layout title={'Dikter om '+category.title.toLowerCase()+' – Spiken'} description={category.lead+' Läs Spikens originaldikter på svenska.'} lang="sv">
   <div class="sp-category">
-    <section class="sp-category-head">
+    <section class="sp-category-head" style={`--sp-category-image:url("${base}/images/${category.image}")`}>
       <div class="sp-category-wrap">
         <a class="sp-category-back" href={archive}>← Till diktarkivet</a>
         <p class="sp-category-label">SPIKEN · ORD UNDER HUDEN</p>
@@ -55,7 +55,7 @@ const archive=base+'/dikter/';
 <style>
 .sp-category{background:#0d0b0b;color:#f2e4dc;font-family:Georgia,serif}
 .sp-category-wrap{width:min(1320px,calc(100% - 84px));margin:auto}
-.sp-category-head{min-height:465px;display:flex;align-items:end;background:linear-gradient(90deg,#0a0809f7,#0a0809ce 55%,#0a080974),linear-gradient(0deg,#0d0b0b,transparent 55%),url("/Spiken/images/dikt-arkiv-v2.webp") right center/cover}
+.sp-category-head{min-height:465px;display:flex;align-items:end;background:linear-gradient(90deg,#0a0809f7,#0a0809ce 55%,#0a080974),linear-gradient(0deg,#0d0b0b,transparent 55%),var(--sp-category-image) right center/cover}
 .sp-category-head .sp-category-wrap{padding:130px 0 63px}
 .sp-category-back{display:inline-block;border-bottom:1px solid #945b59;padding-bottom:6px;font:13px Arial,sans-serif;color:#e9d1cc}
 .sp-category-label{font:700 11px Arial,sans-serif;letter-spacing:.25em;color:#e4acaa;margin-top:42px}
@@ -78,4 +78,32 @@ const archive=base+'/dikter/';
 .sp-category-return{display:inline-block;margin-top:40px;border-bottom:1px solid #b84c51;padding-bottom:7px}
 @media(max-width:900px){.sp-category-wrap{width:calc(100% - 36px)}.sp-category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.sp-category-grid{grid-template-columns:1fr}.sp-category-head{min-height:460px}.sp-category-head .sp-category-wrap{padding:100px 0 55px}.sp-category h1{font-size:clamp(43px,11vw,62px)}.sp-category-lead{font-size:17px}}
+
+/* Kategorierna använder samma bildkort och bildkomposition som startsidan. */
+.sp-category-head{min-height:535px;position:relative;isolation:isolate;background:#0e0a0a;overflow:hidden}
+.sp-category-head:before{
+ content:"";position:absolute;z-index:-1;inset:0;
+ background-image:linear-gradient(90deg,#090808fa 0%,#090808d7 34%,#0908086a 60%,#09080811 100%),linear-gradient(0deg,#0d0b0b 0%,transparent 47%),var(--sp-category-image);
+ background-size:cover;
+ background-position:center,center,right center;
+ background-repeat:no-repeat;
+}
+.sp-category-head .sp-category-wrap{padding-top:132px;padding-bottom:76px}
+.sp-category h1{font:italic 400 clamp(49px,4.8vw,73px)/1.08 Georgia,serif;margin:17px 0}
+.sp-category h1 em{color:#bf2029}
+.sp-category-content{background:radial-gradient(ellipse at 85% 0%,#55202635,transparent 44%),linear-gradient(180deg,#151010,#0d0b0b);padding:32px 0 75px}
+.sp-category-card{background:#130e0f;border-color:#624840}
+.sp-category-thumb{height:205px}
+.sp-category-card-text{padding:23px}
+.sp-category-card-text h3{font:italic 400 clamp(27px,2.5vw,36px)/1.15 Georgia,serif;margin:12px 0}
+.sp-category-card-text p{font:15px/1.6 Georgia,serif}
+@media(max-width:600px){
+ .sp-category-head{min-height:560px}
+ .sp-category-head:before{
+  background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0bbf 42%,#0d0b0b22 100%),var(--sp-category-image);
+  background-position:center,62% 20%;
+ }
+ .sp-category-head .sp-category-wrap{padding-top:170px;padding-bottom:56px}
+ .sp-category h1{font-size:clamp(43px,10.5vw,65px)}
+}
 </style>
