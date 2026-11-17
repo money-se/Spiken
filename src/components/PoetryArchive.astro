@@ -25,10 +25,11 @@ const moods = en ? [
 ] : [
   ['Kärlek','Kärlek'],['Längtan','Längtan'],['Begär','Begär'],['Existens','Existens'],['Hjärtesorg','Hjärtesorg'],['Saknad','Saknad']
 ];
-const image = base + '/images/spiken-3-forfattare.webp';
+const image = base + '/images/spiken-arkiv-hero.webp';
+const fallbackImage = base + '/images/spiken-3-forfattare.webp';
 ---
 <div class="pa-shell">
-  <section class="pa-intro" aria-labelledby="pa-title" style={`--pa-image:url("${image}")`}>
+  <section class="pa-intro" aria-labelledby="pa-title" style={`--pa-image:url("${image}");--pa-fallback:url("${fallbackImage}")`}>
     <div class="pa-wrap pa-intro-inner">
       <p class="pa-eyebrow">{labels.kicker}</p>
       <h1 id="pa-title">{labels.title}<em>{labels.titleAccent}</em></h1>
@@ -258,5 +259,18 @@ refresh();
  }
  .pa-intro h1{font-size:clamp(45px,10.3vw,66px)}
  .pa-card-photo{height:205px}
+}
+/* Den specialskapade arkivbilden läggs överst, befintligt foto används tills bildpaketet laddats upp. */
+.pa-intro:before{
+ background-image:linear-gradient(90deg,#090808fa 0%,#090808e2 30%,#09080877 56%,#09080820 100%),linear-gradient(0deg,#0d0b0b 0%,transparent 46%),var(--pa-image),var(--pa-fallback);
+ background-position:center,center,right 35%,right 35%;
+ background-size:cover;
+ background-repeat:no-repeat;
+}
+@media(max-width:600px){
+ .pa-intro:before{
+  background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0bd8 43%,#0d0b0b10 100%),var(--pa-image),var(--pa-fallback);
+  background-position:center,61% 25%,61% 25%;
+ }
 }
 </style>
