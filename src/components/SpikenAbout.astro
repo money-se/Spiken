@@ -1,0 +1,81 @@
+---
+const {lang='sv'}=Astro.props;
+const en=lang==='en';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const archive=base+(en?'/en/poems/':'/dikter/');
+const worlds=base+(en?'/en/worlds/':'/varldar/');
+const t=en?{
+ eyebrow:'SPIKEN · BEHIND THE WORDS',title:'Behind the',accent:'words.',
+ lead:'A place for what we rarely dare to say out loud. For love, longing, darkness and all the contradictions of being human.',
+ read:'Read the poems',explore:'Spiken’s Worlds',
+ heading:'Words without a mask.',
+ p1:'Spiken is a way to explore and understand what it means to be human. Some words are tender, others uncomfortable, but they all come from a desire to feel something real.',
+ p2:'Here, poetry, reflections and imagined worlds live side by side. Not because they have the same subject, but because they come from the same questions.',
+ quote:'Words beneath the skin.',bottom:'Enter the poetry archive'
+}:{
+ eyebrow:'SPIKEN · MANNEN BAKOM ORDEN',title:'Bakom',accent:'orden.',
+ lead:'En plats för allt det vi sällan vågar säga högt. För kärlek, längtan, mörker och allt det motsägelsefulla i att vara människa.',
+ read:'Läs mina dikter',explore:'Spikens världar',
+ heading:'Ord utan mask.',
+ p1:'Spiken är ett sätt att utforska och förstå det mänskliga. Vissa ord är ömma, andra obekväma, men alla växer ur viljan att känna något på riktigt.',
+ p2:'Här får dikter, reflektioner och påhittade världar finnas sida vid sida. Inte för att de handlar om samma sak, utan för att de föds ur samma frågor.',
+ quote:'Ord under huden.',bottom:'Gå till diktarkivet'
+};
+---
+<div class="sp-about">
+ <section class="sp-about-hero" style={`--sp-about-photo:url("${base}/images/spiken-3-forfattare.webp")`}>
+  <div class="sp-about-inner">
+   <p class="sp-about-eyebrow">{t.eyebrow}</p>
+   <h1>{t.title} <em>{t.accent}</em></h1>
+   <p class="sp-about-lead">{t.lead}</p>
+   <a href={archive} class="sp-about-primary">{t.read} <span aria-hidden="true">→</span></a>
+  </div>
+ </section>
+ <section class="sp-about-story">
+  <div class="sp-about-inner sp-about-grid">
+    <div class="sp-about-portrait">
+      <img src={base+'/images/spiken-3-forfattare.webp'} width="800" height="1000" loading="lazy" alt={en?'A writer working with his notebook':'En författare som skriver i sin anteckningsbok'}/>
+    </div>
+    <div class="sp-about-copy">
+     <p class="sp-about-label">{en?'THE HUMAN BEHIND THE WORDS':'MÄNNISKAN BAKOM ORDEN'}</p>
+     <h2>{t.heading}</h2>
+     <p>{t.p1}</p><p>{t.p2}</p>
+     <a href={worlds} class="sp-about-outline">{t.explore} →</a>
+    </div>
+  </div>
+ </section>
+ <section class="sp-about-ending">
+  <div class="sp-about-inner">
+    <p>{t.quote}</p>
+    <a href={archive}>{t.bottom} →</a>
+  </div>
+ </section>
+</div>
+<style>
+.sp-about{background:#0d0b0b;color:#eee2d8;font-family:Georgia,serif}
+.sp-about-inner{width:min(1320px,calc(100% - 84px));margin:auto}
+.sp-about-hero{position:relative;isolation:isolate;min-height:535px;display:flex;align-items:end;overflow:hidden}
+.sp-about-hero:before{content:"";position:absolute;z-index:-1;inset:0;background-image:linear-gradient(90deg,#090808fa,#090808e6 30%,#09080874 56%,#09080820),linear-gradient(0deg,#0d0b0b,transparent 52%),var(--sp-about-photo);background-size:cover;background-position:center,center,right 29%}
+.sp-about-hero:after{content:"";position:absolute;inset: auto 0 0;height:12px;background:#0d0b0b;clip-path:polygon(0 55%,10% 40%,19% 60%,29% 42%,38% 57%,47% 39%,58% 62%,69% 38%,78% 56%,89% 41%,100% 58%,100% 100%,0 100%)}
+.sp-about-hero .sp-about-inner{padding:130px 0 65px}
+.sp-about-eyebrow,.sp-about-label{font:700 11px Arial,sans-serif;letter-spacing:.23em;color:#e5c3ba}
+.sp-about-hero h1{font:italic 400 clamp(50px,4.8vw,73px)/1.08 Georgia,serif;letter-spacing:-.035em;max-width:650px;margin:22px 0 19px}
+.sp-about-hero h1 em{color:#bd2029}
+.sp-about-lead{max-width:500px;font:19px/1.62 Georgia,serif;color:#eee0d8}
+.sp-about-primary{display:inline-flex;gap:28px;margin-top:20px;align-items:center;background:#921417;border:1px solid #b12d33;color:#fff;padding:14px 22px;font:15px Arial,sans-serif}
+.sp-about-primary:hover{background:#bf2029;color:#fff}
+.sp-about-story{padding:38px 0 53px;background:radial-gradient(ellipse at 85% 20%,#5c222328,transparent 50%),#0d0b0b}
+.sp-about-grid{display:grid;grid-template-columns:42% 1fr;gap:6%;align-items:center}
+.sp-about-portrait{min-height:365px;overflow:hidden;border:1px solid #654b43}
+.sp-about-portrait img{width:100%;height:390px;object-fit:cover;object-position:center 30%;display:block;filter:grayscale(.65)}
+.sp-about-copy{max-width:630px}
+.sp-about-copy h2{font:italic 400 clamp(36px,3.8vw,53px)/1.12 Georgia,serif;margin:19px 0}
+.sp-about-copy>p:not(.sp-about-label){font:18px/1.7 Georgia,serif;color:#ddc8c0;margin:0 0 17px}
+.sp-about-outline{display:inline-block;border:1px solid #ae383c;padding:13px 19px;margin-top:12px;font:14px Arial,sans-serif}
+.sp-about-outline:hover{background:#501a20;color:#fff}
+.sp-about-ending{border-top:1px solid #553731;text-align:center;padding:43px 0 66px;background:linear-gradient(180deg,#150e0f,#0d0b0b)}
+.sp-about-ending p{font:italic 400 clamp(30px,4vw,53px)/1.2 Georgia,serif;margin:0 0 23px}
+.sp-about-ending a{font:14px Arial,sans-serif;border-bottom:1px solid #bf3a42;padding-bottom:7px}
+@media(max-width:800px){.sp-about-grid{grid-template-columns:1fr;gap:29px}.sp-about-portrait img{height:330px}.sp-about-story{padding-top:25px}}
+@media(max-width:600px){.sp-about-inner{width:calc(100% - 36px)}.sp-about-hero{min-height:620px}.sp-about-hero:before{background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0bd0 42%,#0d0b0b20),var(--sp-about-photo);background-position:center,60% 20%}.sp-about-hero .sp-about-inner{padding:250px 0 55px}.sp-about-hero h1{font-size:clamp(44px,11vw,66px)}.sp-about-lead{font-size:17px}.sp-about-copy>p:not(.sp-about-label){font-size:17px}}
+</style>
