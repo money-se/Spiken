@@ -122,6 +122,8 @@ const validThemes = new Set(buttons.map(button => button.dataset.theme || ''));
 if(!validThemes.has(selected)) selected = '';
 const orderOptions = new Set(['newest','oldest','title']);
 let sorting = orderOptions.has(params.get('sort')) ? params.get('sort') : 'newest';
+let renderedSort = null;
+let searchDelay = null;
 if(sortControl) sortControl.value = sorting;
 if(search && params.get('q')) search.value = params.get('q');
 
@@ -152,13 +154,14 @@ function syncUrl(){
   window.history.replaceState({},'',url);
 }
 function reorder(){
-  if(!grid) return;
+  if(!grid || sorting===renderedSort) return;
   const ordered = [...cards].sort((a,b)=>{
     if(sorting==='title') return (a.dataset.title||'').localeCompare(b.dataset.title||'',locale);
     const delta = (a.dataset.date||'').localeCompare(b.dataset.date||'');
     return (sorting==='oldest' ? delta : -delta) || (Number(a.dataset.order)-Number(b.dataset.order));
   });
   for(const card of ordered) grid.appendChild(card);
+  renderedSort=sorting;
 }
 function refresh(){
   const terms = normalize(search?.value.trim()).split(/\s+/).filter(Boolean);
@@ -216,8 +219,8 @@ buttons.forEach(button=>button.addEventListener('click',()=>{
 }));
 search?.addEventListener('input',()=>{
   // Undvik onödiga DOM-uppdateringar för varje tangenttryckning.
-  window.clearTimeout(search._spikenDelay);
-  search._spikenDelay=window.setTimeout(()=>{void applyFilters();},180);
+  window.clearTimeout(searchDelay);
+  searchDelay=window.setTimeout(()=>{void applyFilters();},180);
 });
 sortControl?.addEventListener('change',()=>{
   sorting=orderOptions.has(sortControl.value)?sortControl.value:'newest';
