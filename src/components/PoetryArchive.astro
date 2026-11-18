@@ -313,7 +313,17 @@ discoveryDialog?.addEventListener('click',event=>{
   if(event.target===discoveryDialog) discoveryDialog.close();
 });
 reorder();
-void applyFilters();
+// Öppna diktupptäckten direkt efter klick från startsidan.
+// Parametern tas bort så att omladdning inte öppnar dialogen på nytt.
+const openDiscoveryFromHome = params.get('upptack') === '1';
+if(openDiscoveryFromHome){
+  const cleanUrl = new URL(window.location.href);
+  cleanUrl.searchParams.delete('upptack');
+  window.history.replaceState({},'',cleanUrl);
+}
+void applyFilters().then(()=>{
+  if(openDiscoveryFromHome && matchingCards.length) chooseSurprise();
+});
 </script>
 <style>
 /* En enda sammanhängande arkivdesign, utifrån startsidan Spiken 3.0. */
