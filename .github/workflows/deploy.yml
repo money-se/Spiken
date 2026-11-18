@@ -100,6 +100,29 @@ jobs:
           npm run dikter:kontrollera
       - name: Bygg webbplatsen
         run: npm run build
+      - name: Verifiera publicerade diktsidor och bilder
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'JS'
+          import { readFileSync, existsSync } from 'node:fs';
+          const reg=JSON.parse(readFileSync('src/data/publiceringsregister.json','utf8'));
+          let count=0;
+          for(const work of reg.works){
+            if(work.type!=='dikt')continue;
+            for(const [lang,t] of Object.entries(work.translations||{})){
+              if(t?.status!=='published')continue;
+              const rel=lang==='sv'?'dikter/':'en/poems/';
+              const page='dist/'+rel+t.slug+'/index.html';
+              if(!existsSync(page))throw Error('Publicerad dikt saknar HTML: '+page);
+              if(work.image?.path){
+                const photo='dist/images/'+work.image.path.replace(/^\\/+/, '');
+                if(!existsSync(photo))throw Error('Publicerad dikt saknar bild: '+photo);
+              }
+              count++;
+            }
+          }
+          console.log('Verifierade publicerade diktsidor:',count);
+          JS
       - name: Ladda upp webbplatsen
         uses: actions/upload-pages-artifact@v3
         with:
