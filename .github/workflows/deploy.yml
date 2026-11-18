@@ -82,6 +82,25 @@ jobs:
             }
             echo "Verifierat nytt publicerat motiv från paket 003: $new_photo"
           done
+      - name: Kontrollera bildpaket 004 och diktbilderna
+        run: |
+          set -euo pipefail
+          test -f Spiken_Diktbilder_004_KOMPLETT.zip
+          for photo in \
+            dikt-i-kraften-av-det-lilla.webp \
+            dikt-djavulens-symfoni.webp \
+            dikt-smartan-vaxer.webp \
+            dikt-kampen-emot-tiden.webp \
+            dikt-i-skogens-hjarta.webp \
+            dikt-min-lilla-flicka-mitt-hjarta.webp \
+            dikt-bakom-mitt-leende.webp \
+            dikt-antligen-fri.webp; do
+            unzip -p Spiken_Diktbilder_004_KOMPLETT.zip "$photo" | cmp - "public/images/$photo" || {
+              echo "::error::Bildfilen $photo saknas eller skiljer sig från godkänt ZIP-paket 004."
+              exit 1
+            }
+            echo "Godkänd diktbild: $photo"
+          done
       - name: Installera unik bild för diktarkivet
         run: |
           if [ -f Spiken_Arkivbild_001.zip ]; then
