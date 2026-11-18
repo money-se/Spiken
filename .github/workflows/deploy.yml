@@ -101,6 +101,27 @@ jobs:
             }
             echo "Godkänd diktbild: $photo"
           done
+      - name: Kontrollera bildpaket 005 och diktbilderna
+        run: |
+          set -euo pipefail
+          test -f Spiken_Diktbilder_005_KOMPLETT.zip
+          for photo in \
+            dikt-slutet-ar-nara.webp \
+            dikt-hostregnets-eko.webp \
+            dikt-le-vi-alla-borde-le-lite-mer.webp \
+            dikt-evig-vantan.webp \
+            dikt-i-skenet-av-manens-nakna-visioner.webp \
+            dikt-dropp-dropp.webp \
+            dikt-i-bilens-varme.webp \
+            dikt-blodets-skapelse.webp \
+            dikt-i-klangens-blomsterhav.webp \
+            dikt-filmen-inom-mig.webp; do
+            unzip -p Spiken_Diktbilder_005_KOMPLETT.zip "$photo" | cmp - "public/images/$photo" || {
+              echo "::error::$photo skiljer sig från paket 005 eller saknas."
+              exit 1
+            }
+            echo "Verifierad bild från 005: $photo"
+          done
       - name: Installera unik bild för diktarkivet
         run: |
           if [ -f Spiken_Arkivbild_001.zip ]; then
