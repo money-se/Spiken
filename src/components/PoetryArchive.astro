@@ -20,11 +20,6 @@ const labels = en ? {
   toSwedish:'',count:'dikter',read:'Läs dikten',noMatch:'Inga dikter matchar din sökning.',clear:'Visa alla dikter',
   filters:'Välj en känsla',more:'Visa fler dikter',showing:'Visar',of:'av',sort:'Sortera',newest:'Nyaste först',oldest:'Äldsta först',az:'Titel A–Ö'
 };
-const moods = en ? [
-  ['Love','Love'],['Longing','Longing'],['Desire','Desire'],['Existence','Existence'],['Heartbreak','Heartbreak'],['Missing','Missing']
-] : [
-  ['Kärlek','Kärlek'],['Längtan','Längtan'],['Begär','Begär'],['Existens','Existens'],['Hjärtesorg','Hjärtesorg'],['Saknad','Saknad']
-];
 const availableThemes = [...new Set(poems.map(poem => poem.theme))].sort((a,b) => a.localeCompare(b,lang));
 const image = base + '/images/spiken-arkiv-hero.webp';
 const fallbackImage = base + '/images/spiken-3-forfattare.webp';
