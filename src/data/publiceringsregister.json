@@ -42,6 +42,601 @@
           "published_at": null
         }
       }
+    },
+    {
+      "id": "spiken-000002",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "I sötman från ditt mjuka inre\nVill min kropp dansa tango till midnatt\nFör det vackra blandat med det söta\nEn blandning som får mig att svikta\nJag ryser... Ryser till av behag vid dig\nDu sötma... Åh... Jag vill äta dig\n\nMitt blod det kokar av iver, av glädje\nDess smaker, dess lukt. Ljuvligt. Underbart.\nVill bara hugga in och drömma mig bort\n... Bort till en fantasi en annan värld\nTill kärleken för det inre, det vackra hos dig\nÅh, vad jag vill ha dig nära mig\n\nI din sötma... I din sötma, vill jag för evigt bo\nTills tiderna blir stoft och du gror \nVill jag bygga ett liv med dig i mig\nOch kämpa för det goda\n... Och tygla det onda\nLivet är socker, sötma. Och ljuva... Ljuva ord",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "I Din Sötma",
+          "slug": "i-din-sotma",
+          "text": "I sötman från ditt mjuka inre\nVill min kropp dansa tango till midnatt\nFör det vackra blandat med det söta\nEn blandning som får mig att svikta\nJag ryser... Ryser till av behag vid dig\nDu sötma... Åh... Jag vill äta dig\n\nMitt blod det kokar av iver, av glädje\nDess smaker, dess lukt. Ljuvligt. Underbart.\nVill bara hugga in och drömma mig bort\n... Bort till en fantasi en annan värld\nTill kärleken för det inre, det vackra hos dig\nÅh, vad jag vill ha dig nära mig\n\nI din sötma... I din sötma, vill jag för evigt bo\nTills tiderna blir stoft och du gror \nVill jag bygga ett liv med dig i mig\nOch kämpa för det goda\n... Och tygla det onda\nLivet är socker, sötma. Och ljuva... Ljuva ord",
+          "meta_title": "I Din Sötma – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    },
+    {
+      "id": "spiken-000003",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "I kraften av det lilla jag har kvar skriver jag mina sista ord\nTill dig som är kvinnan i mitt nakna liv\nDet vackra i det brutala... Underbara\nDu är speciell på ett sätt få ser\nMen jag ser dig, förstår dig\nLäser dig mellan raderna\n\nKraften... Vill blotta mig för världen och skrika\nMen faller. Hårt. Hårt, verkligheten ur balans\nOch mitt melankoliska liv blir till turbulens\nJag... Jag, siktar emot skyn men slås av marken\n... Gravitationen är ett ondskans tingest\nI det underbara blåa bredvid dig vill jag sväva\n\nI kraften av det lilla jag har kvar skriver jag mina sista ord\nMed tårar av blod vill jag poängtera\nAtt livet... Livet är likt en ebb flod\nBrådskande, fart. Jag är fart...\nI en kaotisk atmosfär gråter pojken inombords\nHan faller, han reser sig, men...\nMen aldrig dör han, aldrig dör han\n\nFör hans magiska ord kommer sitta etsade i skyn\nTills änglarna åter faller och jorden stannar\nSkall orden eka i det kalla vattnet\nOch pojken kommer... Kraften, den sinar\n... Kraften sinar\nTårar av blod. Rött. Vacker. Mitt liv är...",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "I kraften av det lilla",
+          "slug": "i-kraften-av-det-lilla",
+          "text": "I kraften av det lilla jag har kvar skriver jag mina sista ord\nTill dig som är kvinnan i mitt nakna liv\nDet vackra i det brutala... Underbara\nDu är speciell på ett sätt få ser\nMen jag ser dig, förstår dig\nLäser dig mellan raderna\n\nKraften... Vill blotta mig för världen och skrika\nMen faller. Hårt. Hårt, verkligheten ur balans\nOch mitt melankoliska liv blir till turbulens\nJag... Jag, siktar emot skyn men slås av marken\n... Gravitationen är ett ondskans tingest\nI det underbara blåa bredvid dig vill jag sväva\n\nI kraften av det lilla jag har kvar skriver jag mina sista ord\nMed tårar av blod vill jag poängtera\nAtt livet... Livet är likt en ebb flod\nBrådskande, fart. Jag är fart...\nI en kaotisk atmosfär gråter pojken inombords\nHan faller, han reser sig, men...\nMen aldrig dör han, aldrig dör han\n\nFör hans magiska ord kommer sitta etsade i skyn\nTills änglarna åter faller och jorden stannar\nSkall orden eka i det kalla vattnet\nOch pojken kommer... Kraften, den sinar\n... Kraften sinar\nTårar av blod. Rött. Vacker. Mitt liv är...",
+          "meta_title": "I kraften av det lilla – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    },
+    {
+      "id": "spiken-000004",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "Asfalten... Den brinner!\nAkta, himlen faller ner\nKaoset... få sekunder och allt splittras\nI djävulens himmelska symfoni \nEn strof av död och brutal smärta\nNär natten blir oändlighet\n...Och civilisationen sakta dör ut\n\nAsfalten... Den brinner!\nNär jordens undergång är på G\nOch djävulens rättvisa skippas \nI dansen om skapelsen \nSkapelsen... skapelsen utav det gudomliga \nKaoset växer, natten tar över\nVi alla skriker... skriker i plågande smärta",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "Djävulens Symfoni",
+          "slug": "djavulens-symfoni",
+          "text": "Asfalten... Den brinner!\nAkta, himlen faller ner\nKaoset... få sekunder och allt splittras\nI djävulens himmelska symfoni \nEn strof av död och brutal smärta\nNär natten blir oändlighet\n...Och civilisationen sakta dör ut\n\nAsfalten... Den brinner!\nNär jordens undergång är på G\nOch djävulens rättvisa skippas \nI dansen om skapelsen \nSkapelsen... skapelsen utav det gudomliga \nKaoset växer, natten tar över\nVi alla skriker... skriker i plågande smärta",
+          "meta_title": "Djävulens Symfoni – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    },
+    {
+      "id": "spiken-000005",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "Du sa att livet det var jobbigt\nAtt världen alltid var emot dig\nAtt jag... till och med jag, var emot dig\n... Men jag var där. Tyst. Bärande i bakgrunden \nDet slutade alltid med att jag böjde mig\nFör jag älskade dig... Och gjorde allt för dig\nSå att du skulle slippa vika dig\nSlippa... Känna den kalla världen omkring oss\n\nDu gav mig aldrig förståelse \nAldrig... Uppskattning för allt jag offrade\n... Men jag offrade mitt liv för dig\nOffrade allt för att vi skulle ha ett liv\nDet gjorde ont... Sjukt ont i mitt hjärta \nNär du vackert la det under dina fötter\nOch krossade mig... likt en insekt under din sko\nSkulle jag svarat nej...\nSå sa du alltid att jag var kall. \nDu lekte alltid med mina känslor...\nJag var svag under ditt sken\n\nNär du sköt mig i mitt hjärta för sista gången\nDå allt på riktigt tog slut\nMinns hur du försökte vrida ord till skuld\nOch lät min tystnad bli till samtycke\n\nDet var aldrig jämlikt mellan oss\nDet var ett mönster du skapat\nEtt sätt att kontrollera mig\nOch jag...\njag går sönder...\nVarje gång jag låtsas att det inte var det.",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "Under Ditt Sken",
+          "slug": "under-ditt-sken",
+          "text": "Du sa att livet det var jobbigt\nAtt världen alltid var emot dig\nAtt jag... till och med jag, var emot dig\n... Men jag var där. Tyst. Bärande i bakgrunden \nDet slutade alltid med att jag böjde mig\nFör jag älskade dig... Och gjorde allt för dig\nSå att du skulle slippa vika dig\nSlippa... Känna den kalla världen omkring oss\n\nDu gav mig aldrig förståelse \nAldrig... Uppskattning för allt jag offrade\n... Men jag offrade mitt liv för dig\nOffrade allt för att vi skulle ha ett liv\nDet gjorde ont... Sjukt ont i mitt hjärta \nNär du vackert la det under dina fötter\nOch krossade mig... likt en insekt under din sko\nSkulle jag svarat nej...\nSå sa du alltid att jag var kall. \nDu lekte alltid med mina känslor...\nJag var svag under ditt sken\n\nNär du sköt mig i mitt hjärta för sista gången\nDå allt på riktigt tog slut\nMinns hur du försökte vrida ord till skuld\nOch lät min tystnad bli till samtycke\n\nDet var aldrig jämlikt mellan oss\nDet var ett mönster du skapat\nEtt sätt att kontrollera mig\nOch jag...\njag går sönder...\nVarje gång jag låtsas att det inte var det.",
+          "meta_title": "Under Ditt Sken – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    },
+    {
+      "id": "spiken-000006",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "Jag bär på en smärta som aldrig tycks försvinna\nDet gör ont, det värker. Aj... Smärtan växer\nNågot växer innanför mitt nakna skinn\nOch jag känner hur det bultar och pulserar\nDär i värmen av det som är fel på mitt inre\nKroppen kämpar... Kämpar men det är svårt\nAtt varje dag tygla känslorna\n... Bit ihop, det går nog över snart\nMen dagar blir till veckor\n\nTröttheten av detta obehag\nMin kropp somnar snart in\nDet tär på mig... Smärtan. \nVarje dag blir till en kamp med mitt inre\nAtt våga. Att kunna. Att härda ut den eviga tiden\nNär dagarna allt blir längre och känslan växer\nDet gör ont i mig... Ont. Den växer och smärtar\nMen i mitt huvud tänker jag... Tankar. Tankar att det går över\nKanske imorgon. Ja, kanske imorgon att det löser sig\nKroppen slits i bitar och jag tejpar hysteriskt",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "Smärtan växer",
+          "slug": "smartan-vaxer",
+          "text": "Jag bär på en smärta som aldrig tycks försvinna\nDet gör ont, det värker. Aj... Smärtan växer\nNågot växer innanför mitt nakna skinn\nOch jag känner hur det bultar och pulserar\nDär i värmen av det som är fel på mitt inre\nKroppen kämpar... Kämpar men det är svårt\nAtt varje dag tygla känslorna\n... Bit ihop, det går nog över snart\nMen dagar blir till veckor\n\nTröttheten av detta obehag\nMin kropp somnar snart in\nDet tär på mig... Smärtan. \nVarje dag blir till en kamp med mitt inre\nAtt våga. Att kunna. Att härda ut den eviga tiden\nNär dagarna allt blir längre och känslan växer\nDet gör ont i mig... Ont. Den växer och smärtar\nMen i mitt huvud tänker jag... Tankar. Tankar att det går över\nKanske imorgon. Ja, kanske imorgon att det löser sig\nKroppen slits i bitar och jag tejpar hysteriskt",
+          "meta_title": "Smärtan växer – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    },
+    {
+      "id": "spiken-000007",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "Det är på tiden att jag släpper mitt inre löst\nTänker krossa alla mina murar \nPå tiden att jag tar över rodret\nDetta är mitt liv, mina order\nTänker visa upp mitt inre på det yttre\nBemåla min kropp, nervositet\nFörsta gången, det känns rätt\nVill bli en tavla, se på mig, skåda mitt inre\nMörkret är stort inom mig\nJag tänker bara köra hårt\nSatsa hundra på mig\nFör det är bara jag, jag och åter jag i slutänden\nAll smärta jag gått igenom\nHar krossat mig, jag måste börja om på nytt\nDet är svårt, kämpar hårt\nTvå steg framåt, ett tillbaka\nDet är en kamp emot tiden",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "Kampen Emot Tiden",
+          "slug": "kampen-emot-tiden",
+          "text": "Det är på tiden att jag släpper mitt inre löst\nTänker krossa alla mina murar \nPå tiden att jag tar över rodret\nDetta är mitt liv, mina order\nTänker visa upp mitt inre på det yttre\nBemåla min kropp, nervositet\nFörsta gången, det känns rätt\nVill bli en tavla, se på mig, skåda mitt inre\nMörkret är stort inom mig\nJag tänker bara köra hårt\nSatsa hundra på mig\nFör det är bara jag, jag och åter jag i slutänden\nAll smärta jag gått igenom\nHar krossat mig, jag måste börja om på nytt\nDet är svårt, kämpar hårt\nTvå steg framåt, ett tillbaka\nDet är en kamp emot tiden",
+          "meta_title": "Kampen Emot Tiden – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    },
+    {
+      "id": "spiken-000008",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "I skogens dunkla mystik finner jag spår\nSpår av rött, stelnade blod\nEn glänta, en brottsplats, det är groteskt\nMin hjärna hoppar till, vad har skett\nÄr det mord i skogens dal\nEller vad kan möjligtvis hänt\n\nEtt långt spår leder mig längre in\nMed små rädda steg, går jag fram\nSpänning ligger i luften, en omättlig tystnad\nNågot bevakar varje steg jag tar\nVad är det för mystik som döljer sig här",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "I skogens hjärta",
+          "slug": "i-skogens-hjarta",
+          "text": "I skogens dunkla mystik finner jag spår\nSpår av rött, stelnade blod\nEn glänta, en brottsplats, det är groteskt\nMin hjärna hoppar till, vad har skett\nÄr det mord i skogens dal\nEller vad kan möjligtvis hänt\n\nEtt långt spår leder mig längre in\nMed små rädda steg, går jag fram\nSpänning ligger i luften, en omättlig tystnad\nNågot bevakar varje steg jag tar\nVad är det för mystik som döljer sig här",
+          "meta_title": "I skogens hjärta – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    },
+    {
+      "id": "spiken-000009",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "För sju år sen kom du in i mitt liv\nLikt en blixt från skyn, allt gick så snabbt\nJag var i en mörk fas utav mitt liv\nEn fas kantrade av ensamhet och självhat\nJag saknade kärlek \nHade aldrig riktigt upplevt den\nBara sett och inbillat mig den\nMen så en dag, kom du\n\nJag minns hur jag inte kunde tro det var sant\nHur en så vacker tjej som du\nKunde falla för ett monster som mig\nFör allt jag kunde se mig själv som\nVar ett monster, fylld av mörker \nMen du visade mig kärlek\nDu visade mig så mycket mer\nOch vi klickade direkt\nSom att vi känt varandra för evigt\n\nJag kommer alltid att ha dig i mitt liv\nJag kommer alltid att ha våra minnen inom mig\nAldrig kommer någon annan kunna fylla din plats\nDen plats i mitt hjärta som du har\nDen kommer vara din för evigt\nDu kommer vara min för evigt. \n\nI vått och torrt kämpade vi\nVi gav aldrig upp, trots svek och hat\nVi kämpade, vi var lyckliga\nMen vi hade våra problem \nVi var aldrig perfekta \n\nJag vet att jag inte alltid varit den bästa\nMen jag har alltid, alltid brytt mig om dig\nDu kommer alltid vara den där blomman\nSom så vackert skulle slå ut\nOch jag kan stolt säga \nAtt jag fick vara där och dela den stunden\nJag har fått följa dig i sju år\nSett dig växa som människa\nJag har sett min lilla blomma slå ut\n\nDet är svårt att förstå och ta in\nAtt den man älskar mest, vuxit ifrån en\nDet är en djup sorg inom mig\nDu har trots allt tagit hela mitt hjärta \nOch med det sagt, finns det inget kvar\nEfter att du lämnat mig\nOch jag vet inte hur jag ska hantera situationen \nJag får panik, jag är livrädd\n\nMin lilla flicka har blivit stor\nHon behöver inte mig mer\nOch det tär på mig, jag blir bara skinn och ben\nMen älskling, du kommer alltid finnas hos mig\nTrots skilda vägar, trots bråk och hat\nSå älskar vi varandra, i vått som torrt\n\nJag ångrar alla misstag jag begick emot dig\nJag hatar sättet jag uppenbarligen fick dig att må\nDu är den enda som någonsin betytt något för mig\nDet är därför jag gråter över förlusten \nFör jag inser att jag förlorat dig\nOch jag hatar mig själv för att låtit det ske\nOch jag vet inte hur jag ska rädda situationen \nJag liksom bara drar mig längre ner\nLängre in i mörkret som alltid hängt över mig\n\nMen hjärtat, du är och kommer alltid vara en del av mig\nHur jag än må behandla dig, så älskar jag dig\nJag kan inte förneka mina känslor för dig\nDet finns inte en tjej där ute som är som du \nDu är för mig, alltid min lilla flicka\nOch kommer alltid att vara\nMin söta, underbara lilla flicka.",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "Min lilla flicka – mitt hjärta",
+          "slug": "min-lilla-flicka-mitt-hjarta",
+          "text": "För sju år sen kom du in i mitt liv\nLikt en blixt från skyn, allt gick så snabbt\nJag var i en mörk fas utav mitt liv\nEn fas kantrade av ensamhet och självhat\nJag saknade kärlek \nHade aldrig riktigt upplevt den\nBara sett och inbillat mig den\nMen så en dag, kom du\n\nJag minns hur jag inte kunde tro det var sant\nHur en så vacker tjej som du\nKunde falla för ett monster som mig\nFör allt jag kunde se mig själv som\nVar ett monster, fylld av mörker \nMen du visade mig kärlek\nDu visade mig så mycket mer\nOch vi klickade direkt\nSom att vi känt varandra för evigt\n\nJag kommer alltid att ha dig i mitt liv\nJag kommer alltid att ha våra minnen inom mig\nAldrig kommer någon annan kunna fylla din plats\nDen plats i mitt hjärta som du har\nDen kommer vara din för evigt\nDu kommer vara min för evigt. \n\nI vått och torrt kämpade vi\nVi gav aldrig upp, trots svek och hat\nVi kämpade, vi var lyckliga\nMen vi hade våra problem \nVi var aldrig perfekta \n\nJag vet att jag inte alltid varit den bästa\nMen jag har alltid, alltid brytt mig om dig\nDu kommer alltid vara den där blomman\nSom så vackert skulle slå ut\nOch jag kan stolt säga \nAtt jag fick vara där och dela den stunden\nJag har fått följa dig i sju år\nSett dig växa som människa\nJag har sett min lilla blomma slå ut\n\nDet är svårt att förstå och ta in\nAtt den man älskar mest, vuxit ifrån en\nDet är en djup sorg inom mig\nDu har trots allt tagit hela mitt hjärta \nOch med det sagt, finns det inget kvar\nEfter att du lämnat mig\nOch jag vet inte hur jag ska hantera situationen \nJag får panik, jag är livrädd\n\nMin lilla flicka har blivit stor\nHon behöver inte mig mer\nOch det tär på mig, jag blir bara skinn och ben\nMen älskling, du kommer alltid finnas hos mig\nTrots skilda vägar, trots bråk och hat\nSå älskar vi varandra, i vått som torrt\n\nJag ångrar alla misstag jag begick emot dig\nJag hatar sättet jag uppenbarligen fick dig att må\nDu är den enda som någonsin betytt något för mig\nDet är därför jag gråter över förlusten \nFör jag inser att jag förlorat dig\nOch jag hatar mig själv för att låtit det ske\nOch jag vet inte hur jag ska rädda situationen \nJag liksom bara drar mig längre ner\nLängre in i mörkret som alltid hängt över mig\n\nMen hjärtat, du är och kommer alltid vara en del av mig\nHur jag än må behandla dig, så älskar jag dig\nJag kan inte förneka mina känslor för dig\nDet finns inte en tjej där ute som är som du \nDu är för mig, alltid min lilla flicka\nOch kommer alltid att vara\nMin söta, underbara lilla flicka.",
+          "meta_title": "Min lilla flicka – mitt hjärta – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    },
+    {
+      "id": "spiken-000010",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "Men känslan jag har liggandes över mig\nÄrligt så känner jag mig död\nDöd inombords, och det skrämmer mig\n\nVill inte tynga ner dig med min skit\nVill inte tynga ner någon med detta\nSå hoppas du inte tar åt dig\n\nMen jag mår så jävla skit\nJag hatar mig själv\nÄrligt, jag känner mig död\n\nFår behärska mig från att slå näven i väggen\nEller liknande\nVet det låter sjukt\n\nMen jag lever i en jävla falsk värld\nJag gör vad som helst för att slippa mig själv\nFör att slippa känna denna känslan\n\nDet är jobbigt\nOch har alltid varit\nÄven om jag ler, skrattar\nSäger jag mår bra\nSå är det lögn\n\nFör jag mår inte bra\nOch aldrig gjort...",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "Bakom mitt leende",
+          "slug": "bakom-mitt-leende",
+          "text": "Men känslan jag har liggandes över mig\nÄrligt så känner jag mig död\nDöd inombords, och det skrämmer mig\n\nVill inte tynga ner dig med min skit\nVill inte tynga ner någon med detta\nSå hoppas du inte tar åt dig\n\nMen jag mår så jävla skit\nJag hatar mig själv\nÄrligt, jag känner mig död\n\nFår behärska mig från att slå näven i väggen\nEller liknande\nVet det låter sjukt\n\nMen jag lever i en jävla falsk värld\nJag gör vad som helst för att slippa mig själv\nFör att slippa känna denna känslan\n\nDet är jobbigt\nOch har alltid varit\nÄven om jag ler, skrattar\nSäger jag mår bra\nSå är det lögn\n\nFör jag mår inte bra\nOch aldrig gjort...",
+          "meta_title": "Bakom mitt leende – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    },
+    {
+      "id": "spiken-000011",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "Äntligen slutade du smutskasta mig\nÄntligen är jag fri ifrån dig\nFri ifrån din falskhet\nFri ifrån hela skiten\nÄntligen inser du ditt svek\nHur du är sinnesrubbad, en skruv lös\nLyssnade aldrig på mina ord\nSkapade egna uppfattningar\nDu trodde du hjälpte\nMen egentligen stjälpte du mig\nSmutskastning och svek\nI en satans melankoli\nDu fick tro vad du ville\nMen varför inte lyssna\nVarför så intensivt tro jag var någon annan\nJag skrev ju aldrig att så var fallet\nMen jag är glad att du stack\nDetta är befrielse för mig",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "Äntligen Fri",
+          "slug": "antligen-fri",
+          "text": "Äntligen slutade du smutskasta mig\nÄntligen är jag fri ifrån dig\nFri ifrån din falskhet\nFri ifrån hela skiten\nÄntligen inser du ditt svek\nHur du är sinnesrubbad, en skruv lös\nLyssnade aldrig på mina ord\nSkapade egna uppfattningar\nDu trodde du hjälpte\nMen egentligen stjälpte du mig\nSmutskastning och svek\nI en satans melankoli\nDu fick tro vad du ville\nMen varför inte lyssna\nVarför så intensivt tro jag var någon annan\nJag skrev ju aldrig att så var fallet\nMen jag är glad att du stack\nDetta är befrielse för mig",
+          "meta_title": "Äntligen Fri – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    },
+    {
+      "id": "spiken-000012",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "Dystra tankar börjar närma sig, en känsla byggs upp\nSkall dom tryckas bort eller tas emot\nVet inte, vill inte gå igenom den smärtan\nMen skall vara bättre att gå igenom, än förtränga\nKänslorna är inte långt bort\nPlågande vilar dom snart likt ett moln över huvudet\nOrkar kroppen detta, vill vi verkligen stå emot\nEn känsla av obehag kryper sig inpå\nVill stå emot, vill slippa känna\nMen vet ej än utgången\n\nTiden rinner igenom, en känsla av obehag väller över\nDystra tankar, grubblerier och blaskor\nAllt är stoft i världen men plågande ont\nKänslor, borde stå emot, det gör så ont\nOnda ting föds ur det goda\nUtan mörker inget ljus\nVill inte mer\n\nDystra, hopplösa tankar är på ingång\nBorde sätta stopp, men finner inte ro\nVill inte behöva känna, vill bedöva\nOrolig över dess utlopp\nVill inte mer\nSlutet är nära",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "Slutet är nära",
+          "slug": "slutet-ar-nara",
+          "text": "Dystra tankar börjar närma sig, en känsla byggs upp\nSkall dom tryckas bort eller tas emot\nVet inte, vill inte gå igenom den smärtan\nMen skall vara bättre att gå igenom, än förtränga\nKänslorna är inte långt bort\nPlågande vilar dom snart likt ett moln över huvudet\nOrkar kroppen detta, vill vi verkligen stå emot\nEn känsla av obehag kryper sig inpå\nVill stå emot, vill slippa känna\nMen vet ej än utgången\n\nTiden rinner igenom, en känsla av obehag väller över\nDystra tankar, grubblerier och blaskor\nAllt är stoft i världen men plågande ont\nKänslor, borde stå emot, det gör så ont\nOnda ting föds ur det goda\nUtan mörker inget ljus\nVill inte mer\n\nDystra, hopplösa tankar är på ingång\nBorde sätta stopp, men finner inte ro\nVill inte behöva känna, vill bedöva\nOrolig över dess utlopp\nVill inte mer\nSlutet är nära",
+          "meta_title": "Slutet är nära – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    },
+    {
+      "id": "spiken-000013",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "Genom röd höstgång i kvällsluftens kyla, regnet droppar sakta ned\nNed på mina svullna kinder, förbi små. Vackert belysta hus\n\nVägen jag bevandrat är krokig. Kringlig. Men fötterna bär mig fortfarande\nTankarna är i ett inre krig, vad vill jag, vem är jag\n... Önskar livet vore över, allt vore så enkelt\nMen mitt liv är lika mörkt och dystert, som mina mörka skor...\nOch himlen som alltid tycks öppna sig över mig\nBelägger min kropp i en hinna av vatten\nSom döljer och sköljer bort mina små vackra tårar\n\nTankarna rör sig, existerar ej, babe... Vart tog du vägen?\n... Känner ingen smärta. Vill bara falla till portarna\nVägen till helvetet. Beskåda dess glans i all sin prakt\nMen tankarna faller tillbaka till verkligheten. Käftsmäll\nBabe...  Jag gråter, vart är du? Förlåter dig. Förlåter du mig?\n\n... Vart är du någonstans babe? Tårarna forsar\nHimlen belägger min nakna kropp. Försvinner sakta bort\nBort mot nattens dryga mittpunkt. Dränkt i det blöta höstregnet \nOch mitt röda blodomlopp... Är endast en strimma av ditt forna ljus\n... Vändpunkten i mitt liv var du. Vart är du nu? Jag undrar\nSkriken ekar. Orden ekar. Ett eko av den jag var\nBara ett eko som försvinner... Ned i nattens mörka dunkel\nNär du plötsligt står där framför mig. Fri. I vinden \nUnder höstregnets... Underbara. Vackra smekande\nStjärnorna belyser upp. Ett stjärnfall ilar förbi. I snabb. Snabb fart\n\nJag blickar upp. Vackert. Rent jävla underbart!\nEn önskan... I stjärnfallets döende resa\n... Jag önskar mig dig. Naken. Hos mig, nu och för evigt\nBörjan på något. Som skall känns fritt, känns rätt\nDet tänds något inom mig. En gnista. Natten blir till en roadtrip \nDär du vackert... Vackert. Ligger och sover bredvid mig \nI nattens oändliga rymd... Av glittrande magiska färger\n\nDina ögon som tindrade. Blir berusad i din närvaro\nDin skönhet. Som speglar gudomlighet. Vill... Bara få beröra\n... Varje liten centimeter. Hjärtat slår. Blodet pulserar\nÖnskan min blev till verklighet. Du. Du blev min räddning\nVill aldrig tappa stunden. Just denna stunden... Vi nu passerar\nDetta är ren lycka. Förevigad. För alltid. Min prinsessa. Jag ser dig!",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "Höstregnets Eko",
+          "slug": "hostregnets-eko",
+          "text": "Genom röd höstgång i kvällsluftens kyla, regnet droppar sakta ned\nNed på mina svullna kinder, förbi små. Vackert belysta hus\n\nVägen jag bevandrat är krokig. Kringlig. Men fötterna bär mig fortfarande\nTankarna är i ett inre krig, vad vill jag, vem är jag\n... Önskar livet vore över, allt vore så enkelt\nMen mitt liv är lika mörkt och dystert, som mina mörka skor...\nOch himlen som alltid tycks öppna sig över mig\nBelägger min kropp i en hinna av vatten\nSom döljer och sköljer bort mina små vackra tårar\n\nTankarna rör sig, existerar ej, babe... Vart tog du vägen?\n... Känner ingen smärta. Vill bara falla till portarna\nVägen till helvetet. Beskåda dess glans i all sin prakt\nMen tankarna faller tillbaka till verkligheten. Käftsmäll\nBabe...  Jag gråter, vart är du? Förlåter dig. Förlåter du mig?\n\n... Vart är du någonstans babe? Tårarna forsar\nHimlen belägger min nakna kropp. Försvinner sakta bort\nBort mot nattens dryga mittpunkt. Dränkt i det blöta höstregnet \nOch mitt röda blodomlopp... Är endast en strimma av ditt forna ljus\n... Vändpunkten i mitt liv var du. Vart är du nu? Jag undrar\nSkriken ekar. Orden ekar. Ett eko av den jag var\nBara ett eko som försvinner... Ned i nattens mörka dunkel\nNär du plötsligt står där framför mig. Fri. I vinden \nUnder höstregnets... Underbara. Vackra smekande\nStjärnorna belyser upp. Ett stjärnfall ilar förbi. I snabb. Snabb fart\n\nJag blickar upp. Vackert. Rent jävla underbart!\nEn önskan... I stjärnfallets döende resa\n... Jag önskar mig dig. Naken. Hos mig, nu och för evigt\nBörjan på något. Som skall känns fritt, känns rätt\nDet tänds något inom mig. En gnista. Natten blir till en roadtrip \nDär du vackert... Vackert. Ligger och sover bredvid mig \nI nattens oändliga rymd... Av glittrande magiska färger\n\nDina ögon som tindrade. Blir berusad i din närvaro\nDin skönhet. Som speglar gudomlighet. Vill... Bara få beröra\n... Varje liten centimeter. Hjärtat slår. Blodet pulserar\nÖnskan min blev till verklighet. Du. Du blev min räddning\nVill aldrig tappa stunden. Just denna stunden... Vi nu passerar\nDetta är ren lycka. Förevigad. För alltid. Min prinsessa. Jag ser dig!",
+          "meta_title": "Höstregnets Eko – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    },
+    {
+      "id": "spiken-000014",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "Lekande lätt springer jag över stockar och sten\nLuften. Solens hetta. Njutningen av livet\nNär jag utmed stigen. Flåsande. Svetten rinner\nLivet. Livet leker, det är lätt. Struktur, rutiner\nJa. Allt känns enkelt. Positiva vibbar\nMin hjärna... Jag manipulerar\nDrar udden av det onda \nLåter allt domineras av det vackra\nDet goda, det ljuva. Positiva vibbar frodas\n\nEn sten som funnit sig till rätta\nSom äntligen börjat acceptera. Livet\n... Livet, vad är det? Vi föds, vi dör\nMen smärta, varför skapa smärtan\nNär vi kan manipulera vårat sinne\nSe världen från en annan vinkel\nVarför inte beskåda allt upp och ned\nLeker med tanken. Tankar. Älskar att tänka\n\nPositiva saker föder det positiva\nVarför plåga sig i en ond spiral\nSe det vackra i det nakna. Acceptera det du ser\nKänn inte efter, bara lev och njut\nFör livet är kort, tiden är allt vi har\nVärdesätt din tid mer än annat\nOch öppna dina ögon... Skåda, ser du?\n\nPositiva vibbar får dig att le, testa. Le\nSäg till dig själv att du vill leva\nLivet... Ta inte livet för givet\nNjut medan du kan, för verkligheten kan vara snabb\nLe, jag ler, jag njuter, musiken håller rytmen\nMina lungor andas, luften flödar. Blodet.\nBlodet pumpas och kroppen fungerar\nJag manipulerar min hjärna till lycka\nLe. Vi alla borde le lite mer",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "Le. Vi alla borde le lite mer",
+          "slug": "le-vi-alla-borde-le-lite-mer",
+          "text": "Lekande lätt springer jag över stockar och sten\nLuften. Solens hetta. Njutningen av livet\nNär jag utmed stigen. Flåsande. Svetten rinner\nLivet. Livet leker, det är lätt. Struktur, rutiner\nJa. Allt känns enkelt. Positiva vibbar\nMin hjärna... Jag manipulerar\nDrar udden av det onda \nLåter allt domineras av det vackra\nDet goda, det ljuva. Positiva vibbar frodas\n\nEn sten som funnit sig till rätta\nSom äntligen börjat acceptera. Livet\n... Livet, vad är det? Vi föds, vi dör\nMen smärta, varför skapa smärtan\nNär vi kan manipulera vårat sinne\nSe världen från en annan vinkel\nVarför inte beskåda allt upp och ned\nLeker med tanken. Tankar. Älskar att tänka\n\nPositiva saker föder det positiva\nVarför plåga sig i en ond spiral\nSe det vackra i det nakna. Acceptera det du ser\nKänn inte efter, bara lev och njut\nFör livet är kort, tiden är allt vi har\nVärdesätt din tid mer än annat\nOch öppna dina ögon... Skåda, ser du?\n\nPositiva vibbar får dig att le, testa. Le\nSäg till dig själv att du vill leva\nLivet... Ta inte livet för givet\nNjut medan du kan, för verkligheten kan vara snabb\nLe, jag ler, jag njuter, musiken håller rytmen\nMina lungor andas, luften flödar. Blodet.\nBlodet pumpas och kroppen fungerar\nJag manipulerar min hjärna till lycka\nLe. Vi alla borde le lite mer",
+          "meta_title": "Le. Vi alla borde le lite mer – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    },
+    {
+      "id": "spiken-000015",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "Jag börjar på riktigt att tröttna \n... vill bara ge upp just nu \nSka man verkligen behöva vänta\n... vänta i en evighet. På vad?\nVarför är det såhär\nVill bara få åka hem till mina barn\nHem... hem till mitt egna trygga hem\n\nMen timmarna... Går. Och går...\nIngen tycks bry sig, har ni glömt mig?\nDet rycker till i min kropp av ångest\n... av depression.  Vill nästan gråta\nGråta av sorgen, av tristessen \nDenna miljön... Vill bara dö\nNär timme efter timme passerar\n\nVill bara. Bara. Bort. Bort härifrån. Nu!\nKlockan går, inget sker. Jag...\nVill hem nu. Slippa detta fängelse \nDenna eviga väntan. Tårar av längtan \nDetta tar på mig. Vill bara. Hem!",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "Evig väntan",
+          "slug": "evig-vantan",
+          "text": "Jag börjar på riktigt att tröttna \n... vill bara ge upp just nu \nSka man verkligen behöva vänta\n... vänta i en evighet. På vad?\nVarför är det såhär\nVill bara få åka hem till mina barn\nHem... hem till mitt egna trygga hem\n\nMen timmarna... Går. Och går...\nIngen tycks bry sig, har ni glömt mig?\nDet rycker till i min kropp av ångest\n... av depression.  Vill nästan gråta\nGråta av sorgen, av tristessen \nDenna miljön... Vill bara dö\nNär timme efter timme passerar\n\nVill bara. Bara. Bort. Bort härifrån. Nu!\nKlockan går, inget sker. Jag...\nVill hem nu. Slippa detta fängelse \nDenna eviga väntan. Tårar av längtan \nDetta tar på mig. Vill bara. Hem!",
+          "meta_title": "Evig väntan – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    },
+    {
+      "id": "spiken-000016",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "Bara ibland är det inre mitt yttre\nI en värld av allt som känns kallt\nVill jag dansa naken på torget i staden där jag bor\nOch skrika ut mitt namn i månens vackra sken\n\nFör ikväll skall vi dansa som kungar in i oändligheten\nOch för evigt sväva iväg till nattens dunkel\nI den svarta svävaren av blänkande guld\nOch världen stannar under våra fötter\n\nNär vi i livet sakta passerar ålder efter ålder\nMen hjärtat slutar aldrig att riktigt gro\nFör vi har kontrollen att kontrollera våra sinnen till fulla ro\n\nMen ibland när kaoset känns svårt\nVill det inre sällan så ett frö emot det hårda yttre\n\nUtan vi dansar fortfarande in i oändligheten\nI skenet av månens nakna visioner\nAv det vackra råa i det kalla gråa\nAv dagens mystik under stjärnornas klarhet\n\nVill jag föreviga stunden med mitt hjärta i min hand\nI det kalla men ändå varma\nDet metalliska\nNär vi i skyn svävar fram",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "I skenet av månens nakna visioner",
+          "slug": "i-skenet-av-manens-nakna-visioner",
+          "text": "Bara ibland är det inre mitt yttre\nI en värld av allt som känns kallt\nVill jag dansa naken på torget i staden där jag bor\nOch skrika ut mitt namn i månens vackra sken\n\nFör ikväll skall vi dansa som kungar in i oändligheten\nOch för evigt sväva iväg till nattens dunkel\nI den svarta svävaren av blänkande guld\nOch världen stannar under våra fötter\n\nNär vi i livet sakta passerar ålder efter ålder\nMen hjärtat slutar aldrig att riktigt gro\nFör vi har kontrollen att kontrollera våra sinnen till fulla ro\n\nMen ibland när kaoset känns svårt\nVill det inre sällan så ett frö emot det hårda yttre\n\nUtan vi dansar fortfarande in i oändligheten\nI skenet av månens nakna visioner\nAv det vackra råa i det kalla gråa\nAv dagens mystik under stjärnornas klarhet\n\nVill jag föreviga stunden med mitt hjärta i min hand\nI det kalla men ändå varma\nDet metalliska\nNär vi i skyn svävar fram",
+          "meta_title": "I skenet av månens nakna visioner – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    },
+    {
+      "id": "spiken-000017",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "... Vad är det som droppar\nKaoset... Mamma... Pappa... Hjälp!\nRött blod. Stänkt. Över hela väggarna\nI en fontän av hett. Klibbigt. Blod\nLigger pojken och gråter\nTårar av skräck och rädsla\nI en position likt ett foster\n\n... Hahaha\nEtt dovt skratt ifrån dunklaste hörnet\nVita. Hemska vita tänder. Som ler. Ler brutalt\nEmot synen av det... Av det fasansfulla som skett\nEtt blodbad. Ett bad av rött blod\nEn massaker. Kroppsdelar överallt\nRökdoften ifrån din cigarett\n\n... Döda mig. Döda mig, men rösten bar ej\nMina händer. Kalla. Av skräck\nMamma... Pappa... Delar av dom flyter omkring\nDet är kaos. Chock. Händerna över huvudet\nTårarna... Ett hav som aldrig tycks ta slut\nOch du bara ler... Du njuter av det du ser\n\nCigaretten glider mellan dina tänder\nYxan... Yxan vars blod droppar ner\nDropp... Dropp. Ett tyst ekande i rummet\nÖgonen är kalla, knappt synliga\nDina fingrar vilar tryggt över skaftet\n... Pojk, sluta lipa. Ekade en mörk röst\nEtt tyst leende förseglade atmosfären",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "Dropp... Dropp",
+          "slug": "dropp-dropp",
+          "text": "... Vad är det som droppar\nKaoset... Mamma... Pappa... Hjälp!\nRött blod. Stänkt. Över hela väggarna\nI en fontän av hett. Klibbigt. Blod\nLigger pojken och gråter\nTårar av skräck och rädsla\nI en position likt ett foster\n\n... Hahaha\nEtt dovt skratt ifrån dunklaste hörnet\nVita. Hemska vita tänder. Som ler. Ler brutalt\nEmot synen av det... Av det fasansfulla som skett\nEtt blodbad. Ett bad av rött blod\nEn massaker. Kroppsdelar överallt\nRökdoften ifrån din cigarett\n\n... Döda mig. Döda mig, men rösten bar ej\nMina händer. Kalla. Av skräck\nMamma... Pappa... Delar av dom flyter omkring\nDet är kaos. Chock. Händerna över huvudet\nTårarna... Ett hav som aldrig tycks ta slut\nOch du bara ler... Du njuter av det du ser\n\nCigaretten glider mellan dina tänder\nYxan... Yxan vars blod droppar ner\nDropp... Dropp. Ett tyst ekande i rummet\nÖgonen är kalla, knappt synliga\nDina fingrar vilar tryggt över skaftet\n... Pojk, sluta lipa. Ekade en mörk röst\nEtt tyst leende förseglade atmosfären",
+          "meta_title": "Dropp... Dropp – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    },
+    {
+      "id": "spiken-000018",
+      "type": "dikt",
+      "channel": "under-huden",
+      "category": "",
+      "tags": [],
+      "original_language": "sv",
+      "original_text": "Kraften hos det lilla i vardagens mörker\nEn lyx man sällan beviljar men ibland så\nEn tripp bland molnen, trevliga monologer\nJa... Ibland är livet värt att leva\nOch ett skratt som förlänger livet \nDu är en av anledningarna att vilja kämpa\n\nSå i kraften av det lilla, i det som slår på hjärtat \nI bilens värme, i solens belysning \nSitter lille jag och filosoferar \nOm tron på lyckan, uppe bland molnen\nAv det vackra och det hela\nI ljuset från din ande\n... Ifrån djupet av mitt hjärta\n\n=== DIKT ==\n\nVid brytgränsen mellan tid och rum\n\nTills vi möts igen... Du. Ja du\nVid brytgränsen mellan tid och rum\nDu vet... Den där känslan när man försvinner\nIn. In i sig själv... När tårar är ut och in\nI en värld. En kaotisk vacker värld\nEtt bröd... Ett levande. Du andas\nSer du bortom tiden. Bortom...\n\nJa, precis.\n... Du drömmer. Borta. Eufori\nNatt. Tankar.  Vart är vi påväg?\nDu ler. Ja, du ler. Både fysiskt och psykiskt \nDitt inre. Ditt inre är fullt av känslor\n... Känner du dom?\nPrecis. Andas, du lever, eller hur?\n\n=== DIKT ==\n\nBlodets Skapelse\n\nInom mig... Växer. Ett fasansfullt monster fram\nFörgörelsen. Blodets kalla skapelse\nDet som håller mig i fas. Trots. Att mörkret är kallt\nOrkeslösa brutaliteter... Utan samvete\n... Ett nytt jag. Reser mig ur svärtad aska\nOch slår hårt. Ned. På det gamla inom mig\nFör monstret får näring... Av din inre rädsla\n\nInom mig... Växer. Ett fasansfullt monster fram\nVarje puls. Varje slag. Jag känner... Din rädsla växer\nVid sekunder av tystnad. Växer sig monstret. Starkare\nI dess brutala närvaro... Är jag för evigt stark\nDetta är sanningen. Som sakta. Sakta. Växer fram\nOrd. För ord... Gnager den inombords\nEtt spektrum av färger. I blodets kalla skapelse\n\nVid födseln av det brutala. I kaoset av min inre monolog\nBokstavligen rädsla vid blodets rand. Smärta\nDen psykiska pressen som växer i mitt inre\nFörgörelsen. Orkeslös brutalitet. Ett nytt jag...\nSekunder av tystnad. Reser mig... Och slår hårt\nStunder av enorm smärta. Skapar näring till dig\nMitt monster i mitt hjärta. Som sakta. Äter mig...\n\n=== DIKT ==\n\nI Klangens Blomsterhav\n\nI klangen från din ljuva lätta stämma\nDansar vildvuxna blommor på ängarna\nI solens hetta emot din nakna hud\nDär under himlens blåa hav\nÄr en fröjd för ögats kanal\nVildvuxna blommor över ängarna\nI ett evighetens oändliga hav\n\nEnergin du skapar fyller mig av lättja \nRöstens stämma håller mitt hjärta vid liv\nI solens starka sken är du en jungfru\nTiden står still i klingan från din melodi\nMitt liv blir en fröjd i din närhet\nOch tiden blir till oändlighet \nHär i havet av dansande blommor\n\n\n=== DIKT ==\n\nFilmen inom mig\n\nAlla minnen rullar på\nsom filmer inom mig.\nJag fantiserar om en verklighet\nbortom fantasin –\ndär mörkret är sanningen\noch verkligheten ur balans.\n\nI det dystra av mitt starka inre\nvill jag hålla en fasad som är stark\nmen känner mig svag –\nmanipulerad till gränsen av desorientering.\nFör jag vet inte längre\nvad som är rätt eller fel.\n\nMina begär är som en hunger\nsom ständigt vill ha mer.\nOch livet är en cykel,\nett jävla schackspel –\ndär varje drag kräver flera tänk\nmen ibland vinner impulsivitet.\nOch felstegen\nkostar framtiden.\n\nDet skapar en ond cirkel\nsom till slut\nfår dig att ta ditt eget liv –\ni en misär av det inre.\n\nI spegeln\nser jag en bild så destruktiv.\nI det röda blodet\nvill vi drunkna,\nmen i sanningen\nska vi gråta.\n\nTårar av rädsla\nblir till slut sten.\nOch när makten i det inre\nsaknar svärta\nvill vi bli ett\nmed oss själva.\n\nMen livet ställer till besvär.\nOch jag gråter mig till sömns\nefter nattens obehagliga verklighetsbild\nav den sanning\nsom aldrig fick komma fram.\n\nÄr jag nu ett med mitt inre?\nDet mörker jag alltid åtrått...\nTillsammans –\nska vi nu besegra\nden bild av universum\nvi själva anser är fel.\n\n=== DIKT ==\n\nSilvret och Kronan\n\nSilvret i hans utseende, rynkorna av ålder\nStoltheten han bär som en krona\nMannen som vi sällan skådat\n... Men som bokstavligen sett allt\nFör världen han skapade med sina fingrar\nI en trollbunden sfär. Klotet av orden\nDet vackra i det trasiga. Det splittrade\n\nMannen med silvret, som håller sin prakt\nVars liv kantas av en stark prägel utav smärta\nMen som sällan ber om mer än han klarar\nI orden han så vackert målar sin inre värld\nDär vi blir trollbundna av sånger. Magi\nMannen. Silvret. Han bär vackert sin krona\n\n=== DIKT ==\n\nFörankrad i Verkligheten\n\nByråkrati och zoner av gråhet\nI en värld där man ständigt måste kämpa\nKämpa för det man anser är rätt\nFör ens egna framtid. Ibland skrattar jag av ironi\nLivet är komplext, man får ta så mycket skit\nAtt kämpa emot en människa som lever i en box\nSom tydligt inte kan se, reflektera och ransonera\nDär man tror allt är svart eller vitt\nOch egot är större än ens vikt\n\nNär du vänder alla runt omkring dig emot mig\nAnvänder dina ormliknande ljud för att smutskasta\nTror du att det fungerar, att det biter\nSanningen kommer att ta dig\nOch jag vet att mitt är på det torra\nDu målar in dig i ett hörn av förnekelse\nSmutskastning på mig, det är enkelt\nSå enkelt, att du kan blunda. Blunda för verkligheten\n\nTänk om jag vore svag, lättpåverkad\nKanske vore mitt liv över sedan länge\nAv den psykiska misshandeln du mig plågat med\nNu under flera år av mitt liv\nJag tror du är svag och rädd\nKanske... Bara kanske borde du öppna dina ögon\nOch inse att världen inte är, just svart och vit\n... Kanske då, att du skulle vakna till\nOch ditt brutala ego få sig en törn\nMen jag står fast, förankrad till verklighet\n\n=== DIKT ==\n\nRösten i musiken\n\nLåtar som brutalt sliter upp mina inre sår – får mig att börja gråta\nAlla tankarna... Dom svämmar över – när rätt musik väl slår till\n... Kan inte kontrollera mina känslor\nAllt bara sväller över – minnena trillar – likt ett korthus ned\nÖnskar det var vi igen. Du och jag... Att det. Det aldrig riktigt tog slut\nVi två tillsammans... I sängens nakna vy – vid vägens slut\nTillsammans kollade vi serier och filmer – vi slukade allt\n... Musiken. Den. Den hemsöker mig varje dag\n\nHjärtat – jag önskar en kunde trolla – vill gråta\nÖnskar det var vi tillsammans igen... Ville aldrig på riktigt förlora dig\n... Trodde  – trodde det skulle vara vi för evigt – men livet revs i strimlor\nOch hjärtat mitt... Slets brutalt ut – hann inte ens reagera\ninnan mitt liv tog slut – det gick så snabbt. Så snabbt...\nSom att bli träffad av blixten. Som en stöt genom min hud\nÖnskar jag hade dött – men andas fortfarande",
+      "image": {
+        "path": null,
+        "credit": null
+      },
+      "translations": {
+        "sv": {
+          "title": "I bilens värme",
+          "slug": "i-bilens-varme",
+          "text": "Kraften hos det lilla i vardagens mörker\nEn lyx man sällan beviljar men ibland så\nEn tripp bland molnen, trevliga monologer\nJa... Ibland är livet värt att leva\nOch ett skratt som förlänger livet \nDu är en av anledningarna att vilja kämpa\n\nSå i kraften av det lilla, i det som slår på hjärtat \nI bilens värme, i solens belysning \nSitter lille jag och filosoferar \nOm tron på lyckan, uppe bland molnen\nAv det vackra och det hela\nI ljuset från din ande\n... Ifrån djupet av mitt hjärta\n\n=== DIKT ==\n\nVid brytgränsen mellan tid och rum\n\nTills vi möts igen... Du. Ja du\nVid brytgränsen mellan tid och rum\nDu vet... Den där känslan när man försvinner\nIn. In i sig själv... När tårar är ut och in\nI en värld. En kaotisk vacker värld\nEtt bröd... Ett levande. Du andas\nSer du bortom tiden. Bortom...\n\nJa, precis.\n... Du drömmer. Borta. Eufori\nNatt. Tankar.  Vart är vi påväg?\nDu ler. Ja, du ler. Både fysiskt och psykiskt \nDitt inre. Ditt inre är fullt av känslor\n... Känner du dom?\nPrecis. Andas, du lever, eller hur?\n\n=== DIKT ==\n\nBlodets Skapelse\n\nInom mig... Växer. Ett fasansfullt monster fram\nFörgörelsen. Blodets kalla skapelse\nDet som håller mig i fas. Trots. Att mörkret är kallt\nOrkeslösa brutaliteter... Utan samvete\n... Ett nytt jag. Reser mig ur svärtad aska\nOch slår hårt. Ned. På det gamla inom mig\nFör monstret får näring... Av din inre rädsla\n\nInom mig... Växer. Ett fasansfullt monster fram\nVarje puls. Varje slag. Jag känner... Din rädsla växer\nVid sekunder av tystnad. Växer sig monstret. Starkare\nI dess brutala närvaro... Är jag för evigt stark\nDetta är sanningen. Som sakta. Sakta. Växer fram\nOrd. För ord... Gnager den inombords\nEtt spektrum av färger. I blodets kalla skapelse\n\nVid födseln av det brutala. I kaoset av min inre monolog\nBokstavligen rädsla vid blodets rand. Smärta\nDen psykiska pressen som växer i mitt inre\nFörgörelsen. Orkeslös brutalitet. Ett nytt jag...\nSekunder av tystnad. Reser mig... Och slår hårt\nStunder av enorm smärta. Skapar näring till dig\nMitt monster i mitt hjärta. Som sakta. Äter mig...\n\n=== DIKT ==\n\nI Klangens Blomsterhav\n\nI klangen från din ljuva lätta stämma\nDansar vildvuxna blommor på ängarna\nI solens hetta emot din nakna hud\nDär under himlens blåa hav\nÄr en fröjd för ögats kanal\nVildvuxna blommor över ängarna\nI ett evighetens oändliga hav\n\nEnergin du skapar fyller mig av lättja \nRöstens stämma håller mitt hjärta vid liv\nI solens starka sken är du en jungfru\nTiden står still i klingan från din melodi\nMitt liv blir en fröjd i din närhet\nOch tiden blir till oändlighet \nHär i havet av dansande blommor\n\n\n=== DIKT ==\n\nFilmen inom mig\n\nAlla minnen rullar på\nsom filmer inom mig.\nJag fantiserar om en verklighet\nbortom fantasin –\ndär mörkret är sanningen\noch verkligheten ur balans.\n\nI det dystra av mitt starka inre\nvill jag hålla en fasad som är stark\nmen känner mig svag –\nmanipulerad till gränsen av desorientering.\nFör jag vet inte längre\nvad som är rätt eller fel.\n\nMina begär är som en hunger\nsom ständigt vill ha mer.\nOch livet är en cykel,\nett jävla schackspel –\ndär varje drag kräver flera tänk\nmen ibland vinner impulsivitet.\nOch felstegen\nkostar framtiden.\n\nDet skapar en ond cirkel\nsom till slut\nfår dig att ta ditt eget liv –\ni en misär av det inre.\n\nI spegeln\nser jag en bild så destruktiv.\nI det röda blodet\nvill vi drunkna,\nmen i sanningen\nska vi gråta.\n\nTårar av rädsla\nblir till slut sten.\nOch när makten i det inre\nsaknar svärta\nvill vi bli ett\nmed oss själva.\n\nMen livet ställer till besvär.\nOch jag gråter mig till sömns\nefter nattens obehagliga verklighetsbild\nav den sanning\nsom aldrig fick komma fram.\n\nÄr jag nu ett med mitt inre?\nDet mörker jag alltid åtrått...\nTillsammans –\nska vi nu besegra\nden bild av universum\nvi själva anser är fel.\n\n=== DIKT ==\n\nSilvret och Kronan\n\nSilvret i hans utseende, rynkorna av ålder\nStoltheten han bär som en krona\nMannen som vi sällan skådat\n... Men som bokstavligen sett allt\nFör världen han skapade med sina fingrar\nI en trollbunden sfär. Klotet av orden\nDet vackra i det trasiga. Det splittrade\n\nMannen med silvret, som håller sin prakt\nVars liv kantas av en stark prägel utav smärta\nMen som sällan ber om mer än han klarar\nI orden han så vackert målar sin inre värld\nDär vi blir trollbundna av sånger. Magi\nMannen. Silvret. Han bär vackert sin krona\n\n=== DIKT ==\n\nFörankrad i Verkligheten\n\nByråkrati och zoner av gråhet\nI en värld där man ständigt måste kämpa\nKämpa för det man anser är rätt\nFör ens egna framtid. Ibland skrattar jag av ironi\nLivet är komplext, man får ta så mycket skit\nAtt kämpa emot en människa som lever i en box\nSom tydligt inte kan se, reflektera och ransonera\nDär man tror allt är svart eller vitt\nOch egot är större än ens vikt\n\nNär du vänder alla runt omkring dig emot mig\nAnvänder dina ormliknande ljud för att smutskasta\nTror du att det fungerar, att det biter\nSanningen kommer att ta dig\nOch jag vet att mitt är på det torra\nDu målar in dig i ett hörn av förnekelse\nSmutskastning på mig, det är enkelt\nSå enkelt, att du kan blunda. Blunda för verkligheten\n\nTänk om jag vore svag, lättpåverkad\nKanske vore mitt liv över sedan länge\nAv den psykiska misshandeln du mig plågat med\nNu under flera år av mitt liv\nJag tror du är svag och rädd\nKanske... Bara kanske borde du öppna dina ögon\nOch inse att världen inte är, just svart och vit\n... Kanske då, att du skulle vakna till\nOch ditt brutala ego få sig en törn\nMen jag står fast, förankrad till verklighet\n\n=== DIKT ==\n\nRösten i musiken\n\nLåtar som brutalt sliter upp mina inre sår – får mig att börja gråta\nAlla tankarna... Dom svämmar över – när rätt musik väl slår till\n... Kan inte kontrollera mina känslor\nAllt bara sväller över – minnena trillar – likt ett korthus ned\nÖnskar det var vi igen. Du och jag... Att det. Det aldrig riktigt tog slut\nVi två tillsammans... I sängens nakna vy – vid vägens slut\nTillsammans kollade vi serier och filmer – vi slukade allt\n... Musiken. Den. Den hemsöker mig varje dag\n\nHjärtat – jag önskar en kunde trolla – vill gråta\nÖnskar det var vi tillsammans igen... Ville aldrig på riktigt förlora dig\n... Trodde  – trodde det skulle vara vi för evigt – men livet revs i strimlor\nOch hjärtat mitt... Slets brutalt ut – hann inte ens reagera\ninnan mitt liv tog slut – det gick så snabbt. Så snabbt...\nSom att bli träffad av blixten. Som en stöt genom min hud\nÖnskar jag hade dött – men andas fortfarande",
+          "meta_title": "I bilens värme – Spiken",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        },
+        "en": {
+          "title": "",
+          "slug": "",
+          "text": "",
+          "meta_title": "",
+          "meta_description": "",
+          "image_alt": "",
+          "status": "draft",
+          "published_at": null
+        }
+      }
     }
   ],
   "locales": [
