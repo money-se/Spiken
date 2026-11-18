@@ -37,6 +37,8 @@ const ogImage = new URL(socialImage || base + '/images/social-delning.webp', Ast
 {structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
 <title>{title}</title>
 <style>
+/* SPIKEN: layoutens gemensamma header, footer och samtyckesdialog.
+   Blocken behålls i kaskadordning för kompatibilitet med befintliga sidor. */
 .spiken-photo-header{background-color:#10080b;background-image:linear-gradient(90deg,rgba(12,6,8,.93),rgba(12,6,8,.9)),var(--header-art);background-size:cover;background-position:center center;position:relative;isolation:isolate;z-index:30;box-shadow:0 3px 0 rgba(20,7,10,.85)}
 .spiken-photo-header .header-inner{position:relative}
 .spiken-brand-image{display:block;object-fit:contain;width:34px;height:48px}
@@ -58,10 +60,7 @@ const ogImage = new URL(socialImage || base + '/images/social-delning.webp', Ast
 .spiken-photo-header .spiken-brand-image{width:32px;height:45px}
 .spiken-photo-footer .footer-inner{min-height:220px;padding-block:40px}
 }
-</style>
 
-
-<style>
 .spiken-consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:99;max-width:680px;margin-inline:auto;padding:19px 22px;background:#1c0d14;color:#f4e6e9;border:1px solid #91515e;box-shadow:0 12px 55px #000b;font:14px/1.6 Arial,sans-serif;border-radius:9px}
 .spiken-consent p{margin:0 0 12px}.spiken-consent a{color:#f0bbc7;text-decoration:underline}
 .spiken-consent-actions{display:flex;gap:10px;flex-wrap:wrap}
@@ -70,9 +69,7 @@ const ogImage = new URL(socialImage || base + '/images/social-delning.webp', Ast
 .spiken-consent button:focus-visible{outline:2px solid #ffe1e8;outline-offset:3px}
 .spiken-consent-settings{font:inherit;color:#fff0ed;background:none;border:none;border-bottom:1px solid #a76b70;padding:0 0 7px;cursor:pointer}
 @media(max-width:540px){.spiken-consent{bottom:8px;left:8px;right:8px;padding:14px}.spiken-consent button{flex:1}}
-</style>
 
-<style>
 /* Spiken 2.0: anpassad navigation och språkbyte */
 .spiken-photo-header{background-color:#16090e;background-image:linear-gradient(90deg,#12070dec,#12070de8),var(--header-art);border-bottom:1px solid #633640}
 .spiken-photo-header .header-inner{max-width:1280px;width:min(1280px,calc(100% - 72px));gap:27px;min-height:82px}
@@ -98,9 +95,7 @@ const ogImage = new URL(socialImage || base + '/images/social-delning.webp', Ast
 .spiken-photo-header .main-nav a{font-size:12px;flex-shrink:0}
 .spiken-photo-footer .footer-inner{align-items:start}
 }
-</style>
 
-<style>
 /* Endast startsidan: den genomgående bildvärlden tonas naturligt ned i sidfoten. */
 body:has(.spiken-simple) .spiken-photo-footer{
   border-top:0;
@@ -119,9 +114,7 @@ body:has(.spiken-simple) .spiken-photo-footer .footer-inner{
   body:has(.spiken-simple) .spiken-photo-footer{background-position:center center}
   body:has(.spiken-simple) .spiken-photo-footer .footer-inner{padding-top:24px;padding-bottom:43px}
 }
-</style>
 
-<style>
 /* Spiken 3.0: sammanhängande sidhuvud och sidfot för startsidan. */
 body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)){background:#0d0b0b}
 body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header{
@@ -182,10 +175,9 @@ body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .
  body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .brand{font-size:26px}
  body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-footer .footer-inner{min-height:0;padding-block:32px}
 }
-</style>
 
-<style>
-/* Spiken 3.1: handskriftskänsla och signatur i sidhuvudet, som i referensen. */
+/* Spiken 3.1–3.2: godkänd signatur och genomskinlig header över hero.
+   Dessa slutregler har samlats utan att ändra deras beräknade värden. */
 body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .brand{
   font-family:'Segoe Script','Brush Script MT',Georgia,serif;
   font-size:clamp(29px,2.5vw,41px);
@@ -197,56 +189,28 @@ body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .
 body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .brand .brand-stop{color:#b9212c}
 body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .brand .spiken-brand-image{order:2;width:28px;height:45px}
 body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .brand>span{order:1}
-body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .header-inner{min-height:62px}
-body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header{border-bottom-color:#2e2421}
-@media(max-width:700px){
- body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .brand{font-size:29px}
- body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .header-inner{min-height:0}
-}
-</style>
-
-<style>
-/* Startsidan: navigeringen flyter ovanpå själva hero-bilden, inte i ett separat band. */
 body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header{
- position:absolute;
- top:0;
- left:0;
- right:0;
- width:100%;
- z-index:40;
- background-color:transparent;
- background-image:linear-gradient(180deg,rgba(9,7,8,.87) 0%,rgba(9,7,8,.46) 72%,rgba(9,7,8,0) 100%);
- border:0;
- box-shadow:none;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  width:100%;
+  z-index:40;
+  background:transparent !important;
+  background-color:transparent !important;
+  background-image:none !important;
+  border:0 !important;
+  box-shadow:none !important;
 }
-body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .header-inner{
- min-height:74px;
-}
-@media(max-width:700px){
- body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header{
-  background-image:linear-gradient(180deg,rgba(9,7,8,.95),rgba(9,7,8,.76) 80%,rgba(9,7,8,.20));
- }
- body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .header-inner{
-  min-height:0;
- }
-}
-</style>
-
-<style>
-/* Spiken 3.2: faktiskt genomskinlig navigation över hela hero-fotot. */
-body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header{
- background:transparent !important;
- background-color:transparent !important;
- background-image:none !important;
- border:0 !important;
- box-shadow:none !important;
-}
+body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .header-inner{min-height:74px}
 body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .brand,
 body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .main-nav a,
 body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .spiken-languages a{
- text-shadow:0 1px 7px rgba(0,0,0,.88),0 2px 14px rgba(0,0,0,.55);
+  text-shadow:0 1px 7px rgba(0,0,0,.88),0 2px 14px rgba(0,0,0,.55);
 }
 @media(max-width:700px){
+ body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .brand{font-size:29px}
+ body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header .header-inner{min-height:0}
  body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .spiken-photo-header{
   background:linear-gradient(180deg,rgba(5,4,5,.34),transparent) !important;
  }
