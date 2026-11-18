@@ -39,6 +39,8 @@ function parsePoem(source, raw) {
 function parseFile(file, content) {
   const normalized = content.replace(/^\uFEFF/,'').replace(/\r\n?/g,'\n');
   const lines = normalized.split('\n');
+  const malformed = lines.map((line,i)=>({line:line.trim(),number:i+1})).filter(x=>/^={2,}\s*DIKT\s*={1,}\s*$/i.test(x.line) && !separator.test(x.line));
+  if (malformed.length) throw Error('Felaktig diktavgränsare på rad '+malformed.map(x=>x.number).join(', ')+'. Använd exakt === DIKT ===');
   const sections = []; let current = []; let hasSeparator = false;
   for (const line of lines) {
     if (separator.test(line.trim())) {
