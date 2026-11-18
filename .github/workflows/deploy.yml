@@ -61,10 +61,23 @@ jobs:
           fi
       - name: Installera unika diktbilder
         run: |
+          set -euo pipefail
           shopt -s nullglob
           for archive in Spiken_Diktbilder_*.zip; do
             unzip -o -j "$archive" '*.webp' -d public/images
             echo "Diktbilder från $archive installerade."
+          done
+          # Dessa tre motiv är godkända i bildpaket 003: ingen äldre version får vinna.
+          if [ ! -f Spiken_Diktbilder_003.zip ]; then
+            echo "::error::Godkänt bildpaket 003 saknas."
+            exit 1
+          fi
+          for photo in dikt-i-din-sotma.webp dikt-under-ditt-sken.webp dikt-vid-brytgransen-mellan-tid-och-rum.webp; do
+            unzip -p Spiken_Diktbilder_003.zip "$photo" | cmp - "public/images/$photo" || {
+              echo "::error::$photo matchar inte godkänt bildpaket 003."
+              exit 1
+            }
+            echo "Verifierat bildmotiv från paket 003: $photo"
           done
       - name: Installera unik bild för diktarkivet
         run: |
