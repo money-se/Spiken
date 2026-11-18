@@ -122,6 +122,20 @@ jobs:
             }
             echo "Verifierad bild från 005: $photo"
           done
+      - name: Kontrollera bildpaket 006 och sista tre diktbilderna
+        run: |
+          set -euo pipefail
+          test -f Spiken_Diktbilder_006_FOR_GRANSKNING.zip
+          for photo in \
+            dikt-silvret-och-kronan.webp \
+            dikt-forankrad-i-verkligheten.webp \
+            dikt-rosten-i-musiken.webp; do
+            unzip -p Spiken_Diktbilder_006_FOR_GRANSKNING.zip "$photo" | cmp - "public/images/$photo" || {
+              echo "::error::$photo saknas eller skiljer sig från godkänt bildpaket 006."
+              exit 1
+            }
+            echo "Verifierad bild från 006: $photo"
+          done
       - name: Installera unik bild för diktarkivet
         run: |
           if [ -f Spiken_Arkivbild_001.zip ]; then
