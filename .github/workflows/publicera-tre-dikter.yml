@@ -1,0 +1,56 @@
+name: Publicera tre godkända dikter när bildpaketet laddas upp
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Spiken_Diktbilder_002.zip'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: spiken-publicera-forsta-tre
+  cancel-in-progress: false
+
+jobs:
+  publicera:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hämta dikter och bildpaket
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Installera Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verifiera det godkända bildpaketet
+        run: |
+          set -euo pipefail
+          test -f Spiken_Diktbilder_002.zip
+          unzip -tq Spiken_Diktbilder_002.zip
+          mkdir -p /tmp/spiken-verified
+          unzip -o -j Spiken_Diktbilder_002.zip '*.webp' -d /tmp/spiken-verified
+          for img in dikt-i-din-sotma.webp dikt-under-ditt-sken.webp dikt-vid-brytgransen-mellan-tid-och-rum.webp; do
+            test -s "/tmp/spiken-verified/$img"
+            file "/tmp/spiken-verified/$img" | grep -q 'Web/P image'
+          done
+      - name: Publicera exakt tre svenska dikter
+        env:
+          TZ: Europe/Stockholm
+        run: |
+          export SPIKEN_PUBLICATION_DATE="$(TZ=Europe/Stockholm date +%F)"
+          node scripts/publicera-forsta-tre.mjs
+      - name: Spara publiceringen
+        run: |
+          if git diff --quiet -- src/data/publiceringsregister.json; then
+            echo "Dikterna var redan publicerade."
+            exit 0
+          fi
+          git config user.name "spiken-publisher[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/publiceringsregister.json
+          git commit -m "Publicera tre godkända Spiken-dikter med omslagsbilder"
+          git push
