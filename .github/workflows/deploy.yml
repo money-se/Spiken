@@ -115,7 +115,7 @@ jobs:
               const page='dist/'+rel+t.slug+'/index.html';
               if(!existsSync(page))throw Error('Publicerad dikt saknar HTML: '+page);
               if(work.image?.path){
-                const photo='dist/images/'+work.image.path.replace(/^\\/+/, '');
+                const photo='dist/images/'+work.image.path.replace(/^[/]+/, '');
                 if(!existsSync(photo))throw Error('Publicerad dikt saknar bild: '+photo);
               }
               count++;
