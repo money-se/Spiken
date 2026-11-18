@@ -11,14 +11,14 @@ const labels = en ? {
   search:'Search the poems',placeholder:'Search titles, feelings or words…',all:'All poems',
   emptyTitle:'A place for words not yet published.',emptyText:'English translations will appear here when they have been carefully prepared and published. In the meantime, you can explore the Swedish original archive.',
   toSwedish:'Explore Swedish poems',count:'poems',read:'Read poem',noMatch:'No poems match your search.',clear:'Show all poems',
-  filters:'Browse by feeling'
+  filters:'Browse by feeling',more:'Show more poems',showing:'Showing',of:'of'
 } : {
   kicker:'SPIKEN · ORD UNDER HUDEN',title:'Dikt',titleAccent:'arkivet.',
   intro:'För allt som aldrig riktigt fick plats i ett samtal. Sök en känsla, en titel eller de ord du behöver läsa just nu.',
   search:'Sök bland dikterna',placeholder:'Sök titel, känsla eller ord…',all:'Alla dikter',
   emptyTitle:'Här får orden snart sin plats.',emptyText:'Arkivet är förberett för dina dikter. Så snart de publiceras kommer de att visas här, med egna lässidor och möjlighet att dela.',
   toSwedish:'',count:'dikter',read:'Läs dikten',noMatch:'Inga dikter matchar din sökning.',clear:'Visa alla dikter',
-  filters:'Välj en känsla'
+  filters:'Välj en känsla',more:'Visa fler dikter',showing:'Visar',of:'av'
 };
 const moods = en ? [
   ['Love','Love'],['Longing','Longing'],['Desire','Desire'],['Existence','Existence'],['Heartbreak','Heartbreak'],['Missing','Missing']
@@ -75,6 +75,10 @@ const fallbackImage = base + '/images/spiken-3-forfattare.webp';
             </a>
           </article>)}
         </div>
+        <div class="pa-pagination" id="pa-pagination" hidden>
+          <p id="pa-pagination-status" role="status" aria-live="polite"></p>
+          <button type="button" id="pa-show-more" aria-controls="pa-poem-list">{labels.more} <span aria-hidden="true">↓</span></button>
+        </div>
         <div class="pa-no-results" id="pa-no-results" hidden><p>{labels.noMatch}</p><button id="pa-clear" type="button">{labels.clear} →</button></div>
       </div>
       : <div class="pa-unpublished"><span class="pa-unpublished-icon" aria-hidden="true">✧</span><h2>{labels.emptyTitle}</h2><p>{labels.emptyText}</p>{en && <a href={base+'/dikter/'}>{labels.toSwedish} →</a>}</div>}
@@ -88,21 +92,44 @@ const cards = [...document.querySelectorAll('.pa-item')];
 const noResults = document.querySelector('#pa-no-results');
 const count = document.querySelector('#pa-result-count');
 const clear = document.querySelector('#pa-clear');
+const pagination = document.querySelector('#pa-pagination');
+const more = document.querySelector('#pa-show-more');
+const pageStatus = document.querySelector('#pa-pagination-status');
 const locale = document.documentElement.lang || 'sv';
 const params = new URLSearchParams(window.location.search);
+const PAGE_SIZE = 9;
+let limit = PAGE_SIZE;
 let selected = (params.get('tema') || '').toLocaleLowerCase(locale);
+
 function refresh(){
   const q = (search?.value||'').trim().toLocaleLowerCase(locale);
-  let visible=0;
+  let matched = 0;
+  let shown = 0;
   for(const card of cards){
     const matchingTheme = !selected || card.dataset.theme===selected;
     const matchingText = !q || (card.dataset.search||'').includes(q);
-    card.hidden=!(matchingTheme && matchingText);
-    if(!card.hidden)visible++;
+    if(matchingTheme && matchingText){
+      matched++;
+      if(shown < limit){
+        card.hidden = false;
+        shown++;
+      } else {
+        card.hidden = true;
+      }
+    } else {
+      card.hidden = true;
+    }
   }
   buttons.forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.theme||'')===selected)));
-  if(count)count.textContent=String(visible)+' '+(locale==='en'?'poems':'dikter');
-  if(noResults)noResults.hidden=visible>0 || cards.length===0;
+  if(count)count.textContent=String(matched)+' '+(locale==='en'?'poems':'dikter');
+  if(noResults)noResults.hidden=matched>0 || cards.length===0;
+  if(pagination)pagination.hidden=matched<=PAGE_SIZE;
+  if(pageStatus)pageStatus.textContent=(locale==='en'?'Showing ':'Visar ')+shown+(locale==='en'?' of ':' av ')+matched+(locale==='en'?' poems':' dikter');
+  if(more)more.hidden=shown>=matched;
+}
+function resetLimit(){
+  limit=PAGE_SIZE;
+  refresh();
 }
 buttons.forEach(b=>b.addEventListener('click',()=>{
   selected=b.dataset.theme||'';
@@ -110,14 +137,21 @@ buttons.forEach(b=>b.addEventListener('click',()=>{
   if(selected)url.searchParams.set('tema',selected);
   else url.searchParams.delete('tema');
   window.history.replaceState({},'',url);
-  refresh();
+  resetLimit();
 }));
-search?.addEventListener('input',refresh);
+search?.addEventListener('input',resetLimit);
 clear?.addEventListener('click',()=>{
   selected='';
   if(search)search.value='';
-  const url=new URL(window.location.href);url.searchParams.delete('tema');window.history.replaceState({},'',url);
-  refresh();search?.focus();
+  const url=new URL(window.location.href);
+  url.searchParams.delete('tema');
+  window.history.replaceState({},'',url);
+  resetLimit();
+  search?.focus();
+});
+more?.addEventListener('click',()=>{
+  limit+=PAGE_SIZE;
+  refresh();
 });
 refresh();
 </script>
@@ -192,6 +226,12 @@ refresh();
 .pa-unpublished h2{font:italic 400 clamp(30px,3.6vw,47px)/1.2 Georgia,serif;margin:17px 0}
 .pa-unpublished p{font:17px/1.75 Georgia,serif;color:#ddc7c0}
 .pa-unpublished a,.pa-no-results button{display:inline-block;margin-top:14px;color:#eeddD8;background:none;border:0;border-bottom:1px solid #b52b34;padding:9px 0;cursor:pointer;font:14px Arial,sans-serif}
+.pa-pagination{text-align:center;margin:34px auto 4px}
+.pa-pagination[hidden],.pa-pagination button[hidden]{display:none!important}
+.pa-pagination p{color:#cdb9b0;font:13px/1.6 Arial,sans-serif;margin:0 0 16px}
+.pa-pagination button{display:inline-flex;align-items:center;gap:20px;justify-content:center;min-height:49px;padding:13px 25px;background:#921417;color:#fff;border:1px solid #b92b31;cursor:pointer;font:15px/1.4 Arial,sans-serif;transition:background .2s}
+.pa-pagination button:hover{background:#bf2029}
+.pa-pagination button:focus-visible{outline:2px solid #e6babb;outline-offset:4px}
 .pa-no-results{text-align:center;padding:50px 0}
 .pa-no-results[hidden]{display:none}
 @media(max-width:950px){
