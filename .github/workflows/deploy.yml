@@ -93,6 +93,30 @@ jobs:
           else
             echo "Bildpaketet för Spikens världar saknas ännu."
           fi
+      - name: Mät referensbildens faktiska format och storlek
+        run: |
+          if [ -f public/images/dikt-mannen-bakom-masken.webp ]; then
+            file public/images/dikt-mannen-bakom-masken.webp
+            wc -c < public/images/dikt-mannen-bakom-masken.webp
+            python3 - <<'PY'
+          from pathlib import Path
+          import struct
+          p=Path('public/images/dikt-mannen-bakom-masken.webp')
+          b=p.read_bytes()
+          assert b[:4]==b'RIFF' and b[8:12]==b'WEBP'
+          kind=b[12:16]
+          if kind==b'VP8X':
+              w=1+int.from_bytes(b[24:27],'little'); h=1+int.from_bytes(b[27:30],'little')
+          elif kind==b'VP8L':
+              value=int.from_bytes(b[21:25],'little')
+              w=(value&0x3fff)+1; h=((value>>14)&0x3fff)+1
+          elif kind==b'VP8 ':
+              w=struct.unpack_from('<H',b,26)[0]&0x3fff
+              h=struct.unpack_from('<H',b,28)[0]&0x3fff
+          else: raise ValueError('Unknown WebP format '+repr(kind))
+          print(f'REFERENSBILD: {w} x {h} pixlar, {len(b)} byte, format {kind.decode().strip()}')
+          PY
+          fi
       - name: Kontrollera diktimporten
         run: |
           node --check scripts/importera-dikter.mjs
