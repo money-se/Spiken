@@ -245,4 +245,46 @@ copyButton?.addEventListener('click',async()=>{
  .prv3-reading-inner{width:calc(100% - 36px)}
  .prv3-related-card{min-height:165px}
 }
+
+/* Spiken 3.9 – originalbilden visas i sin helhet och tonas ned under läsningen.
+   Bilden placeras på den gemensamma sidan, inte beskuren i en kort hero. */
+.prv3{position:relative;isolation:isolate;overflow:hidden;background:#0d0b0b}
+.prv3::before{
+ content:"";position:absolute;z-index:-1;pointer-events:none;inset:0 0 auto;
+ height:1190px;
+ background-image:
+  linear-gradient(90deg,#0d0b0bef 0%,#0d0b0bd7 32%,#0d0b0b55 60%,transparent 100%),
+  linear-gradient(180deg,transparent 0%,transparent 46%,#0d0b0b56 66%,#0d0b0bdb 85%,#0d0b0b 100%),
+  var(--prv3-img);
+ background-size:100% 100%,100% 100%,auto 890px;
+ background-position:center,center,right 5.5vw top 35px;
+ background-repeat:no-repeat;
+}
+.prv3-hero{min-height:780px;background:transparent;isolation:auto}
+.prv3-visual{display:none}
+.prv3-hero .prv3-wide{padding-top:145px;padding-bottom:110px}
+.prv3-reading{background:linear-gradient(180deg,#0d0b0b08 0%,#0d0b0b8c 180px,#151011eb 400px,#100c0d 75%,#0d0b0b);border-top:0}
+.prv3-reading:before{opacity:.02}
+@media(max-width:900px){
+ .prv3::before{height:1120px;background-size:100% 100%,100% 100%,auto 770px;background-position:center,center,right -30px top 25px}
+ .prv3-hero{min-height:710px}
+ .prv3-hero .prv3-wide{padding-top:160px;padding-bottom:85px}
+}
+@media(max-width:600px){
+ .prv3::before{
+  height:1060px;
+  background-image:
+   linear-gradient(180deg,#0d0b0b13 0%,#0d0b0b12 30%,#0d0b0bd9 61%,#0d0b0b 88%),
+   linear-gradient(90deg,#0d0b0b24,transparent 65%),
+   var(--prv3-img);
+  background-size:100% 100%,100% 100%,auto min(600px,150vw);
+  background-position:center,center,center top 5px;
+ }
+ .prv3-hero{min-height:740px}
+ .prv3-hero .prv3-wide{padding:400px 0 66px}
+ .prv3-crumb{top:100px}
+ .prv3-hero-copy{position:relative}
+ .prv3-reading{background:linear-gradient(180deg,#0d0b0b57,#120d0ff2 210px,#0d0b0b 780px)}
+}
+
 </style>
