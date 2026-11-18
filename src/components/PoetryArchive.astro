@@ -11,20 +11,16 @@ const labels = en ? {
   search:'Search the poems',placeholder:'Search titles, feelings or words…',all:'All poems',
   emptyTitle:'A place for words not yet published.',emptyText:'English translations will appear here when they have been carefully prepared and published. In the meantime, you can explore the Swedish original archive.',
   toSwedish:'Explore Swedish poems',count:'poems',read:'Read poem',noMatch:'No poems match your search.',clear:'Show all poems',
-  filters:'Browse by feeling',more:'Show more poems',showing:'Showing',of:'of'
+  filters:'Browse by feeling',more:'Show more poems',showing:'Showing',of:'of',sort:'Sort by',newest:'Newest first',oldest:'Oldest first',az:'Title A–Z'
 } : {
   kicker:'SPIKEN · ORD UNDER HUDEN',title:'Dikt',titleAccent:'arkivet.',
   intro:'För allt som aldrig riktigt fick plats i ett samtal. Sök en känsla, en titel eller de ord du behöver läsa just nu.',
   search:'Sök bland dikterna',placeholder:'Sök titel, känsla eller ord…',all:'Alla dikter',
   emptyTitle:'Här får orden snart sin plats.',emptyText:'Arkivet är förberett för dina dikter. Så snart de publiceras kommer de att visas här, med egna lässidor och möjlighet att dela.',
   toSwedish:'',count:'dikter',read:'Läs dikten',noMatch:'Inga dikter matchar din sökning.',clear:'Visa alla dikter',
-  filters:'Välj en känsla',more:'Visa fler dikter',showing:'Visar',of:'av'
+  filters:'Välj en känsla',more:'Visa fler dikter',showing:'Visar',of:'av',sort:'Sortera',newest:'Nyaste först',oldest:'Äldsta först',az:'Titel A–Ö'
 };
-const moods = en ? [
-  ['Love','Love'],['Longing','Longing'],['Desire','Desire'],['Existence','Existence'],['Heartbreak','Heartbreak'],['Missing','Missing']
-] : [
-  ['Kärlek','Kärlek'],['Längtan','Längtan'],['Begär','Begär'],['Existens','Existens'],['Hjärtesorg','Hjärtesorg'],['Saknad','Saknad']
-];
+const availableThemes = [...new Set(poems.map(poem => poem.theme))].sort((a,b) => a.localeCompare(b,lang));
 const image = base + '/images/spiken-arkiv-hero.webp';
 const fallbackImage = base + '/images/spiken-3-forfattare.webp';
 ---
@@ -59,14 +55,22 @@ const fallbackImage = base + '/images/spiken-3-forfattare.webp';
         </div>
         <div class="pa-filters" role="group" aria-label={labels.filters}>
           <button class="pa-filter" type="button" data-theme="" aria-pressed="true">{labels.all}</button>
-          {moods.slice(4).map(([name,theme])=><button class="pa-filter" type="button" data-theme={theme.toLocaleLowerCase(lang)} aria-pressed="false">{name}</button>)}
+          {availableThemes.map(theme=><button class="pa-filter" type="button" data-theme={theme.toLocaleLowerCase(lang)} aria-pressed="false">{theme} <span class="pa-filter-count">{poems.filter(poem=>poem.theme===theme).length}</span></button>)}
+        </div>
+        <div class="pa-sort">
+          <label for="pa-sort-select">{labels.sort}</label>
+          <select id="pa-sort-select">
+            <option value="newest">{labels.newest}</option>
+            <option value="oldest">{labels.oldest}</option>
+            <option value="title">{labels.az}</option>
+          </select>
         </div>
       </div>
       {poems.length > 0 ?
       <div class="pa-results">
         <div class="pa-result-line"><span>{en ? 'THE COLLECTION' : 'SAMLINGEN'}</span><output id="pa-result-count">{poems.length} {labels.count}</output></div>
         <div class="pa-grid" id="pa-poem-list">
-          {poems.map((poem,i)=><article class="pa-item" data-search={(poem.title+' '+poem.theme+' '+poem.text+' '+poem.tags.join(' ')).toLocaleLowerCase(lang)} data-theme={poem.theme.toLocaleLowerCase(lang)}>
+          {poems.map((poem,i)=><article class="pa-item" data-search={(poem.title+' '+poem.theme+' '+poem.text+' '+poem.tags.join(' ')).toLocaleLowerCase(lang)} data-theme={poem.theme.toLocaleLowerCase(lang)} data-date={poem.published || ''} data-title={poem.title.toLocaleLowerCase(lang)} data-order={i}>
             <a href={archiveRoot + encodeURIComponent(poem.slug) + '/'} class="pa-item-link">
               <div class="pa-card-photo" style={`--pa-card-img:url("${poem.image ? base+'/images/'+poem.image : base+'/images/dikt-arkiv-v2.webp'}")`} aria-hidden="true"></div>
               <div class="pa-item-top"><span>SPIKEN / {String(i+1).padStart(3,'0')}</span><span aria-hidden="true">↗</span></div>
@@ -89,6 +93,8 @@ const fallbackImage = base + '/images/spiken-3-forfattare.webp';
 const search = document.querySelector('#pa-search-input');
 const buttons = [...document.querySelectorAll('.pa-filter, .pa-mood-button')];
 const cards = [...document.querySelectorAll('.pa-item')];
+const grid = document.querySelector('#pa-poem-list');
+const sortControl = document.querySelector('#pa-sort-select');
 const noResults = document.querySelector('#pa-no-results');
 const count = document.querySelector('#pa-result-count');
 const clear = document.querySelector('#pa-clear');
@@ -98,61 +104,87 @@ const pageStatus = document.querySelector('#pa-pagination-status');
 const locale = document.documentElement.lang || 'sv';
 const params = new URLSearchParams(window.location.search);
 const PAGE_SIZE = 9;
+const normalize = value => (value || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase(locale);
+const searchable = new Map(cards.map(card => [card,normalize(card.dataset.search)]));
 let limit = PAGE_SIZE;
 let selected = (params.get('tema') || '').toLocaleLowerCase(locale);
+const validThemes = new Set(buttons.map(button => button.dataset.theme || ''));
+if(!validThemes.has(selected)) selected = '';
+const orderOptions = new Set(['newest','oldest','title']);
+let sorting = orderOptions.has(params.get('sort')) ? params.get('sort') : 'newest';
+if(sortControl) sortControl.value = sorting;
+if(search && params.get('q')) search.value = params.get('q');
 
+function syncUrl(){
+  const url = new URL(window.location.href);
+  if(selected) url.searchParams.set('tema', selected);
+  else url.searchParams.delete('tema');
+  const q = search?.value.trim() || '';
+  if(q) url.searchParams.set('q',q);
+  else url.searchParams.delete('q');
+  if(sorting!=='newest') url.searchParams.set('sort',sorting);
+  else url.searchParams.delete('sort');
+  window.history.replaceState({},'',url);
+}
+function reorder(){
+  if(!grid) return;
+  const ordered = [...cards].sort((a,b)=>{
+    if(sorting==='title') return (a.dataset.title||'').localeCompare(b.dataset.title||'',locale);
+    const delta = (a.dataset.date||'').localeCompare(b.dataset.date||'');
+    return (sorting==='oldest' ? delta : -delta) || (Number(a.dataset.order)-Number(b.dataset.order));
+  });
+  for(const card of ordered) grid.appendChild(card);
+}
 function refresh(){
-  const q = (search?.value||'').trim().toLocaleLowerCase(locale);
+  const terms = normalize(search?.value.trim()).split(/\s+/).filter(Boolean);
   let matched = 0;
   let shown = 0;
-  for(const card of cards){
+  const ordered = grid ? [...grid.querySelectorAll('.pa-item')] : cards;
+  for(const card of ordered){
     const matchingTheme = !selected || card.dataset.theme===selected;
-    const matchingText = !q || (card.dataset.search||'').includes(q);
+    const haystack = searchable.get(card) || '';
+    const matchingText = terms.every(term=>haystack.includes(term));
     if(matchingTheme && matchingText){
       matched++;
-      if(shown < limit){
-        card.hidden = false;
-        shown++;
-      } else {
-        card.hidden = true;
-      }
+      card.hidden = shown >= limit;
+      if(!card.hidden) shown++;
     } else {
       card.hidden = true;
     }
   }
   buttons.forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.theme||'')===selected)));
-  if(count)count.textContent=String(matched)+' '+(locale==='en'?'poems':'dikter');
-  if(noResults)noResults.hidden=matched>0 || cards.length===0;
-  if(pagination)pagination.hidden=matched<=PAGE_SIZE;
-  if(pageStatus)pageStatus.textContent=(locale==='en'?'Showing ':'Visar ')+shown+(locale==='en'?' of ':' av ')+matched+(locale==='en'?' poems':' dikter');
-  if(more)more.hidden=shown>=matched;
+  if(count) count.textContent=String(matched)+' '+(locale==='en'?'poems':'dikter');
+  if(noResults) noResults.hidden=matched>0 || cards.length===0;
+  if(pagination) pagination.hidden=matched<=PAGE_SIZE;
+  if(pageStatus) pageStatus.textContent=(locale==='en'?'Showing ':'Visar ')+shown+(locale==='en'?' of ':' av ')+matched+(locale==='en'?' poems':' dikter');
+  if(more) more.hidden=shown>=matched;
 }
-function resetLimit(){
+function applyFilters(){
   limit=PAGE_SIZE;
+  reorder();
   refresh();
+  syncUrl();
 }
 buttons.forEach(b=>b.addEventListener('click',()=>{
   selected=b.dataset.theme||'';
-  const url=new URL(window.location.href);
-  if(selected)url.searchParams.set('tema',selected);
-  else url.searchParams.delete('tema');
-  window.history.replaceState({},'',url);
-  resetLimit();
+  applyFilters();
 }));
-search?.addEventListener('input',resetLimit);
+search?.addEventListener('input',applyFilters);
+sortControl?.addEventListener('change',()=>{
+  sorting=orderOptions.has(sortControl.value) ? sortControl.value : 'newest';
+  applyFilters();
+});
 clear?.addEventListener('click',()=>{
   selected='';
-  if(search)search.value='';
-  const url=new URL(window.location.href);
-  url.searchParams.delete('tema');
-  window.history.replaceState({},'',url);
-  resetLimit();
+  if(search) search.value='';
+  applyFilters();
   search?.focus();
 });
 more?.addEventListener('click',()=>{
   limit+=PAGE_SIZE;
   refresh();
 });
+reorder();
 refresh();
 </script>
 <style>
@@ -201,9 +233,14 @@ refresh();
 .pa-input-wrap svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#c5a59d;pointer-events:none}
 .pa-input-wrap input{display:block;width:100%;height:48px;padding:12px 15px 12px 45px;background:#1b1313;border:1px solid #6b4b43;color:#f9eee7;border-radius:0;outline-offset:3px;font:15px Arial,sans-serif}
 .pa-input-wrap input::placeholder{color:#b8a39b}
-.pa-filters{display:flex;gap:9px;flex-wrap:wrap}
+.pa-filters{display:flex;gap:9px;flex-wrap:wrap;flex:1 1 420px}
 .pa-filter{font:13px Arial,sans-serif;color:#e3cec7;background:transparent;border:1px solid #654942;padding:13px 17px;cursor:pointer;min-height:46px}
 .pa-filter:hover{border-color:#c68a85}
+.pa-filter-count{opacity:.7;font-size:11px;margin-left:5px}
+.pa-sort{display:flex;align-items:center;gap:10px;margin-left:auto;padding-bottom:1px}
+.pa-sort label{font:13px Arial,sans-serif;color:#dcc9c0;white-space:nowrap}
+.pa-sort select{height:46px;padding:10px 28px 10px 11px;color:#f9eee7;background:#1b1313;border:1px solid #6b4b43;font:13px Arial,sans-serif}
+.pa-sort select:focus-visible{outline:2px solid #e6babb;outline-offset:3px}
 .pa-filter[aria-pressed="true"]{color:#fff;background:#921417;border-color:#b92b31}
 .pa-results{padding-top:25px}
 .pa-result-line{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:0 0 18px;color:#bba29b;font:11px/1.5 Arial,sans-serif;letter-spacing:.17em}
@@ -257,7 +294,7 @@ refresh();
  .pa-mood-button i{left:13px;width:48px}
  .pa-section-heading h2{font-size:36px}
  .pa-section-heading>p{font-size:15px}
- .pa-controls{align-items:stretch}
+ .pa-controls{align-items:stretch}.pa-sort{width:100%;justify-content:space-between}.pa-sort select{max-width:70%}
  .pa-search{flex:1 1 100%}
  .pa-input-wrap{max-width:none}
  .pa-grid{grid-template-columns:1fr}
