@@ -14,7 +14,7 @@ const copy = en ? {
   titleStart: 'Words beneath', titleEnd:'the skin.',
   lead:'Poems about love, longing, desire and the feelings we rarely dare to speak of. Written with heart, hurt and longing.',
   read:'Read my poems', about:'About Spiken',
-  featured:'Find your feeling',
+  featured:'Find your feeling', surpriseLabel:'FOLLOW AN UNEXPECTED WORD',surpriseTitle:'Let the words find you.',surpriseText:'One poem. One unexpected moment. Perhaps the words you needed today.',surpriseAction:'Surprise me with a poem',
   author:'The man behind the words',
   authorBody:'Spiken is my way of exploring what it means to be human. Here I share poetry, thoughts and stories shaped by both darkness and light.',
   authorCta:'Get to know me',
@@ -28,7 +28,7 @@ const copy = en ? {
   titleStart: 'Ord under', titleEnd:'huden.',
   lead:'Dikter om kärlek, längtan, begär och det som bränner där ingen ser. En plats för känslor utan filter – skrivna med hjärta, sår och lust.',
   read:'Läs mina dikter', about:'Om Spiken',
-  featured:'Hitta din känsla',
+  featured:'Hitta din känsla',surpriseLabel:'LÅT SLUMPEN VÄLJA',surpriseTitle:'Låt orden hitta dig.',surpriseText:'En dikt du inte letade efter. Kanske just de ord du behövde idag.',surpriseAction:'Överraska mig med en dikt',
   author:'Mannen bakom orden',
   authorBody:'Spiken är mitt sätt att förstå, bearbeta och utforska det mänskliga. Här delar jag dikter, tankar och världar som formats av både mörker och ljus.',
   authorCta:'Läs mer om mig',
@@ -78,6 +78,21 @@ const journeys = [
       </div>
     </div>
   </section>
+
+  {getPoems(lang).length > 0 && <section class="s3-surprise" aria-labelledby="s3-surprise-title">
+    <div class="s3-width s3-surprise-inner">
+      <div class="s3-surprise-copy">
+        <p class="s3-surprise-eyebrow">{copy.surpriseLabel}</p>
+        <h2 id="s3-surprise-title">{copy.surpriseTitle}</h2>
+        <p>{copy.surpriseText}</p>
+      </div>
+      <a class="s3-surprise-link" href={poems + '?upptack=1'}>
+        <span aria-hidden="true" class="s3-surprise-icon">✧</span>
+        {copy.surpriseAction}
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>}
 
   <section class="s3-author" aria-labelledby="s3-author-title">
     <div class="s3-width s3-author-grid">
@@ -151,6 +166,17 @@ const journeys = [
 .s3-mood-label{position:absolute;bottom:30px;left:23px;font:italic clamp(28px,3vw,47px)/1 Georgia,serif;color:#f4eae2}
 .s3-mood-rule{position:absolute;bottom:15px;left:23px;width:75px;height:2px;background:#b41b23}
 .s3-mood:hover img{transform:scale(1.06)}
+.s3-surprise{background:linear-gradient(90deg,#15100f,#1e1114 50%,#15100f);border-block:1px solid #593b38;padding:28px 0}
+.s3-surprise-inner{display:flex;align-items:center;justify-content:space-between;gap:28px}
+.s3-surprise-copy{max-width:640px}
+.s3-surprise-eyebrow{font:700 10px/1.5 Arial,sans-serif;letter-spacing:.2em;color:#d4a49d;margin:0 0 8px}
+.s3-surprise h2{font:italic 400 clamp(29px,3vw,43px)/1.2 Georgia,serif;color:#f3e6df;margin:0 0 8px}
+.s3-surprise-copy>p:last-child{font:16px/1.55 Georgia,serif;color:#d9c6c0;margin:0}
+.s3-surprise-link{display:inline-flex;align-items:center;justify-content:center;gap:15px;min-height:54px;padding:13px 20px;border:1px solid #b6313b;background:#86151d;color:#fff;font:15px/1.4 Arial,sans-serif;white-space:nowrap;transition:background .2s}
+.s3-surprise-link:hover{background:#b2232b;color:#fff}
+.s3-surprise-link:focus-visible{outline:2px solid #ffe1e8;outline-offset:3px}
+.s3-surprise-icon{font:23px/1 Georgia,serif;color:#f9ded2}
+@media(max-width:760px){.s3-surprise{padding:27px 0}.s3-surprise-inner{flex-direction:column;align-items:flex-start;gap:20px}.s3-surprise-link{white-space:normal;width:100%}}
 .s3-author{padding:0 0 50px;background:#0d0b0b}
 .s3-author-grid{display:grid;grid-template-columns:32% 34% 1fr;gap:30px;align-items:center}
 .s3-author-portrait{min-height:295px;align-self:stretch;background-image:linear-gradient(90deg,transparent 70%,#0d0b0b5c),var(--s3-author),var(--s3-author-fallback);background-position:center;background-size:cover;background-repeat:no-repeat;filter:grayscale(.55)}
