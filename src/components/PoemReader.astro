@@ -25,7 +25,7 @@ const labels = en ? {
   facebook:'Dela på Facebook'
 };
 ---
-<div class="prv3" style={`--prv3-img:url("${photo}");--prv3-fallback:url("${base}/images/dikt-arkiv-v2.webp")`}>
+<div class="prv3" style={`--prv3-img:url("${photo}")`}>
   <section class="prv3-hero" aria-labelledby="prv3-title">
     <div class="prv3-visual" aria-hidden="true"></div>
     <div class="prv3-wide">
@@ -101,7 +101,7 @@ copyButton?.addEventListener('click',async()=>{
 .prv3{background:#0d0b0b;color:#f2e6df;font-family:Georgia,serif}
 .prv3-wide{width:min(1320px,calc(100% - 84px));margin-inline:auto}
 .prv3-hero{position:relative;min-height:610px;isolation:isolate;display:flex;align-items:flex-end;background:#0b0909}
-.prv3-visual{position:absolute;z-index:-1;inset:0;background-image:linear-gradient(90deg,#090808eb 0%,#090808be 26%,#09080875 47%,#09080812 100%),linear-gradient(0deg,#0d0b0b 0%,transparent 42%),var(--prv3-img),var(--prv3-fallback);background-size:cover;background-position:center,center,center 42%,center 42%;background-repeat:no-repeat}
+.prv3-visual{position:absolute;z-index:-1;inset:0;background-image:linear-gradient(90deg,#090808eb 0%,#090808be 26%,#09080875 47%,#09080812 100%),linear-gradient(0deg,#0d0b0b 0%,transparent 42%),var(--prv3-img);background-size:cover;background-position:center,center,center 42%,center 42%;background-repeat:no-repeat}
 .prv3-hero .prv3-wide{padding:100px 0 78px}
 .prv3-crumb{position:absolute;top:125px;display:flex;align-items:center;gap:14px;font:13px Arial,sans-serif;color:#e0c5bc}
 .prv3-crumb a{padding-bottom:5px;border-bottom:1px solid #aa6f66}
@@ -153,7 +153,7 @@ copyButton?.addEventListener('click',async()=>{
 @media(max-width:600px){
  .prv3-wide,.prv3-reading-inner{width:calc(100% - 36px)}
  .prv3-hero{min-height:680px}
- .prv3-visual{background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0bd7 42%,#0d0b0b0a 100%),var(--prv3-img),var(--prv3-fallback);background-position:center,60% 18%,60% 18%}
+ .prv3-visual{background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0bd7 42%,#0d0b0b0a 100%),var(--prv3-img);background-position:center,60% 18%,60% 18%}
  .prv3-hero .prv3-wide{padding:340px 0 55px}
  .prv3-crumb{top:120px;font-size:12px;gap:8px}
  .prv3-hero h1{font-size:clamp(46px,11vw,67px)}
@@ -178,7 +178,7 @@ copyButton?.addEventListener('click',async()=>{
  background-image:
   linear-gradient(90deg,#090808f9 0%,#090808df 26%,#09080877 49%,#09080816 100%),
   linear-gradient(0deg,#0d0b0b 0%,transparent 49%),
-  var(--prv3-img),var(--prv3-fallback);
+  var(--prv3-img);
  background-position:center,center,right 23%,right 23%;
  background-size:cover;
 }
@@ -234,7 +234,7 @@ copyButton?.addEventListener('click',async()=>{
 @media(max-width:600px){
  .prv3-hero{min-height:650px}
  .prv3-visual{
-  background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0bd8 42%,#0d0b0b21 100%),var(--prv3-img),var(--prv3-fallback);
+  background-image:linear-gradient(0deg,#0d0b0b 0%,#0d0b0bd8 42%,#0d0b0b21 100%),var(--prv3-img);
   background-position:center,60% 16%,60% 16%;
  }
  .prv3-hero .prv3-wide{padding:285px 0 55px}
@@ -244,5 +244,39 @@ copyButton?.addEventListener('click',async()=>{
  .prv3-body{font-size:18px}
  .prv3-reading-inner{width:calc(100% - 36px)}
  .prv3-related-card{min-height:165px}
+}
+
+/* Bildsystem 3.9 – ett identiskt bildlager och mjuk övergång på varje diktsida.
+   Samma regler används för Mannen bakom masken och samtliga nya dikter. */
+.prv3{position:relative;isolation:isolate}
+.prv3-hero{background:transparent;isolation:auto;overflow:visible}
+.prv3-visual{
+  z-index:-1;
+  bottom:-110px;
+  pointer-events:none;
+  background-image:
+    linear-gradient(90deg,#090808f9 0%,#090808df 26%,#09080877 49%,#09080816 100%),
+    linear-gradient(180deg,transparent 0%,transparent 40%,#0d0b0b6b 75%,#0d0b0b 100%),
+    var(--prv3-img);
+  background-position:center,center,right 23%;
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+.prv3-reading{
+  background:linear-gradient(180deg,#0d0b0b00 0%,#151011d9 95px,#100c0d 65%,#0d0b0b 100%);
+}
+@media(max-width:850px){
+  .prv3-visual{background-position:center,center,58% 25%}
+}
+@media(max-width:600px){
+  .prv3-visual{
+    bottom:-80px;
+    background-image:
+      linear-gradient(0deg,#0d0b0b 0%,#0d0b0bce 38%,#0d0b0b21 100%),
+      var(--prv3-img);
+    background-position:center,60% 16%;
+    background-size:cover;
+  }
+  .prv3-reading{background:linear-gradient(180deg,#0d0b0b00 0%,#151011ef 78px,#0d0b0b 100%)}
 }
 </style>
