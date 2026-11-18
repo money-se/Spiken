@@ -72,12 +72,15 @@ jobs:
             echo "::error::Godkänt bildpaket 003 saknas."
             exit 1
           fi
+          # Versionsmärkta filnamn löser bildcache på tidigare använda URL:er.
           for photo in dikt-i-din-sotma.webp dikt-under-ditt-sken.webp dikt-vid-brytgransen-mellan-tid-och-rum.webp; do
-            unzip -p Spiken_Diktbilder_003.zip "$photo" | cmp - "public/images/$photo" || {
-              echo "::error::$photo matchar inte godkänt bildpaket 003."
+            new_photo="${photo%.webp}-20261118.webp"
+            unzip -p Spiken_Diktbilder_003.zip "$photo" > "public/images/$new_photo"
+            unzip -p Spiken_Diktbilder_003.zip "$photo" | cmp - "public/images/$new_photo" || {
+              echo "::error::$new_photo matchar inte godkänt bildpaket 003."
               exit 1
             }
-            echo "Verifierat bildmotiv från paket 003: $photo"
+            echo "Verifierat nytt publicerat motiv från paket 003: $new_photo"
           done
       - name: Installera unik bild för diktarkivet
         run: |
