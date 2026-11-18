@@ -192,6 +192,7 @@ jobs:
           node --check scripts/importera-dikter.mjs
           npm run test:import
           npm run dikter:kontrollera
+          npm run dikter:validera
       - name: Bygg webbplatsen
         run: npm run build
       - name: Verifiera publicerade diktsidor och bilder
