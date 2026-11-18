@@ -339,4 +339,55 @@ copyButton?.addEventListener('click',async()=>{
  .prv3-reading{background:linear-gradient(180deg,rgba(12,8,10,.69),rgba(12,8,10,.83) 48%,rgba(12,8,10,.74))}
  .prv3-next{background:rgba(12,8,10,.81)}
 }
+
+/* Spiken 3.12 – obruten originalbild med mjuk övergång till sidans mörka bakgrund.
+   'contain' bevarar hela bilden och undviker cover-zoom på breda skärmar. */
+.prv3{
+ background:#0e0a0c;
+}
+.prv3::before{
+ background-color:#0e0a0c;
+ background-image:
+  linear-gradient(90deg,#0e0a0cf5 0%,#0e0a0cbf 26%,#0e0a0c72 49%,#0e0a0c12 78%,#0e0a0c40 100%),
+  linear-gradient(0deg,#0e0a0cdd 0%,#0e0a0c1a 24%,#0e0a0c08 65%,#0e0a0c91 100%),
+  var(--prv3-img);
+ background-size:100% 100%,100% 100%,contain;
+ background-position:center,center,right center;
+ background-repeat:no-repeat;
+}
+.prv3-hero{
+ background:linear-gradient(180deg,rgba(14,10,12,.09),rgba(14,10,12,.12) 64%,rgba(14,10,12,.32));
+}
+.prv3-reading{
+ background:linear-gradient(180deg,rgba(14,10,12,.33),rgba(14,10,12,.61) 24%,rgba(14,10,12,.69) 75%,rgba(14,10,12,.62));
+}
+.prv3-next{
+ background:linear-gradient(180deg,rgba(14,10,12,.62),rgba(14,10,12,.84));
+}
+@media(max-width:850px){
+ .prv3::before{
+  background-image:
+   linear-gradient(0deg,#0e0a0ce6 0%,#0e0a0c4c 24%,#0e0a0c14 60%,#0e0a0ca3 100%),
+   linear-gradient(90deg,#0e0a0c5c 0%,transparent 35%,transparent 65%,#0e0a0c5c 100%),
+   var(--prv3-img);
+  background-size:100% 100%,100% 100%,contain;
+  background-position:center,center,center center;
+ }
+}
+@media(max-width:600px){
+ .prv3::before{
+  background-image:
+   linear-gradient(0deg,#0e0a0cee 0%,#0e0a0c83 30%,#0e0a0c0c 65%,#0e0a0c9b 100%),
+   linear-gradient(90deg,#0e0a0c48 0%,transparent 24%,transparent 76%,#0e0a0c48 100%),
+   var(--prv3-img);
+  background-size:100% 100%,100% 100%,contain;
+  background-position:center,center,center center;
+ }
+ .prv3-hero{
+  background:linear-gradient(180deg,rgba(14,10,12,.03),rgba(14,10,12,.14) 55%,rgba(14,10,12,.42));
+ }
+ .prv3-reading{
+  background:linear-gradient(180deg,rgba(14,10,12,.51),rgba(14,10,12,.75) 40%,rgba(14,10,12,.73));
+ }
+}
 </style>
