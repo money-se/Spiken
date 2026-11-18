@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "dikter:kontrollera": "node scripts/importera-dikter.mjs --dry-run",
     "dikter:importera": "node scripts/importera-dikter.mjs",
-    "test:import": "node --test scripts/importera-dikter.test.mjs"
+    "test:import": "node --test scripts/importera-dikter.test.mjs",
+    "dikter:validera": "node scripts/kontrollera-publicering.mjs"
   },
   "dependencies": {
     "astro": "^5.0.0",
