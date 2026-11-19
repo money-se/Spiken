@@ -26,11 +26,11 @@ const t=en?{
  dark:'Mörk poesi',darkText:'De delar av livet som är svårare att sätta ord på.'
 };
 const visibleWorlds=worldSections.filter(world=>world.public!==false);
-const cards=visibleWorlds.slice(0,2).map(world=>({
+const cards=visibleWorlds.map(world=>({
  id:world.slug,title:world[lang].title,description:world[lang].intro,image:world.image,
  href:worldRoot+world.slug+'/'
 }));
-const smaller=visibleWorlds.slice(2).map(world=>({
+const smaller=[].map(world=>({
  id:world.slug,title:world[lang].title,description:world[lang].intro,image:world.image,
  href:worldRoot+world.slug+'/'
 }));
@@ -52,11 +52,11 @@ const smaller=visibleWorlds.slice(2).map(world=>({
       <div class="sp-worlds-card-inner"><span class="sp-worlds-status">{t.soon}</span><h3>{card.title}</h3><p>{card.description}</p><span class="sp-worlds-enter">{t.enter} <span aria-hidden="true">↗</span></span></div>
     </a>)}
    </div>
-   <div class="sp-worlds-secondary">
+   {smaller.length>0 && <div class="sp-worlds-secondary">
     {smaller.map(card=><a href={card.href} id={card.id} class="sp-worlds-small" aria-label={card.title+ " – "+t.enter} style={`--world-card:url("${base}/images/${card.image}.webp")`}>
       <div><span class="sp-worlds-status">{t.soon}</span><h3>{card.title}</h3><p>{card.description}</p><span class="sp-worlds-enter">{t.enter} <span aria-hidden="true">↗</span></span></div>
     </a>)}
-   </div>
+   </div>}
    <div class="sp-worlds-return"><a href={poems}>← {t.back}</a></div>
   </div>
  </section>
@@ -79,7 +79,7 @@ const smaller=visibleWorlds.slice(2).map(world=>({
 .sp-worlds-heading h2{font:italic 400 clamp(35px,3.7vw,52px)/1.2 Georgia,serif;margin:0}
 .sp-worlds-heading p:last-child{font:16px/1.6 Georgia,serif;color:#d5bbb3;margin:13px auto 20px;max-width:610px}
 .sp-worlds-section-label{font:700 10px/1.5 Arial,sans-serif;letter-spacing:.18em;color:#cb908b;margin:0 0 17px}
-.sp-worlds-main-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.sp-worlds-main-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
 .sp-worlds-card,.sp-worlds-small{position:relative;isolation:isolate;overflow:hidden;border:1px solid #634a42;display:flex;align-items:end;background:#171010;color:#eee2d8;text-decoration:none}
 .sp-worlds-card:hover,.sp-worlds-small:hover{border-color:#b87973;color:#fff}
 .sp-worlds-card:focus-visible,.sp-worlds-small:focus-visible{outline:2px solid #e6babb;outline-offset:4px}
