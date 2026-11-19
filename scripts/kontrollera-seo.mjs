@@ -14,7 +14,7 @@ function checkPage(file,path,alternate){
  if(!existsSync(file)){errors.push('Missing HTML: '+file);return;}
  const html=readFileSync(file,'utf8');
  const url=sitePath(path);
- if(!html.includes('rel="canonical" href="'+url+'"'))errors.push('Canonical mismatch: '+path);
+ if(!html.includes('rel="canonical" href="'+url+'"'))errors.push('Canonical mismatch: '+path+' expected '+url+' actual '+(html.match(/<link rel="canonical" href="([^"]+)"/)?.[1]||'missing'));
  if(!urlInSitemap(url))errors.push('URL missing from sitemap: '+path);
  if(alternate){
   const alternateUrl=sitePath(alternate);
