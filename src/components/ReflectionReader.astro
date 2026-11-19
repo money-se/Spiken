@@ -1,0 +1,73 @@
+---
+import {getRelatedReflections} from '../lib/reflections.js';
+const {item,lang='sv'}=Astro.props;
+const en=lang==='en';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const root=base+(en?'/en/worlds/reflektioner/':'/varldar/reflektioner/');
+const related=getRelatedReflections(lang,item);
+const paragraphs=item.text.replace(/\r\n?/g,'\n').trim().split(/\n\s*\n/).filter(Boolean);
+const t=en?{back:'All reflections',label:'A THOUGHT BY SPIKEN',minutes:'min read',share:'Share this reflection',copy:'Copy link',related:'Continue reflecting',archive:'More reflections',copied:'Link copied'}:{back:'Alla reflektioner',label:'EN TANKE FRÅN SPIKEN',minutes:'min läsning',share:'Dela reflektionen',copy:'Kopiera länk',related:'Fler tankar att bära med sig',archive:'Fler reflektioner',copied:'Länken kopierad'};
+---
+<div class="rf-reader sp-worlds" style={`--rf-hero:url("${base}/images/${item.image}")`}>
+  <header class="rf-reader-hero">
+    <div class="rf-reader-wrap">
+      <a class="rf-reader-back" href={root}>← {t.back}</a>
+      <p class="rf-reader-label">{t.label} <span aria-hidden="true">·</span> {item.topic}</p>
+      <h1>{item.title}</h1>
+      <p class="rf-reader-lead">{item.summary}</p>
+      <p class="rf-reader-info">{item.minutes} {t.minutes}{item.published&&<span> · {item.published}</span>}</p>
+    </div>
+  </header>
+  <main class="rf-reader-main">
+    <div class="rf-reader-prose" aria-label={item.title}>
+      {paragraphs.map(p=><p>{p}</p>)}
+      <div class="rf-reader-end" aria-hidden="true">✦</div>
+      <div class="rf-reader-share">
+        <span>{t.share}</span>
+        <button type="button" class="rf-copy" data-copy-label={t.copy} data-copied-label={t.copied}>{t.copy}</button>
+      </div>
+    </div>
+    <div class="rf-reader-related">
+      <h2>{t.related}</h2>
+      {related.length>0?<div class="rf-related-grid">{related.map(another=><a href={root+another.slug+'/'}>
+        <span>{another.topic}</span><strong>{another.title}</strong><small>{another.minutes} {t.minutes} ↗</small>
+      </a>)}</div>:<p><a href={root}>← {t.archive}</a></p>}
+    </div>
+  </main>
+</div>
+<script>
+  document.querySelectorAll('.rf-copy').forEach(button=>button.addEventListener('click',async()=>{
+    try{await navigator.clipboard.writeText(window.location.href);button.textContent=button.dataset.copiedLabel||'Kopierad';}
+    catch{button.textContent=button.dataset.copyLabel||'Kopiera länk';}
+  }));
+</script>
+<style>
+.rf-reader{background:#0d0b0b;color:#f3e9e2;overflow:hidden;font-family:Georgia,serif}
+.rf-reader-wrap{width:min(1120px,calc(100% - 84px));margin:auto}
+.rf-reader-hero{display:flex;align-items:flex-end;min-height:540px;position:relative;isolation:isolate}
+.rf-reader-hero:before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(90deg,#090708f9,#090708df 44%,#0907084d),linear-gradient(0deg,#0d0b0b,transparent 48%),var(--rf-hero);background-size:cover;background-position:center}
+.rf-reader-hero .rf-reader-wrap{padding:135px 0 65px}
+.rf-reader-back{border-bottom:1px solid #ae5456;padding-bottom:7px;color:#f0c8be;font:13px Arial,sans-serif}
+.rf-reader-label{margin:43px 0 17px;color:#dca59f;font:700 11px/1.6 Arial,sans-serif;letter-spacing:.17em}
+.rf-reader-hero h1{font:italic 400 clamp(44px,5vw,74px)/1.1 Georgia,serif;max-width:780px;margin:0 0 19px}
+.rf-reader-lead{font:19px/1.7 Georgia,serif;max-width:660px;color:#ead6ce;margin:0}
+.rf-reader-info{font:12px Arial,sans-serif;color:#d4b9b0;margin-top:21px}
+.rf-reader-main{padding:62px 0 105px;background:radial-gradient(ellipse at 85% 5%,#401c2140,transparent 45%),#0d0b0b}
+.rf-reader-prose{width:min(750px,calc(100% - 40px));margin:auto;color:#f5f0eb;font:clamp(17px,1.5vw,19px)/1.82 Georgia,serif;overflow-wrap:break-word}
+.rf-reader-prose>p{white-space:pre-line;margin:0 0 29px}
+.rf-reader-end{color:#b15b60;text-align:center;font-size:30px;padding:20px 0 35px}
+.rf-reader-share{display:flex;justify-content:space-between;align-items:center;gap:15px;border-top:1px solid #6f4742;padding:20px 0;font:13px Arial,sans-serif;color:#d7ada5}
+.rf-copy{background:#231619;border:1px solid #865055;color:#f4d9d2;padding:10px 15px;cursor:pointer;font:13px Arial,sans-serif}
+.rf-copy:hover{background:#71242c}
+.rf-reader-related{width:min(1120px,calc(100% - 84px));margin:70px auto 0;border-top:1px solid #6e4945;padding-top:30px}
+.rf-reader-related h2{font:italic 400 clamp(27px,3vw,42px)/1.2 Georgia,serif;margin:0 0 23px}
+.rf-related-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.rf-related-grid a{display:flex;gap:13px;flex-direction:column;background:#201316;border:1px solid #6c4641;padding:23px;color:#f3e1da;text-decoration:none}
+.rf-related-grid a:hover{border-color:#bd7672}
+.rf-related-grid span{font:700 10px Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#dbada4}
+.rf-related-grid strong{font:italic 400 26px/1.3 Georgia,serif}
+.rf-related-grid small{font:12px Arial,sans-serif;color:#c9a49c}
+.rf-reader-related>p a{color:#efc9c1;border-bottom:1px solid #a55057}
+.rf-reader a:focus-visible,.rf-reader button:focus-visible{outline:2px solid #f1c4bd;outline-offset:3px}
+@media(max-width:780px){.rf-reader-wrap,.rf-reader-related{width:calc(100% - 36px)}.rf-related-grid{grid-template-columns:1fr}.rf-reader-hero{min-height:590px}.rf-reader-hero .rf-reader-wrap{padding:185px 0 65px}.rf-reader-main{padding:40px 0 75px}}
+</style>
