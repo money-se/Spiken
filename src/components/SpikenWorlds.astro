@@ -8,7 +8,7 @@ const poems=base+(en?'/en/poems/':'/dikter/');
 const worldRoot=base+(en?'/en/worlds/':'/varldar/');
 const t=en?{
  kicker:'SPIKEN · THE WORLDS BEYOND',first:'Spiken’s',last:'worlds.',
- intro:'What is real? What makes us human? Beyond the poems, thoughts drift into stories, beliefs and worlds without simple answers.',
+ intro:'What is real? What makes us human? Beyond the poems, thoughts drift into stories, questions and worlds without simple answers.',
  explore:'Explore the worlds',sections:'Where thoughts become worlds',soon:'A world in progress',back:'Back to the poems',enter:'Enter this world',direction:'Choose a door. Every world has its own voice, but all belong to Spiken.',
  novels:'Stories',novelText:'Human stories, the forbidden and the uncanny.',
  reflections:'Reflections',reflectionText:'Thoughts on being human, on love and consciousness.',
@@ -17,7 +17,7 @@ const t=en?{
  dark:'Dark poetry',darkText:'The parts of life that are harder to put into words.'
 }:{
  kicker:'SPIKEN · BORTOM ORDEN',first:'Spikens',last:'världar.',
- intro:'Vad är verkligt? Vad gör oss mänskliga? Bortom dikterna driver tankarna vidare mot berättelser, tro och världar utan enkla svar.',
+ intro:'Vad är verkligt? Vad gör oss mänskliga? Bortom dikterna driver tankarna vidare mot berättelser, frågor och världar utan enkla svar.',
  explore:'Utforska världarna',sections:'Där tankar blir världar',soon:'En värld under uppbyggnad',back:'Tillbaka till dikterna',enter:'Kliv in i världen',direction:'Välj en dörr. Varje värld har sin egen röst, men alla hör till Spiken.',
  novels:'Noveller',novelText:'Berättelser om det mänskliga, det förbjudna och det märkliga.',
  reflections:'Reflektioner',reflectionText:'Tankar om livet, kärleken och medvetandet.',
@@ -25,11 +25,12 @@ const t=en?{
  reviews:'Recensioner',reviewText:'Litteratur, berättelser och upplevelser som lämnar spår.',
  dark:'Mörk poesi',darkText:'De delar av livet som är svårare att sätta ord på.'
 };
-const cards=worldSections.slice(0,3).map(world=>({
+const visibleWorlds=worldSections.filter(world=>world.public!==false);
+const cards=visibleWorlds.slice(0,2).map(world=>({
  id:world.slug,title:world[lang].title,description:world[lang].intro,image:world.image,
  href:worldRoot+world.slug+'/'
 }));
-const smaller=worldSections.slice(3).map(world=>({
+const smaller=visibleWorlds.slice(2).map(world=>({
  id:world.slug,title:world[lang].title,description:world[lang].intro,image:world.image,
  href:worldRoot+world.slug+'/'
 }));
@@ -78,7 +79,7 @@ const smaller=worldSections.slice(3).map(world=>({
 .sp-worlds-heading h2{font:italic 400 clamp(35px,3.7vw,52px)/1.2 Georgia,serif;margin:0}
 .sp-worlds-heading p:last-child{font:16px/1.6 Georgia,serif;color:#d5bbb3;margin:13px auto 20px;max-width:610px}
 .sp-worlds-section-label{font:700 10px/1.5 Arial,sans-serif;letter-spacing:.18em;color:#cb908b;margin:0 0 17px}
-.sp-worlds-main-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.sp-worlds-main-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
 .sp-worlds-card,.sp-worlds-small{position:relative;isolation:isolate;overflow:hidden;border:1px solid #634a42;display:flex;align-items:end;background:#171010;color:#eee2d8;text-decoration:none}
 .sp-worlds-card:hover,.sp-worlds-small:hover{border-color:#b87973;color:#fff}
 .sp-worlds-card:focus-visible,.sp-worlds-small:focus-visible{outline:2px solid #e6babb;outline-offset:4px}

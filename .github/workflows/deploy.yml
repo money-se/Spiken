@@ -207,12 +207,16 @@ jobs:
         run: |
           node --check scripts/importera-dikter.mjs
           node --check scripts/rapport-dikter.mjs
+          node --check scripts/kontrollera-noveller.mjs
+          node scripts/kontrollera-noveller.mjs
           npm run dikter:rapport > /dev/null
           npm run test:import
           npm run dikter:kontrollera
           npm run dikter:validera
       - name: Bygg webbplatsen
         run: npm run build
+      - name: Kontrollera novellarkivet och att Min Bibel inte är publik
+        run: node scripts/kontrollera-noveller.mjs --dist
       - name: Kontrollera SEO-adresser och sitemap
         run: |
           set -euo pipefail

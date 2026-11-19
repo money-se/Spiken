@@ -14,7 +14,7 @@ export const worldSections = [
     en:{title:'Reflections',kicker:'THOUGHTS · HUMAN NATURE',intro:'Questions about life, relationships, feelings and everything without easy answers.',lead:'Sometimes a thought only leads to another question. This is a place for uncertainty, contradiction and self-understanding.',expect:'Personal reflections on life, consciousness and what makes us human.'}
   },
   {
-    slug:'min-bibel',image:'spiken-varld-min-bibel-20261119',
+    slug:'min-bibel',public:false,image:'spiken-varld-min-bibel-20261119',
     sv:{title:'Min Bibel',kicker:'MYTOLOGI · SKÖNLITTERATUR',intro:'En egen fiktiv mytologi om skapelse, tro, makt och människans behov av att förstå det oförklarliga.',lead:'En värld där legender, föreställningar och motsägelsefulla berättelser kan mötas. Det här är skönlitterärt världsbygge, inte religiös vägledning.',expect:'Berättelser, tidslinjer, gestalter och olika tolkningar inom en fiktiv urtro.'},
     en:{title:'My Bible',kicker:'MYTHOLOGY · FICTION',intro:'An original fictional mythology exploring creation, belief, power and the human search for meaning.',lead:'A world where legends and conflicting accounts may exist side by side. This is fictional world-building, not religious instruction.',expect:'Stories, timelines, characters and different interpretations of an imagined ancient faith.'}
   },
