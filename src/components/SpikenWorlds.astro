@@ -25,11 +25,12 @@ const t=en?{
  reviews:'Recensioner',reviewText:'Litteratur, berättelser och upplevelser som lämnar spår.',
  dark:'Mörk poesi',darkText:'De delar av livet som är svårare att sätta ord på.'
 };
-const cards=worldSections.slice(0,3).map(world=>({
+const visibleWorlds=worldSections.filter(world=>world.public!==false);
+const cards=visibleWorlds.slice(0,2).map(world=>({
  id:world.slug,title:world[lang].title,description:world[lang].intro,image:world.image,
  href:worldRoot+world.slug+'/'
 }));
-const smaller=worldSections.slice(3).map(world=>({
+const smaller=visibleWorlds.slice(2).map(world=>({
  id:world.slug,title:world[lang].title,description:world[lang].intro,image:world.image,
  href:worldRoot+world.slug+'/'
 }));
