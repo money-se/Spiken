@@ -8,12 +8,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 const en = lang === 'en';
 const alternateCanonical = alternatePath ? new URL(base + alternatePath, Astro.site).toString() : null;
 const urlSwedish = en ? (alternateCanonical || new URL(base + '/', Astro.site).toString()) : canonical;
-const urlEnglish = en ? canonical : (alternateCanonical || new URL(base + '/en/', Astro.site).toString());
+const urlEnglish = en ? canonical : (alternateCanonical || new URL(base + (Astro.url.pathname.includes('/dikter/') ? '/en/poems/' : '/en/'), Astro.site).toString());
 const nav = en ? {home:'Home',poems:'Poems',about:'About Spiken',worlds:'Spiken’s Worlds',archive:'Read poems',privacy:'Privacy',footer:'Words under the skin · Stories from beneath the surface.'} : {home:'Hem',poems:'Dikter',about:'Om Spiken',worlds:'Spikens världar',archive:'Läs dikterna',privacy:'Integritet',footer:'Ord under huden · Dikter från undersidan.'};
 const home = base + (en ? '/en/' : '/');
 const poems = base + (en ? '/en/poems/' : '/dikter/');
 const about = base + (en ? '/en/about/' : '/om/');
 const worlds = base + (en ? '/en/worlds/' : '/varldar/');
+const privacy = base + (en ? '/en/privacy/' : '/integritet/');
 const analyticsEnabled = analytics.enabled && Boolean(analytics.site_token);
 const analyticsToken = analyticsEnabled ? analytics.site_token : '';
 const ogImage = new URL(socialImage || base + '/images/social-delning.webp', Astro.site).toString();
@@ -227,11 +228,11 @@ body:has(:is(.spiken-three,.pa-shell,.prv3,.sp-category,.sp-about,.sp-worlds)) .
 <div class="spiken-header-actions"><a class="header-link" href={poems}>{nav.archive} ↗</a><nav class="spiken-languages" aria-label={en ? "Language" : "Språk"}><a href={urlSwedish} lang="sv" aria-current={!en ? "page" : undefined}>SV</a><span aria-hidden="true">/</span><a href={urlEnglish} lang="en" aria-current={en ? "page" : undefined}>EN</a></nav></div>
 </div></header>
 <main id="innehall"><slot /></main>
-<footer id="sidfot" class="site-footer spiken-photo-footer" style={`--footer-art:url("${base}/images/footer-bakgrund.webp")`}><div class="wrap footer-inner"><div><span class="footer-brand">SPIKEN.</span><p>{nav.footer}</p></div><div class="footer-right"><a href={poems}>{nav.poems}</a><a href={worlds}>{nav.worlds}</a><a href={about}>{nav.about}</a><a href={base + '/integritet/'}>{nav.privacy}</a>{analyticsEnabled && <button type="button" class="spiken-consent-settings" id="spiken-consent-settings">{en ? "Analytics settings" : "Statistikinställningar"}</button>}<small>© {new Date().getFullYear()} Spiken.</small></div></div></footer>
+<footer id="sidfot" class="site-footer spiken-photo-footer" style={`--footer-art:url("${base}/images/footer-bakgrund.webp")`}><div class="wrap footer-inner"><div><span class="footer-brand">SPIKEN.</span><p>{nav.footer}</p></div><div class="footer-right"><a href={poems}>{nav.poems}</a><a href={worlds}>{nav.worlds}</a><a href={about}>{nav.about}</a><a href={privacy}>{nav.privacy}</a>{analyticsEnabled && <button type="button" class="spiken-consent-settings" id="spiken-consent-settings">{en ? "Analytics settings" : "Statistikinställningar"}</button>}<small>© {new Date().getFullYear()} Spiken.</small></div></div></footer>
 
-{analyticsEnabled && <div id="spiken-consent" class="spiken-consent" role="region" aria-label="Val för frivillig statistik" hidden>
-  <p>Vill du hjälpa Spiken att förbättra läsupplevelsen? Vi kan samla in enkel webbstatistik med Cloudflare, men endast om du godkänner det. <a href={base + '/integritet/'}>Läs om integritet</a>.</p>
-  <div class="spiken-consent-actions"><button type="button" data-choice="yes">Ja, tillåt statistik</button><button type="button" data-choice="no">Nej tack</button></div>
+{analyticsEnabled && <div id="spiken-consent" class="spiken-consent" role="region" aria-label={en ? 'Optional analytics preferences' : 'Val för frivillig statistik'} hidden>
+  <p>{en ? 'Would you like to help Spiken improve the reading experience? We only load optional Cloudflare analytics if you consent.' : 'Vill du hjälpa Spiken att förbättra läsupplevelsen? Vi kan samla in enkel webbstatistik med Cloudflare, men endast om du godkänner det.'} <a href={privacy}>{en ? 'Read our privacy information' : 'Läs om integritet'}</a>.</p>
+  <div class="spiken-consent-actions"><button type="button" data-choice="yes">{en ? 'Yes, allow analytics' : 'Ja, tillåt statistik'}</button><button type="button" data-choice="no">{en ? 'No, thanks' : 'Nej tack'}</button></div>
 </div>}
 {analyticsEnabled && <script is:inline define:vars={{ analyticsToken }}>
   (function () {
