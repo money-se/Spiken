@@ -6,7 +6,7 @@ const base=import.meta.env.BASE_URL.replace(/\/$/,'');
 const worldsRoot=base+(en?'/en/worlds/':'/varldar/');
 const poems=base+(en?'/en/poems/':'/dikter/');
 const text=section[lang];
-const other=worldSections.filter(world=>world.slug!==section.slug);
+const other=worldSections.filter(world=>world.public!==false && world.slug!==section.slug);
 const link=slug=>worldsRoot+encodeURIComponent(slug)+'/';
 const words=en?{
   back:'All worlds',chapter:'A PLACE WITHIN SPIKEN’S WORLDS',coming:'Under development',
