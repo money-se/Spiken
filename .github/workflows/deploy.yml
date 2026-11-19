@@ -167,6 +167,18 @@ jobs:
           else
             echo "Bildpaketet för Spikens världar saknas ännu."
           fi
+      - name: Installera unika bilder för Spikens fem världar
+        run: |
+          set -euo pipefail
+          archive=Spiken_Varldar_Bildpaket_002.zip
+          test -f "$archive" || { echo "::error::$archive saknas i repo-roten."; exit 1; }
+          for slug in noveller reflektioner min-bibel recensioner mork-poesi; do
+            photo="spiken-varld-${slug}-20261119.webp"
+            unzip -p "$archive" "$photo" > "public/images/$photo"
+            test -s "public/images/$photo" || { echo "::error::$photo saknas."; exit 1; }
+            file "public/images/$photo" | grep -qi Web/P || { echo "::error::$photo är inte en WebP."; exit 1; }
+            echo "Verifierad världsbild: $photo"
+          done
       - name: Mät referensbildens faktiska format och storlek
         run: |
           if [ -f public/images/dikt-mannen-bakom-masken.webp ]; then
