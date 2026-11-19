@@ -1,0 +1,14 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SpikenWorldDetail from '../../../components/SpikenWorldDetail.astro';
+import {worldSections} from '../../../lib/worlds.js';
+export function getStaticPaths(){
+  return worldSections.map(section=>({params:{part:section.slug},props:{section}}));
+}
+const {section}=Astro.props;
+const title=section.en.title+' – Spiken’s Worlds | Spiken';
+const description=section.en.intro;
+---
+<Layout title={title} description={description} lang="en" alternatePath={'/varldar/'+section.slug+'/'}>
+ <SpikenWorldDetail section={section} lang="en"/>
+</Layout>
