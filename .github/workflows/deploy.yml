@@ -246,6 +246,10 @@ jobs:
           if(!robots.includes(new URL(prefix+'/sitemap-index.xml',origin).toString())) throw Error('Fel sitemap-adress i robots.txt');
           console.log('SEO-verifiering OK:',url);
           JS
+      - name: Verifiera svenska och engelska SEO-sidor samt sitemap
+        run: |
+          node --check scripts/kontrollera-seo.mjs
+          node scripts/kontrollera-seo.mjs
       - name: Verifiera publicerade diktsidor och bilder
         run: |
           set -euo pipefail

@@ -71,7 +71,7 @@ const journeys = [
     <div class="s3-width">
       <h2 id="s3-feelings-title" class="s3-screen-reader">{copy.featured}</h2>
       <div class="s3-mood-grid">
-        {moods.map(m => <a class="s3-mood" href={poems + '?tema=' + encodeURIComponent(m.theme)} aria-label={m.name}>
+        {moods.map(m => <a class="s3-mood" href={base + (en ? '/en/poems/category/' : '/dikter/kategori/') + ({'Kärlek':'karlek','Längtan':'langtan','Begär':'begar','Existens':'existens'}[m.theme]) + '/'} aria-label={m.name}>
           <img src={img(m.image)} loading="lazy" width="640" height="430" alt="" />
           <span class="s3-mood-label">{m.name}</span>
           <span class="s3-mood-rule"></span>

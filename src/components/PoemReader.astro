@@ -6,8 +6,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/,'');
 const archive = base + (en?'/en/poems/':'/dikter/');
 const paired = poem.translatedSlug ? base + (en?'/dikter/':'/en/poems/') + encodeURIComponent(poem.translatedSlug) + '/' : null;
 const related = getRelatedPoems(lang,poem,3);
-const categoryLink = !en && /^[a-z0-9-]+$/.test(poem.category || '')
- ? base+'/dikter/kategori/'+poem.category+'/' : null;
+const categoryLink = /^[a-z0-9-]+$/.test(poem.category || '')
+ ? base+(en?'/en/poems/category/':'/dikter/kategori/')+poem.category+'/' : null;
 const all = getPoems(lang);
 const nextCandidates = getRelatedPoems(lang,poem,Math.min(18,Math.max(0,all.length-1)));
 const nextPoem = nextCandidates[0] || null;
