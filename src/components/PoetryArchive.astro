@@ -12,14 +12,14 @@ const labels = en ? {
   search:'Search the poems',placeholder:'Search titles, feelings or words…',all:'All poems',
   emptyTitle:'A place for words not yet published.',emptyText:'English translations will appear here when they have been carefully prepared and published. In the meantime, you can explore the Swedish original archive.',
   toSwedish:'Explore Swedish poems',count:'poems',read:'Read poem',noMatch:'No poems match your search.',clear:'Show all poems',
-  filters:'Browse by feeling',more:'Show more poems',showing:'Showing',of:'of',sort:'Sort by',newest:'Newest first',oldest:'Oldest first',az:'Title A–Z',discover:'Surprise me with a poem',surpriseKicker:'A poem chosen for you',surpriseMore:'Surprise me again',surpriseRead:'Read the whole poem',surpriseClose:'Close',searchLoading:'Searching…',searchError:'Full-text search is unavailable right now. Titles and themes still work.'
+  filters:'Browse by feeling',more:'Show more poems',showing:'Showing',of:'of',sort:'Sort by',newest:'Newest first',oldest:'Oldest first',az:'Title A–Z',discover:'Surprise me with a poem',favorites:'My saved poems',surpriseKicker:'A poem chosen for you',surpriseMore:'Surprise me again',surpriseRead:'Read the whole poem',surpriseClose:'Close',searchLoading:'Searching…',searchError:'Full-text search is unavailable right now. Titles and themes still work.'
 } : {
   kicker:'SPIKEN · ORD UNDER HUDEN',title:'Dikt',titleAccent:'arkivet.',
   intro:'För allt som aldrig riktigt fick plats i ett samtal. Sök en känsla, en titel eller de ord du behöver läsa just nu.',
   search:'Sök bland dikterna',placeholder:'Sök titel, känsla eller ord…',all:'Alla dikter',
   emptyTitle:'Här får orden snart sin plats.',emptyText:'Arkivet är förberett för dina dikter. Så snart de publiceras kommer de att visas här, med egna lässidor och möjlighet att dela.',
   toSwedish:'',count:'dikter',read:'Läs dikten',noMatch:'Inga dikter matchar din sökning.',clear:'Visa alla dikter',
-  filters:'Välj en känsla',more:'Visa fler dikter',showing:'Visar',of:'av',sort:'Sortera',newest:'Nyaste först',oldest:'Äldsta först',az:'Titel A–Ö',discover:'Överraska mig med en dikt',surpriseKicker:'Ett oväntat möte med orden',surpriseMore:'Överraska mig igen',surpriseRead:'Läs hela dikten',surpriseClose:'Stäng',searchLoading:'Söker…',searchError:'Sökning i hela dikter är tillfälligt otillgänglig. Titlar och kategorier fungerar fortfarande.'
+  filters:'Välj en känsla',more:'Visa fler dikter',showing:'Visar',of:'av',sort:'Sortera',newest:'Nyaste först',oldest:'Äldsta först',az:'Titel A–Ö',discover:'Överraska mig med en dikt',favorites:'Mina sparade dikter',surpriseKicker:'Ett oväntat möte med orden',surpriseMore:'Överraska mig igen',surpriseRead:'Läs hela dikten',surpriseClose:'Stäng',searchLoading:'Söker…',searchError:'Sökning i hela dikter är tillfälligt otillgänglig. Titlar och kategorier fungerar fortfarande.'
 };
 const availableThemes = [...new Set(poems.map(poem => poem.theme))].sort((a,b) => a.localeCompare(b,lang));
 const image = base + '/images/spiken-arkiv-hero.webp';
@@ -69,7 +69,7 @@ const fallbackImage = base + '/images/spiken-3-forfattare.webp';
       </div>
       {poems.length > 0 ?
       <div class="pa-results" data-search-index-url={searchIndexUrl} data-index-error={labels.searchError} data-index-loading={labels.searchLoading}>
-        <div class="pa-result-line"><span>{en ? 'THE COLLECTION' : 'SAMLINGEN'}</span><div class="pa-result-actions"><output id="pa-result-count">{poems.length} {labels.count}</output><button type="button" id="pa-discover" hidden>{labels.discover} <span aria-hidden="true">↗</span></button></div></div>
+        <div class="pa-result-line"><span>{en ? 'THE COLLECTION' : 'SAMLINGEN'}</span><div class="pa-result-actions"><output id="pa-result-count">{poems.length} {labels.count}</output><button type="button" id="pa-favorites" aria-pressed="false">{labels.favorites} <span aria-hidden="true">♡</span></button><button type="button" id="pa-discover" hidden>{labels.discover} <span aria-hidden="true">↗</span></button></div></div>
         <p class="pa-search-warning" id="pa-search-warning" role="status" hidden></p>
         <div class="pa-grid" id="pa-poem-list">
           {poems.slice(0,9).map((poem,i)=><article class="pa-item" data-search={(poem.title+' '+poem.theme+' '+poem.tags.join(' ')).toLocaleLowerCase(lang)} data-slug={poem.slug} data-image={poem.image ? base+'/images/'+poem.image : base+'/images/dikt-arkiv-v2.webp'} data-theme={poem.theme.toLocaleLowerCase(lang)} data-date={poem.published || ''} data-title={poem.title.toLocaleLowerCase(lang)} data-order={i}>
@@ -122,6 +122,7 @@ const sortControl = document.querySelector('#pa-sort-select');
 const results = document.querySelector('.pa-results');
 const searchWarning = document.querySelector('#pa-search-warning');
 const surprise = document.querySelector('#pa-discover');
+const favoritesButton = document.querySelector('#pa-favorites');
 const discoveryDialog = document.querySelector('#pa-discovery');
 const discoveryImage = document.querySelector('#pa-discovery-image');
 const discoveryTitle = document.querySelector('#pa-discovery-title');
@@ -154,6 +155,14 @@ let remainingSurprises = [];
 let previousSurprise = null;
 let surprisePoolKey = '';
 let limit = PAGE_SIZE;
+let favoritesOnly = false;
+const favoritesKey = 'spiken-favorites-v1:' + locale;
+const readFavorites = () => {
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(favoritesKey) || '[]');
+    return new Set(Array.isArray(saved) ? saved.filter(item=>typeof item==='string') : []);
+  } catch { return new Set(); }
+};
 let selected = (params.get('tema') || '').toLocaleLowerCase(locale);
 const validThemes = new Set(buttons.map(button => button.dataset.theme || ''));
 if(!validThemes.has(selected)) selected = '';
@@ -238,7 +247,9 @@ function renderCards(){
 }
 function refresh(){
   const terms=normalize(search?.value.trim()).split(/\s+/).filter(Boolean);
+  const favorites = favoritesOnly ? readFavorites() : null;
   matchingPoems=poems.filter(poem=>{
+    if(favorites && !favorites.has(poem.slug)) return false;
     if(selected && normalize(poem.theme)!==selected) return false;
     const haystack=poem.searchable+' '+(fulltext?.get(poem.slug) || '');
     return terms.every(term=>haystack.includes(term));
@@ -257,6 +268,11 @@ function refresh(){
   }
   renderCards();
   buttons.forEach(button=>button.setAttribute('aria-pressed',String((button.dataset.theme||'')===selected)));
+  if(favoritesButton){
+    favoritesButton.setAttribute('aria-pressed',String(favoritesOnly));
+    const marker = favoritesButton.querySelector('span');
+    if(marker) marker.textContent=favoritesOnly?'♥':'♡';
+  }
   if(count) count.textContent=String(matched)+' '+(locale==='en'?'poems':'dikter');
   if(noResults) noResults.hidden=matched>0 || poems.length===0;
   if(pagination) pagination.hidden=matched<=PAGE_SIZE;
@@ -287,6 +303,13 @@ async function applyFilters(){
   if(version!==requestVersion) return;
   refresh();
 }
+favoritesButton?.addEventListener('click',()=>{
+  favoritesOnly=!favoritesOnly;
+  void applyFilters();
+});
+window.addEventListener('storage',event=>{
+  if(event.key===favoritesKey && favoritesOnly) void applyFilters();
+});
 buttons.forEach(button=>button.addEventListener('click',()=>{
   selected=button.dataset.theme||'';
   void applyFilters();
@@ -301,6 +324,7 @@ sortControl?.addEventListener('change',()=>{
 });
 clear?.addEventListener('click',()=>{
   selected='';
+  favoritesOnly=false;
   if(search) search.value='';
   void applyFilters();
   search?.focus();
@@ -421,6 +445,7 @@ void applyFilters().then(()=>{
 .pa-result-actions button{font:13px Arial,sans-serif;color:#f1d7d2;background:transparent;border:1px solid #875b52;padding:10px 14px;cursor:pointer}
 .pa-result-actions button:hover{border-color:#cb8a82;background:#251718}
 .pa-result-actions button[hidden]{display:none!important}
+.pa-result-actions button[aria-pressed="true"]{border-color:#c66f75;color:#ffe0dc;background:#392023}
 /* Upptäck en dikt: använd arkivets bildvärld och typografi utan ett nytt sidtema. */
 .pa-discovery{width:min(760px,calc(100vw - 30px));max-height:min(90vh,950px);padding:0;background:#110e0f;color:#eee2d8;border:1px solid #765047;box-shadow:0 25px 100px #000e;overflow:auto}
 .pa-discovery::backdrop{background:rgba(3,3,4,.84);backdrop-filter:blur(5px)}
