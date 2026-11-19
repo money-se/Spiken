@@ -250,7 +250,8 @@ function refresh(){
   const favorites = favoritesOnly ? readFavorites() : null;
   matchingPoems=poems.filter(poem=>{
     if(favorites && !favorites.has(poem.slug)) return false;
-    if(selected && normalize(poem.theme)!==selected) return false;
+    // Kategoriernas URL-/knappvärden behåller å/ä/ö. Accentutjämning används bara för textsökning.
+    if(selected && (poem.theme || '').toLocaleLowerCase(locale)!==selected) return false;
     const haystack=poem.searchable+' '+(fulltext?.get(poem.slug) || '');
     return terms.every(term=>haystack.includes(term));
   });
