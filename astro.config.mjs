@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 // Vid domänbyte: SPIKEN_SITE_URL=https://din-domän.se (och då blir base automatiskt '/').
 // SPIKEN_BASE_PATH kan användas om sajten placeras under en särskild undermapp.
 const site = (process.env.SPIKEN_SITE_URL || 'https://money-se.github.io').replace(/\/$/, '');
-const base = process.env.SPIKEN_BASE_PATH ?? (process.env.SPIKEN_SITE_URL ? '/' : '/Spiken');
+const base = process.env.SPIKEN_BASE_PATH || (process.env.SPIKEN_SITE_URL ? '/' : '/Spiken');
 
 export default defineConfig({
   site,
