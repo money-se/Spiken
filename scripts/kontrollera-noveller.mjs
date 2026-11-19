@@ -45,8 +45,8 @@ if(process.argv.includes('--dist')){
   }
   for(const path of ['dist/varldar/noveller/index.html','dist/en/worlds/noveller/index.html'])
     if(!existsSync(path))errors.push('Novellarkivet saknar HTML: '+path);
-  for(const path of ['dist/varldar/min-bibel/index.html','dist/en/worlds/min-bibel/index.html'])
-    if(existsSync(path))errors.push('Min Bibel ska inte publiceras: '+path);
+  for(const path of ['dist/varldar/min-bibel/index.html','dist/en/worlds/min-bibel/index.html','dist/varldar/mork-poesi/index.html','dist/en/worlds/mork-poesi/index.html'])
+    if(existsSync(path))errors.push('Dold avdelning ska inte publiceras: '+path);
 }
 if(errors.length){console.error(errors.join('\n'));process.exitCode=1;}
 else console.log('Novellregister OK: '+registry.works.length+' verk, '+published.length+' publicerade språkversioner. Min Bibel kontrolleras vid bygge.');
