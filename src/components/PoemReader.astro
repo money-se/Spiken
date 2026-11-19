@@ -23,12 +23,12 @@ const labels = en ? {
   back:'All poems', poem:'A POEM BY SPIKEN',read:'Read the poem',
   share:'Share these words',copy:'Copy link',related:'You may also like',all:'Browse all poems',
   language:'Read in Swedish', more:'Discover more words', by:'Written by Spiken',category:'Theme',
-  facebook:'Share on Facebook',continueReading:'Keep reading',nextPoem:'Your next poem',readNext:'Read next poem',another:'Another suggestion',readSize:'Text size',smaller:'Smaller text',larger:'Larger text',resetSize:'Reset size'
+  facebook:'Share on Facebook',continueReading:'Keep reading',nextPoem:'Your next poem',readNext:'Read next poem',another:'Another suggestion',readSize:'Text size',smaller:'Smaller text',larger:'Larger text',resetSize:'Reset size',saveFavorite:'Save poem',removeFavorite:'Remove saved poem'
 } : {
   back:'Alla dikter',poem:'EN DIKT AV SPIKEN',read:'Läs dikten',
   share:'Dela dessa ord',copy:'Kopiera länken',related:'Fler ord som berör',all:'Utforska alla dikter',
   language:'Read in English',more:'Upptäck fler ord',by:'Skriven av Spiken',category:'Tema',
-  facebook:'Dela på Facebook',continueReading:'Fortsätt läsa',nextPoem:'Din nästa dikt',readNext:'Läs nästa dikt',another:'En annan dikt',readSize:'Textstorlek',smaller:'Mindre text',larger:'Större text',resetSize:'Återställ storlek'
+  facebook:'Dela på Facebook',continueReading:'Fortsätt läsa',nextPoem:'Din nästa dikt',readNext:'Läs nästa dikt',another:'En annan dikt',readSize:'Textstorlek',smaller:'Mindre text',larger:'Större text',resetSize:'Återställ storlek',saveFavorite:'Spara dikten',removeFavorite:'Ta bort sparad dikt'
 };
 ---
 <div class="prv3" style={`--prv3-img:url("${photo}")`}>
@@ -67,6 +67,7 @@ const labels = en ? {
       <div class="prv3-share">
         <span class="prv3-share-title">{labels.share}</span>
         <div class="prv3-share-actions">
+          <button type="button" id="prv3-favorite" class="prv3-favorite" data-poem-slug={poem.slug} data-lang={lang} aria-pressed="false" data-add-label={labels.saveFavorite} data-remove-label={labels.removeFavorite}>{labels.saveFavorite} <span aria-hidden="true">♡</span></button>
           <a href={'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(new URL(Astro.url.pathname,Astro.site).toString())} target="_blank" rel="noopener noreferrer">{labels.facebook} <span aria-hidden="true">↗</span></a>
           <button id="prv3-copy" type="button">{labels.copy} <span aria-hidden="true">↗</span></button>
         </div>
@@ -106,6 +107,34 @@ const labels = en ? {
 </div>
 <script>
 const copyButton = document.querySelector('#prv3-copy');
+const favoriteButton = document.querySelector('#prv3-favorite');
+if(favoriteButton){
+  const key='spiken-favorites-v1:'+(favoriteButton.dataset.lang||'sv');
+  const slug=favoriteButton.dataset.poemSlug;
+  const getFavorites=()=>{
+    try{
+      const saved=JSON.parse(window.localStorage.getItem(key)||'[]');
+      return new Set(Array.isArray(saved)?saved.filter(item=>typeof item==='string'):[]);
+    }catch{return new Set();}
+  };
+  const updateFavorite=()=>{
+    const active=getFavorites().has(slug);
+    favoriteButton.setAttribute('aria-pressed',String(active));
+    favoriteButton.replaceChildren(document.createTextNode((active?favoriteButton.dataset.removeLabel:favoriteButton.dataset.addLabel)+' '));
+    const icon=document.createElement('span');
+    icon.setAttribute('aria-hidden','true');
+    icon.textContent=active?'♥':'♡';
+    favoriteButton.append(icon);
+  };
+  favoriteButton.addEventListener('click',()=>{
+    const favorites=getFavorites();
+    if(favorites.has(slug)) favorites.delete(slug);
+    else favorites.add(slug);
+    try{window.localStorage.setItem(key,JSON.stringify([...favorites]));}catch{}
+    updateFavorite();
+  });
+  updateFavorite();
+}
 const continueBox = document.querySelector('.prv3-continue-box');
 const continueLink = continueBox?.querySelector('.prv3-continue');
 const continueTitle = document.querySelector('#prv3-continue-title');
@@ -240,6 +269,7 @@ copyButton?.addEventListener('click',async()=>{
 .prv3-continue-other:hover{color:#fff;border-color:#dfaaaa}
 .prv3-continue-other:focus-visible{outline:2px solid #e6babb;outline-offset:3px}
 .prv3-share-title{font:13px Arial,sans-serif;color:#ddc4bc}
+.prv3-share-actions .prv3-favorite[aria-pressed="true"]{color:#ffd3d0;border-color:#d87d83}
 .prv3-share-actions{display:flex;gap:26px;flex-wrap:wrap}
 .prv3-share-actions a,.prv3-share-actions button{border:0;border-bottom:1px solid #a7434b;background:none;color:#f0ded9;font:13px Arial,sans-serif;cursor:pointer;padding:8px 0}
 .prv3-next{background:linear-gradient(180deg,#120d0d,#0d0b0b);padding:50px 0 80px;border-top:1px solid #392521}
