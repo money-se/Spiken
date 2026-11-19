@@ -24,7 +24,7 @@ export const worldSections = [
     en:{title:'Reviews',kicker:'READING · IMPRESSIONS',intro:'Thoughts on books, stories and experiences that stay with us after they end.',lead:'More than a rating or a summary. This is about why a story moves us – or why it does not.',expect:'Personal reading experiences, reflections and criticism.'}
   },
   {
-    slug:'mork-poesi',image:'spiken-varld-mork-poesi-20261119',
+    slug:'mork-poesi',public:false,image:'spiken-varld-mork-poesi-20261119',
     sv:{title:'Mörk poesi',kicker:'SKUGGOR · ORD',intro:'Där orden får röra sig mot det obekväma, det gåtfulla och det som inte alltid låter sig förklaras.',lead:'Poesi kan också vara ett sätt att se in i mörkret utan att försköna det. Den här delen ger plats för en annan sorts uttryck.',expect:'Mörkare lyrik och litterära experiment, när de är färdiga för publicering.'},
     en:{title:'Dark poetry',kicker:'SHADOWS · WORDS',intro:'A place for words that move towards the uncomfortable, the mysterious and the difficult to explain.',lead:'Poetry can look into darkness without making it beautiful. This space is reserved for a different kind of expression.',expect:'Darker verse and literary experiments when ready for publication.'}
   }
