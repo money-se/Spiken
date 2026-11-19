@@ -1,0 +1,102 @@
+---
+const {novel,lang='sv',chapter=null}=Astro.props;
+const en=lang==='en';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const root=base+(en?'/en/worlds/noveller/':'/varldar/noveller/');
+const url=root+encodeURIComponent(novel.slug)+'/';
+const cover=base+'/images/'+(novel.cover||'spiken-varld-noveller-20261119.webp');
+const current=chapter?novel.chapters.findIndex(item=>item.slug===chapter.slug):-1;
+const prev=current>0?novel.chapters[current-1]:null;
+const next=current>=0&&current<novel.chapters.length-1?novel.chapters[current+1]:null;
+const href=item=>url+encodeURIComponent(item.slug)+'/';
+const t=en?{
+ archive:'The story archive',minutes:'min read',chapter:'Chapter',chapters:'Chapters',
+ start:'Begin reading',toc:'The chapters',back:'Back to the story',previous:'Previous chapter',next:'Next chapter',
+ finished:'Back to the story',story:'A story by Spiken',read:'Read chapter'
+}:{
+ archive:'Novellarkivet',minutes:'min läsning',chapter:'Kapitel',chapters:'Kapitel',
+ start:'Börja läsa',toc:'Berättelsens kapitel',back:'Till novellen',previous:'Föregående kapitel',next:'Nästa kapitel',
+ finished:'Tillbaka till novellen',story:'En berättelse av Spiken',read:'Läs kapitlet'
+};
+const paragraphs=chapter?chapter.text.replace(/\r\n?/g,'\n').trim().split(/\n\s*\n/).filter(Boolean):[];
+---
+<div class="nv-reader sp-worlds" style={`--novel-image:url("${cover}")`}>
+  <section class="nv-r-hero">
+    <div class="nv-r-wrap">
+      <a class="nv-r-back" href={chapter?url:root}>← {chapter?t.back:t.archive}</a>
+      <p class="nv-r-kicker">{t.story} <span aria-hidden="true">·</span> {novel.genre}</p>
+      <h1>{chapter?chapter.title:novel.title}</h1>
+      <p class="nv-r-lead">{chapter?novel.title:novel.summary}</p>
+      <p class="nv-r-meta">{chapter ? t.chapter+' '+chapter.number+' / '+novel.chapters.length : novel.chapters.length+' '+t.chapters} <span aria-hidden="true">·</span> {chapter?chapter.minutes:novel.minutes} {t.minutes}</p>
+      {!chapter&&<a class="nv-r-start" href={href(novel.chapters[0])}>{t.start} <span aria-hidden="true">→</span></a>}
+    </div>
+  </section>
+  <section class="nv-r-body">
+    <div class="nv-r-wrap">
+    {chapter?
+      <div class="nv-r-reading">
+        <div class="nv-r-chap-label">{novel.title} <span aria-hidden="true">/</span> {t.chapter} {chapter.number}</div>
+        <article class="nv-r-prose" aria-label={chapter.title}>
+          {paragraphs.map(p=><p>{p}</p>)}
+        </article>
+        <nav class="nv-r-pagination" aria-label={en?'Chapter navigation':'Kapitelnavigation'}>
+          {prev?<a href={href(prev)}>← {t.previous}<strong>{prev.title}</strong></a>:<a href={url}>← {t.back}<strong>{novel.title}</strong></a>}
+          {next?<a href={href(next)}>{t.next} →<strong>{next.title}</strong></a>:<a href={url}>{t.finished} →<strong>{novel.title}</strong></a>}
+        </nav>
+      </div>
+      :
+      <div class="nv-r-toc">
+        <header><p>{t.toc}</p><h2>{novel.title}</h2></header>
+        <ol>
+          {novel.chapters.map(item=><li>
+            <a href={href(item)}>
+              <span class="nv-r-num">{String(item.number).padStart(2,'0')}</span>
+              <span><strong>{item.title}</strong><small>{item.minutes} {t.minutes}</small></span>
+              <span class="nv-r-arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>)}
+        </ol>
+      </div>
+    }
+    </div>
+  </section>
+</div>
+<style>
+.nv-reader{background:#0d0b0b;color:#f3e6df;font-family:Georgia,serif;overflow:hidden}
+.nv-r-wrap{width:min(1150px,calc(100% - 68px));margin:auto}
+.nv-r-hero{min-height:520px;display:flex;align-items:flex-end;position:relative;isolation:isolate;background:#0b090a}
+.nv-r-hero:before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(90deg,#090708fb 0%,#0a0809dd 46%,#0a080941 100%),linear-gradient(0deg,#0d0b0b 0%,transparent 45%),var(--novel-image);background-size:cover;background-position:center}
+.nv-r-hero .nv-r-wrap{padding:130px 0 64px}
+.nv-r-back{display:inline-block;font:13px/1.5 Arial,sans-serif;color:#e7bdb8;border-bottom:1px solid #a94a4e;padding-bottom:7px}
+.nv-r-kicker{font:700 11px/1.5 Arial,sans-serif;letter-spacing:.17em;text-transform:uppercase;color:#d8a49d;margin:42px 0 18px}
+.nv-r-kicker span,.nv-r-meta span{padding:0 7px}
+.nv-r-hero h1{font:italic 400 clamp(43px,5vw,77px)/1.09 Georgia,serif;margin:0 0 20px;max-width:780px}
+.nv-r-lead{font:18px/1.75 Georgia,serif;color:#e6d4cb;max-width:650px;margin:0 0 18px}
+.nv-r-meta{font:13px Arial,sans-serif;color:#d7b7ad}
+.nv-r-start{display:inline-flex;gap:24px;align-items:center;margin-top:20px;padding:14px 21px;font:14px Arial,sans-serif;background:#921417;border:1px solid #b03940;color:#fff}
+.nv-r-start:hover{background:#be272f;color:#fff}
+.nv-r-body{background:radial-gradient(ellipse at 95% 3%,#3b1b203d,transparent 55%),#0d0b0b;padding:56px 0 110px}
+.nv-r-toc{max-width:850px;margin:auto}
+.nv-r-toc header p,.nv-r-chap-label{font:700 11px/1.5 Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#db9b96}
+.nv-r-toc h2{font:italic 400 clamp(32px,3.6vw,46px)/1.2 Georgia,serif;margin:15px 0 30px}
+.nv-r-toc ol{padding:0;margin:0;list-style:none;border-top:1px solid #79514a}
+.nv-r-toc li{border-bottom:1px solid #61423e}
+.nv-r-toc li a{color:#f4e7df;display:flex;align-items:center;gap:20px;padding:22px 12px;text-decoration:none}
+.nv-r-toc li a:hover{background:#201417}
+.nv-r-num{font:16px Arial,sans-serif;color:#c88d89}
+.nv-r-toc strong{display:block;font:italic 400 23px/1.3 Georgia,serif}
+.nv-r-toc small{display:block;font:12px Arial,sans-serif;color:#c3a9a2;margin-top:7px}
+.nv-r-arrow{margin-left:auto}
+.nv-r-reading{max-width:750px;margin:auto}
+.nv-r-chap-label{margin-bottom:38px}
+.nv-r-chap-label span{padding:0 8px}
+.nv-r-prose{font:400 clamp(17px,1.4vw,19px)/1.85 Georgia,serif;color:#f4efeb;overflow-wrap:break-word}
+.nv-r-prose p{white-space:pre-line;margin:0 0 30px}
+.nv-r-pagination{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:78px;border-top:1px solid #754e49;padding-top:22px}
+.nv-r-pagination a{display:block;background:#201417;border:1px solid #674744;padding:19px 17px;text-decoration:none;color:#deb4ae;font:12px/1.6 Arial,sans-serif}
+.nv-r-pagination strong{display:block;margin-top:8px;font:italic 400 20px/1.3 Georgia,serif;color:#f7e7de}
+.nv-r-pagination a:hover{border-color:#bb7471}
+.nv-r-pagination a:last-child{text-align:right}
+.nv-reader a:focus-visible{outline:2px solid #f3c5bd;outline-offset:4px}
+@media(max-width:700px){.nv-r-wrap{width:calc(100% - 36px)}.nv-r-hero{min-height:595px}.nv-r-hero .nv-r-wrap{padding:190px 0 60px}.nv-r-body{padding:42px 0 75px}.nv-r-prose{line-height:1.8}.nv-r-pagination{grid-template-columns:1fr}.nv-r-pagination a:last-child{text-align:left}}
+</style>
