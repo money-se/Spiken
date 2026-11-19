@@ -30,10 +30,7 @@ const cards=visibleWorlds.map(world=>({
  id:world.slug,title:world[lang].title,description:world[lang].intro,image:world.image,
  href:worldRoot+world.slug+'/'
 }));
-const smaller=[].map(world=>({
- id:world.slug,title:world[lang].title,description:world[lang].intro,image:world.image,
- href:worldRoot+world.slug+'/'
-}));
+const smaller=[];
 ---
 <div class="sp-worlds" style={`--sp-worlds-image:url("${base}/images/spiken-varldar-tankens-hav.webp")`}>
  <section class="sp-worlds-hero">
