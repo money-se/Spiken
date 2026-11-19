@@ -2,7 +2,8 @@
 import Layout from '../../../../layouts/Layout.astro';
 import {getPoems,poemExcerpt} from '../../../../lib/poetry.js';
 
-const categoryDetails={
+export function getStaticPaths(){
+ const categoryDetails={
  karlek:{lead:'Love poems about closeness, tenderness and everything the heart struggles to say.',image:'kategori-karlek.webp'},
  langtan:{lead:'Poems about longing, absence and the people we cannot quite let go.',image:'kategori-sorg.webp'},
  begar:{lead:'Poems about desire, attraction, the body and the need to be close.',image:'kategori-begar-v2.webp'},
@@ -13,7 +14,6 @@ const categoryDetails={
  sorg:{lead:'Poems about grief and living with what has changed.',image:'kategori-sorg.webp'},
  ensamhet:{lead:'Poems about solitude and the desire to be understood.',image:'kategori-ensamhet.webp'}
 };
-export function getStaticPaths(){
  const groups=new Map();
  for(const poem of getPoems('en')){
   if(!/^[a-z0-9-]+$/.test(poem.category))continue;
