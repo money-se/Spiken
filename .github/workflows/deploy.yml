@@ -194,6 +194,8 @@ jobs:
       - name: Kontrollera diktimporten
         run: |
           node --check scripts/importera-dikter.mjs
+          node --check scripts/rapport-dikter.mjs
+          npm run dikter:rapport > /dev/null
           npm run test:import
           npm run dikter:kontrollera
           npm run dikter:validera
