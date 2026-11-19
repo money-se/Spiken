@@ -62,6 +62,7 @@ const journeys = [
           <a class="s3-primary" href={poems}>{copy.read} <span aria-hidden="true">→</span></a>
           <a class="s3-secondary" href={about}>{copy.about}</a>
         </div>
+        {en && getPoems('en').length===0 && <p class="s3-english-note">The English editions are being prepared. <a href={base+'/dikter/'}>Explore the Swedish originals →</a></p>}
       </div>
     </div>
   </section>
@@ -329,4 +330,6 @@ const journeys = [
  .s3-feelings{background:linear-gradient(180deg,transparent,#0d0b0b77 46%,#0d0b0b 100%)}
 }
 
+.s3-english-note{margin:18px 0 0;font:14px/1.65 Georgia,serif;color:#e4cfc8;max-width:500px}
+.s3-english-note a{color:#ffd1c8;text-decoration:underline;text-underline-offset:4px}
 </style>
