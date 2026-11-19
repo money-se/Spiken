@@ -219,6 +219,10 @@ jobs:
           npm run dikter:validera
       - name: Bygg webbplatsen
         run: npm run build
+      - name: Kontrollera engelska webbplatsen och opublicerade översättningar
+        run: |
+          node --check scripts/kontrollera-engelska.mjs
+          node scripts/kontrollera-engelska.mjs
       - name: Kontrollera recensionsarkiv och publicerade recensioner
         run: node scripts/kontrollera-recensioner.mjs --dist
       - name: Kontrollera reflektionsarkivet och dess publika sidor
