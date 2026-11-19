@@ -1,0 +1,97 @@
+---
+import {getNovels} from '../lib/novels.js';
+const {lang='sv'}=Astro.props;
+const en=lang==='en';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const root=base+(en?'/en/worlds/noveller/':'/varldar/noveller/');
+const novels=getNovels(lang);
+const genres=[...new Set(novels.map(n=>n.genre))].sort((a,b)=>a.localeCompare(b,lang));
+const t=en?{
+ eyebrow:'THE STORY ARCHIVE',title:'Stories waiting to be told.',intro:'Browse the stories that have found their way into Spiken’s worlds. Each one has its own voice, chapters and reading rhythm.',
+ all:'All genres',read:'Explore the story',minutes:'min read',chapters:'chapters',
+ empty:'The first story has not been published yet.',emptyBody:'This space is ready for longer fiction. Until a story is complete and approved, there will be no invented previews or placeholder chapters.',
+ back:'Back to Spiken’s worlds',count:'stories'
+}:{
+ eyebrow:'NOVELLARKIVET',title:'Berättelser att försvinna in i.',intro:'Här samlas berättelser som fått ta plats i Spikens världar. Varje novell får sin egen röst, sina kapitel och sin läsrytm.',
+ all:'Alla genrer',read:'Utforska novellen',minutes:'min läsning',chapters:'kapitel',
+ empty:'Den första novellen har ännu inte publicerats.',emptyBody:'Här finns plats för längre berättelser. Tills en novell är färdig och godkänd visar vi varken påhittade förhandsvisningar eller tomma kapitel.',
+ back:'Till Spikens världar',count:'noveller'
+};
+---
+<section class="nv-archive" aria-labelledby="nv-heading">
+  <div class="nv-wrap">
+    <div class="nv-intro">
+      <span class="nv-eyebrow">{t.eyebrow}</span>
+      <h2 id="nv-heading">{t.title}</h2>
+      <p>{t.intro}</p>
+    </div>
+    {novels.length>0 ? <>
+      <div class="nv-tools">
+        <p><strong>{novels.length}</strong> {t.count}</p>
+        {genres.length>1 && <div class="nv-filter" role="group" aria-label={en?'Filter by genre':'Filtrera efter genre'}>
+          <button type="button" class="nv-filter-button" data-genre="" aria-pressed="true">{t.all}</button>
+          {genres.map(genre=><button type="button" class="nv-filter-button" data-genre={genre} aria-pressed="false">{genre}</button>)}
+        </div>}
+      </div>
+      <div class="nv-grid" id="nv-grid">
+        {novels.map(novel=><article class="nv-card" data-genre={novel.genre}>
+          <a href={root+encodeURIComponent(novel.slug)+'/'} aria-label={novel.title}>
+            <div class="nv-art" style={`--nv-cover:url("${base}/images/${novel.cover || 'spiken-varld-noveller-20261119.webp'}")`} aria-hidden="true"></div>
+            <div class="nv-card-body">
+              <span class="nv-genre">{novel.genre}</span>
+              <h3>{novel.title}</h3>
+              <p>{novel.summary}</p>
+              <span class="nv-meta">{novel.chapters.length} {t.chapters} <span aria-hidden="true">·</span> {novel.minutes} {t.minutes}</span>
+              <span class="nv-read">{t.read} <span aria-hidden="true">↗</span></span>
+            </div>
+          </a>
+        </article>)}
+      </div>
+    </> : <div class="nv-empty">
+      <div class="nv-empty-mark" aria-hidden="true">✦</div>
+      <h3>{t.empty}</h3>
+      <p>{t.emptyBody}</p>
+    </div>}
+  </div>
+</section>
+{genres.length>1 && <script>
+  const buttons=[...document.querySelectorAll('.nv-filter-button')];
+  const cards=[...document.querySelectorAll('.nv-card')];
+  for(const button of buttons)button.addEventListener('click',()=>{
+    const selected=button.dataset.genre||'';
+    for(const item of buttons)item.setAttribute('aria-pressed',String(item===button));
+    for(const card of cards)card.hidden=Boolean(selected&&card.dataset.genre!==selected);
+  });
+</script>}
+<style>
+.nv-archive{padding:64px 0 95px;background:radial-gradient(ellipse at 8% 10%,#32181a3a,transparent 52%),#0d0b0b;color:#eee2d8}
+.nv-wrap{width:min(1320px,calc(100% - 84px));margin-inline:auto}
+.nv-intro{max-width:780px;margin-bottom:38px}
+.nv-eyebrow{display:block;font:700 11px/1.5 Arial,sans-serif;letter-spacing:.19em;color:#d6a19a;margin-bottom:15px}
+.nv-intro h2{font:italic 400 clamp(37px,4vw,56px)/1.15 Georgia,serif;margin:0 0 18px}
+.nv-intro p{font:17px/1.75 Georgia,serif;color:#dbc8c1;max-width:680px}
+.nv-tools{border-top:1px solid #64413e;padding:23px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.nv-tools>p{font:13px/1.5 Arial,sans-serif;color:#d8b9b2}.nv-tools strong{color:#fff}
+.nv-filter{display:flex;flex-wrap:wrap;gap:8px}
+.nv-filter-button{background:#1c1415;color:#dfc8c2;border:1px solid #604541;cursor:pointer;padding:9px 13px;font:12px Arial,sans-serif}
+.nv-filter-button[aria-pressed="true"],.nv-filter-button:hover{background:#6f1a22;color:#fff;border-color:#b36565}
+.nv-filter-button:focus-visible,.nv-card a:focus-visible{outline:2px solid #e9b9b4;outline-offset:3px}
+.nv-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.nv-card{background:#171012;border:1px solid #5c4440;overflow:hidden}
+.nv-card[hidden]{display:none}
+.nv-card a{display:flex;flex-direction:column;color:#f6eae4;height:100%;text-decoration:none}
+.nv-card:hover{border-color:#b36c6b}
+.nv-art{height:235px;background-image:linear-gradient(0deg,#15101370,transparent 68%),var(--nv-cover);background-size:cover;background-position:center}
+.nv-card-body{display:flex;flex:1;flex-direction:column;gap:12px;padding:26px}
+.nv-genre{font:700 10px/1.5 Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#dbaaa0}
+.nv-card h3{font:italic 400 31px/1.2 Georgia,serif;margin:0}
+.nv-card-body>p{font:15px/1.65 Georgia,serif;color:#d9c4bc;margin:0}
+.nv-meta{font:12px Arial,sans-serif;color:#bea5a0;margin-top:auto;padding-top:12px}
+.nv-read{font:13px Arial,sans-serif;color:#f2c8c2;border-bottom:1px solid #bf5f62;padding-bottom:6px;align-self:start}
+.nv-empty{text-align:center;background:linear-gradient(145deg,#1d1215,#120e10);border:1px solid #65433f;padding:55px 25px;max-width:810px;margin:auto}
+.nv-empty-mark{font-size:34px;color:#bd545b;margin-bottom:15px}
+.nv-empty h3{font:italic 400 clamp(25px,3vw,37px)/1.25 Georgia,serif;margin:0 0 18px}
+.nv-empty p{max-width:580px;margin:auto;font:16px/1.8 Georgia,serif;color:#d8c1b9}
+@media(max-width:950px){.nv-wrap{width:calc(100% - 40px)}.nv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.nv-wrap{width:calc(100% - 36px)}.nv-archive{padding:40px 0 64px}.nv-grid{grid-template-columns:1fr}.nv-art{height:235px}.nv-empty{padding:40px 20px}}
+</style>
