@@ -1,0 +1,73 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import {getPoems,poemExcerpt} from '../../../../lib/poetry.js';
+
+const categoryDetails={
+ karlek:{lead:'Love poems about closeness, tenderness and everything the heart struggles to say.',image:'kategori-karlek.webp'},
+ langtan:{lead:'Poems about longing, absence and the people we cannot quite let go.',image:'kategori-sorg.webp'},
+ begar:{lead:'Poems about desire, attraction, the body and the need to be close.',image:'kategori-begar-v2.webp'},
+ existens:{lead:'Existential poems about identity, darkness and being human.',image:'kategori-ensamhet.webp'},
+ hjartesorg:{lead:'Poems about heartbreak, loss and the words left after love.',image:'kategori-saknad-v2.webp'},
+ saknad:{lead:'Poems about missing someone and the memories that remain.',image:'kategori-saknad-v2.webp'},
+ sarbarhet:{lead:'Poems about vulnerability, fear and the courage to feel.',image:'kategori-ensamhet.webp'},
+ sorg:{lead:'Poems about grief and living with what has changed.',image:'kategori-sorg.webp'},
+ ensamhet:{lead:'Poems about solitude and the desire to be understood.',image:'kategori-ensamhet.webp'}
+};
+export function getStaticPaths(){
+ const groups=new Map();
+ for(const poem of getPoems('en')){
+  if(!/^[a-z0-9-]+$/.test(poem.category))continue;
+  if(!groups.has(poem.category))groups.set(poem.category,[]);
+  groups.get(poem.category).push(poem);
+ }
+ return [...groups].map(([slug,poems])=>({params:{theme:slug},props:{poems,category:{name:poems[0].theme,...(categoryDetails[slug]||{lead:'Explore poems about '+poems[0].theme.toLowerCase()+'.',image:'dikt-arkiv-v2.webp'})}}}));
+}
+const {poems,category}=Astro.props;
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const archive=base+'/en/poems/';
+const canonical=new URL(Astro.url.pathname,Astro.site).toString();
+const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[
+ {'@type':'ListItem',position:1,name:'Spiken',item:new URL(base+'/en/',Astro.site).toString()},
+ {'@type':'ListItem',position:2,name:'Poems',item:new URL(archive,Astro.site).toString()},
+ {'@type':'ListItem',position:3,name:category.name,item:canonical}
+]};
+---
+<Layout title={category.name+' Poems – Spiken | Words Beneath the Skin'} description={category.lead+' Read original poetry by Spiken in English.'} lang="en" alternatePath={'/dikter/kategori/'+Astro.params.theme+'/'} socialImage={base+'/images/'+category.image} structuredData={breadcrumb}>
+ <div class="sp-seo-category">
+  <div class="sp-seo-background" style={`--topic-art:url("${base}/images/${category.image}")`}></div>
+  <div class="sp-seo-wrap">
+   <nav class="sp-seo-breadcrumb" aria-label="Breadcrumb"><a href={base+'/en/'}>Home</a><span aria-hidden="true">/</span><a href={archive}>Poems</a><span aria-hidden="true">/</span><span>{category.name}</span></nav>
+   <header class="sp-seo-head">
+    <span>SPIKEN · WORDS BENEATH THE SKIN</span>
+    <h1>Poems about <em>{category.name.toLowerCase()}.</em></h1>
+    <p>{category.lead}</p>
+    <a class="sp-seo-scroll" href="#read-poems">Explore {poems.length} {poems.length===1?'poem':'poems'} ↓</a>
+   </header>
+   <section id="read-poems" class="sp-seo-list" aria-label={category.name+' poems'}>
+    <div class="sp-seo-list-head"><h2>Words that stay with you.</h2><p>{poems.length} {poems.length===1?'poem':'poems'} in this collection</p></div>
+    <div class="sp-seo-grid">
+     {poems.map(poem=><a class="sp-seo-card" href={archive+encodeURIComponent(poem.slug)+'/'}><div class="sp-seo-img" style={`--card-art:url("${base}/images/${poem.image||'dikt-arkiv-v2.webp'}")`}></div><div class="sp-seo-card-copy"><span>{category.name} · Spiken</span><h3>{poem.title}</h3><p>{poemExcerpt(poem.text,140)}</p><strong>Read the poem →</strong></div></a>)}
+    </div>
+    <a class="sp-seo-back" href={archive}>← Browse the complete poetry archive</a>
+   </section>
+  </div>
+ </div>
+</Layout>
+<style>
+.sp-seo-category{background:#0d0b0b;position:relative;isolation:isolate;overflow:hidden;color:#f0e1d8;font-family:Georgia,'Times New Roman',serif;min-height:85vh}
+.sp-seo-background{position:absolute;z-index:-1;inset:0 0 auto;height:710px;background-image:linear-gradient(90deg,#0b0909fa 0%,#0b0909e3 40%,#0b09097d 80%),linear-gradient(180deg,transparent 35%,#0d0b0b 100%),var(--topic-art);background-size:cover;background-position:center right}
+.sp-seo-wrap{max-width:1240px;width:calc(100% - 72px);margin:auto}
+.sp-seo-breadcrumb{display:flex;gap:14px;align-items:center;padding:112px 0 0;font:13px Arial,sans-serif;color:#d2aaa6}.sp-seo-breadcrumb a{color:#ecc8c0;text-decoration:underline;text-underline-offset:4px}
+.sp-seo-head{padding:69px 0 112px;max-width:760px}.sp-seo-head>span{font:700 11px Arial,sans-serif;letter-spacing:.22em;color:#e19d9d}
+.sp-seo-head h1{font:italic 400 clamp(44px,6vw,82px)/1.1 Georgia,serif;margin:20px 0}.sp-seo-head h1 em{color:#e6787b}.sp-seo-head p{font-size:clamp(17px,2vw,21px);line-height:1.7;max-width:600px;color:#e8ccc7}
+.sp-seo-scroll{display:inline-block;margin-top:20px;padding:13px 19px;background:#92232a;color:white;font:14px Arial,sans-serif}
+.sp-seo-list{padding:30px 0 110px}.sp-seo-list-head{display:flex;align-items:baseline;justify-content:space-between;gap:25px;margin-bottom:26px}.sp-seo-list h2{font:italic 400 clamp(30px,4vw,46px) Georgia,serif}.sp-seo-list-head p{font:13px Arial,sans-serif;color:#d8b8b5}
+.sp-seo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:19px}
+.sp-seo-card{background:#1b1113;border:1px solid #624048;color:#f0e1d8;overflow:hidden;display:flex;flex-direction:column}.sp-seo-card:hover{border-color:#d06c75;color:#fff}
+.sp-seo-img{height:195px;background-image:linear-gradient(0deg,#180a0b40,transparent),var(--card-art);background-position:center;background-size:cover}
+.sp-seo-card-copy{padding:24px;display:flex;flex:1;flex-direction:column}.sp-seo-card-copy>span{font:11px Arial,sans-serif;text-transform:uppercase;letter-spacing:.15em;color:#e4a8a6}
+.sp-seo-card h3{font:italic 400 30px/1.2 Georgia,serif;margin:15px 0}.sp-seo-card p{font:15px/1.6 Georgia,serif;color:#d9c1bc;flex:1;white-space:normal}.sp-seo-card strong{font:13px Arial,sans-serif;margin-top:24px;border-top:1px solid #65464b;padding-top:14px}
+.sp-seo-back{display:inline-block;margin-top:36px;border-bottom:1px solid #c66a74;padding-bottom:7px}
+@media(max-width:920px){.sp-seo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.sp-seo-wrap{width:calc(100% - 32px)}.sp-seo-breadcrumb{padding-top:82px}.sp-seo-head{padding:70px 0 90px}.sp-seo-grid{grid-template-columns:1fr}.sp-seo-list-head{display:block}.sp-seo-card h3{font-size:28px}}
+</style>
