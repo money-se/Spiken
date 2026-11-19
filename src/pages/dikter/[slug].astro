@@ -23,7 +23,12 @@ const schema = {
   url:new URL(Astro.url.pathname,Astro.site).toString()
 };
 const alternatePath=poem.translatedSlug?'/en/poems/'+encodeURIComponent(poem.translatedSlug)+'/':null;
+const breadcrumb={'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[
+ {'@type':'ListItem',position:1,name:'Spiken',item:new URL(base+'/',Astro.site).toString()},
+ {'@type':'ListItem',position:2,name:'Diktarkivet',item:new URL(base+'/dikter/',Astro.site).toString()},
+ {'@type':'ListItem',position:3,name:poem.title,item:new URL(Astro.url.pathname,Astro.site).toString()}
+]};
 ---
-<Layout title={poem.metaTitle || poem.title + ' – Spiken'} description={poem.description} lang="sv" alternatePath={alternatePath} socialImage={imageUrl} socialImageAlt={poem.imageAlt} publishedAt={poem.published} structuredData={schema}>
+<Layout title={poem.metaTitle || poem.title + ' – Spiken'} description={poem.description} lang="sv" alternatePath={alternatePath} socialImage={imageUrl} socialImageAlt={poem.imageAlt} publishedAt={poem.published} structuredData={[schema,breadcrumb]}>
   <PoemReader poem={poem} lang="sv" />
 </Layout>
