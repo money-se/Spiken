@@ -17,6 +17,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # Tomma variabler behåller nuvarande GitHub Pages-adress och /Spiken-prefix.
+      SPIKEN_SITE_URL: ${{ vars.SPIKEN_SITE_URL }}
+      SPIKEN_BASE_PATH: ${{ vars.SPIKEN_BASE_PATH }}
     steps:
       - name: Hämta koden
         uses: actions/checkout@v4
@@ -195,6 +199,23 @@ jobs:
           npm run dikter:validera
       - name: Bygg webbplatsen
         run: npm run build
+      - name: Kontrollera SEO-adresser och sitemap
+        run: |
+          set -euo pipefail
+          test -s dist/sitemap-index.xml
+          test -s dist/robots.txt
+          node --input-type=module <<'JS'
+          import { readFileSync } from 'node:fs';
+          const origin=(process.env.SPIKEN_SITE_URL || 'https://money-se.github.io').replace(/\/$/,'');
+          const base=process.env.SPIKEN_BASE_PATH || (process.env.SPIKEN_SITE_URL ? '/' : '/Spiken');
+          const prefix=base.replace(/\/$/,'');
+          const url=new URL(prefix+'/dikter/',origin).toString();
+          const html=readFileSync('dist/dikter/index.html','utf8');
+          const robots=readFileSync('dist/robots.txt','utf8');
+          if(!html.includes('rel="canonical" href="'+url+'"')) throw Error('Fel canonical på diktarkivet: '+url);
+          if(!robots.includes(new URL(prefix+'/sitemap-index.xml',origin).toString())) throw Error('Fel sitemap-adress i robots.txt');
+          console.log('SEO-verifiering OK:',url);
+          JS
       - name: Verifiera publicerade diktsidor och bilder
         run: |
           set -euo pipefail
