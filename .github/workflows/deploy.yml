@@ -211,12 +211,16 @@ jobs:
           node scripts/kontrollera-noveller.mjs
           node --check scripts/kontrollera-reflektioner.mjs
           npm run reflektioner:validera
+          node --check scripts/kontrollera-recensioner.mjs
+          npm run recensioner:validera
           npm run dikter:rapport > /dev/null
           npm run test:import
           npm run dikter:kontrollera
           npm run dikter:validera
       - name: Bygg webbplatsen
         run: npm run build
+      - name: Kontrollera recensionsarkiv och publicerade recensioner
+        run: node scripts/kontrollera-recensioner.mjs --dist
       - name: Kontrollera reflektionsarkivet och dess publika sidor
         run: node scripts/kontrollera-reflektioner.mjs --dist
       - name: Kontrollera novellarkivet och att Min Bibel inte är publik
