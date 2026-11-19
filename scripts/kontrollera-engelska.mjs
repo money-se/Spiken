@@ -36,7 +36,7 @@ if(existsSync('dist/en/privacy/index.html')){
 if(existsSync('dist/en/poems/index.html')){
  const page=readFileSync('dist/en/poems/index.html','utf8');
  const count=works.filter(w=>w.type==='dikt'&&w.translations?.en?.status==='published').length;
- if(!count&&!page.includes('Explore the Swedish originals'))failures.push('Empty English archive has no Swedish originals link');
+ if(!count&&!page.includes('Explore Swedish poems'))failures.push('Empty English archive has no Swedish originals link');
 }
 if(failures.length){console.error(failures.join('\n'));process.exitCode=1;}
 else console.log('English-site checks passed; '+works.filter(w=>w.type==='dikt'&&w.translations?.en?.status==='published').length+' published English poems.');
