@@ -51,3 +51,17 @@ Du kan också köra kommandona lokalt: `npm run dikter:kontrollera` (endast för
 **Viktigt:** Automatiken kan dela filer som följer formatet ovan. En otydligt formaterad samling kräver manuell granskning innan import. Att skicka en fil *här i chatten* laddar inte automatiskt upp den till GitHub; då granskar och överför vi den genom samtalet och de tillgängliga verktygen.
 
 Se även `DIKTARKIV.md` för SEO, bildpaket och hur sidorna byggs.
+
+## Granskningskö inför större publiceringar
+
+Efter att nya dikter importerats kan du köra `npm run dikter:rapport`. Kommandot **läser** publiceringsregistret och visar en tabell över alla svenska utkast och vad som saknas: kategori, taggar, titel, SEO-uppgifter och godkänd WebP-bild. Det ändrar aldrig dikttext eller status. Exempel på att spara rapporten som fil:
+
+```bash
+npm run dikter:rapport > textbank/GRANSKNINGSKO.md
+```
+
+När flera hundra dikter har lagts in används rapporten för att arbeta i hanterbara omgångar, till exempel 10–20 dikter: kontrollera originaltext, välj huvudkategori och ämnesord, skriv individuella sökbeskrivningar, godkänn bilderna och välj vilka dikter som får publiceras. En komplett metadatarad är **inte** ett automatiskt publiceringstillstånd.
+
+**Kategorisidorna byggs automatiskt** för varje giltig kategori som innehåller minst en publicerad svensk dikt. En dikt ska dessutom få en länk tillbaka till sin kategorisida. Även nya kategorier kan därför fungera utan att någon ny sidmall skapas. Vid behov kompletterar vi senare kategorins presentation och bildval.
+
+Om en hel samling bara finns på Poeter.se eller i en fil som ännu inte laddats upp till GitHub behöver vi först föra in originaltexterna. Importen ska aldrig hitta på dikter som saknas i källmaterialet.
