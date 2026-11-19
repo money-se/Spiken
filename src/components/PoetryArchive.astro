@@ -8,9 +8,9 @@ const poems = getPoems(lang);
 const searchIndexUrl = base + (en ? '/en/poems/search-index.json' : '/dikter/sokindex.json');
 const labels = en ? {
   kicker:'SPIKEN · WORDS BENEATH THE SKIN',title:'Poetry',titleAccent:'archive.',
-  intro:'For everything that stayed beneath the surface. Find a feeling, a title or the words that speak to you.',
+  intro:'A place for the words that stay beneath the surface. English editions of Spiken’s Swedish poems are being prepared with care.',
   search:'Search the poems',placeholder:'Search titles, feelings or words…',all:'All poems',
-  emptyTitle:'A place for words not yet published.',emptyText:'English translations will appear here when they have been carefully prepared and published. In the meantime, you can explore the Swedish original archive.',
+  emptyTitle:'The words are finding their English voice.',emptyText:'Spiken’s poems were written in Swedish. Their English versions are being carefully adapted, not translated word for word. Until they are ready, you can explore the Swedish originals.',
   toSwedish:'Explore Swedish poems',count:'poems',read:'Read poem',noMatch:'No poems match your search.',clear:'Show all poems',
   filters:'Browse by feeling',more:'Show more poems',showing:'Showing',of:'of',sort:'Sort by',newest:'Newest first',oldest:'Oldest first',az:'Title A–Z',discover:'Surprise me with a poem',favorites:'My saved poems',surpriseKicker:'A poem chosen for you',surpriseMore:'Surprise me again',surpriseRead:'Read the whole poem',surpriseClose:'Close',searchLoading:'Searching…',searchError:'Full-text search is unavailable right now. Titles and themes still work.'
 } : {
@@ -31,10 +31,10 @@ const fallbackImage = base + '/images/spiken-3-forfattare.webp';
       <p class="pa-eyebrow">{labels.kicker}</p>
       <h1 id="pa-title">{labels.title}<em>{labels.titleAccent}</em></h1>
       <p class="pa-lead">{labels.intro}</p>
-      <a class="pa-hero-link" href="#pa-explore">{en ? "Explore the archive" : "Utforska dikterna"} <span aria-hidden="true">→</span></a>
+      <a class="pa-hero-link" href="#pa-explore">{en && poems.length===0 ? 'About the English editions' : en ? 'Explore the archive' : 'Utforska dikterna'} <span aria-hidden="true">→</span></a>
     </div>
   </section>
-  <section class="pa-library" id="pa-explore" aria-label={en ? 'Browse poetry' : 'Utforska dikter'}>
+  <section class={en && poems.length===0 ? 'pa-library pa-library-empty' : 'pa-library'} id="pa-explore" aria-label={en ? 'Browse poetry' : 'Utforska dikter'}>
     <div class="pa-wrap">
       
       <div class="pa-mood-gallery" role="group" aria-label={labels.filters}>
@@ -531,4 +531,5 @@ void applyFilters().then(()=>{
  .pa-unpublished{padding:30px 7px 40px}
 }
 @media(prefers-reduced-motion:reduce){.pa-item,.pa-mood-button img,.pa-hero-link{transition:none}}
+.pa-library-empty .pa-mood-gallery,.pa-library-empty .pa-section-heading,.pa-library-empty .pa-controls{display:none}
 </style>

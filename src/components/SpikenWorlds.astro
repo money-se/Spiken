@@ -12,18 +12,14 @@ const t=en?{
  explore:'Explore the worlds',sections:'Where thoughts become worlds',soon:'A world in progress',back:'Back to the poems',enter:'Enter this world',direction:'Choose a door. Every world has its own voice, but all belong to Spiken.',
  novels:'Stories',novelText:'Human stories, the forbidden and the uncanny.',
  reflections:'Reflections',reflectionText:'Thoughts on being human, on love and consciousness.',
- bible:'My Bible',bibleText:'A fictional mythology and a world that continues to grow.',
  reviews:'Reviews',reviewText:'Books, stories and experiences that leave a mark.',
- dark:'Dark poetry',darkText:'The parts of life that are harder to put into words.'
 }:{
  kicker:'SPIKEN · BORTOM ORDEN',first:'Spikens',last:'världar.',
  intro:'Vad är verkligt? Vad gör oss mänskliga? Bortom dikterna driver tankarna vidare mot berättelser, frågor och världar utan enkla svar.',
  explore:'Utforska världarna',sections:'Där tankar blir världar',soon:'En värld under uppbyggnad',back:'Tillbaka till dikterna',enter:'Kliv in i världen',direction:'Välj en dörr. Varje värld har sin egen röst, men alla hör till Spiken.',
  novels:'Noveller',novelText:'Berättelser om det mänskliga, det förbjudna och det märkliga.',
  reflections:'Reflektioner',reflectionText:'Tankar om livet, kärleken och medvetandet.',
- bible:'Min Bibel',bibleText:'En skönlitterär mytologi och en värld som fortsätter växa.',
  reviews:'Recensioner',reviewText:'Litteratur, berättelser och upplevelser som lämnar spår.',
- dark:'Mörk poesi',darkText:'De delar av livet som är svårare att sätta ord på.'
 };
 const visibleWorlds=worldSections.filter(world=>world.public!==false);
 const cards=visibleWorlds.map(world=>({
