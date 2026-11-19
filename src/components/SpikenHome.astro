@@ -12,8 +12,8 @@ const currentPoems = getPoems(lang).slice(0,3);
 const copy = en ? {
   eyebrow: 'SPIKEN · WORDS UNDER THE SKIN',
   titleStart: 'Words beneath', titleEnd:'the skin.',
-  lead:'Poems about love, longing, desire and the feelings we rarely dare to speak of. Written with heart, hurt and longing.',
-  read:'Read my poems', about:'About Spiken',
+  lead:'Poems about love, longing and the things we struggle to say aloud. Written in Swedish, with English editions taking shape.',
+  read:'Explore the poetry', about:'About Spiken',
   featured:'Find your feeling', surpriseLabel:'FOLLOW AN UNEXPECTED WORD',surpriseTitle:'Let the words find you.',surpriseText:'One poem. One unexpected moment. Perhaps the words you needed today.',surpriseAction:'Surprise me with a poem',
   author:'The man behind the words',
   authorBody:'Spiken is my way of exploring what it means to be human. Here I share poetry, thoughts and stories shaped by both darkness and light.',
@@ -22,7 +22,7 @@ const copy = en ? {
   worlds:'Spiken’s Worlds', worldsText:'Beyond the poems — stories, reflections and other worlds born from words.',
   explore:'Enter the worlds', recent:'Recently published', archive:'The poetry archive',
   love:'Love', longing:'Longing', desire:'Desire', existence:'Existence',
-  stories:'Stories', thoughts:'Reflections', mythology:'My Bible'
+  stories:'Stories', thoughts:'Reflections', reviews:'Reviews'
 } : {
   eyebrow: 'SPIKEN · ORD UNDER HUDEN',
   titleStart: 'Ord under', titleEnd:'huden.',
@@ -36,7 +36,7 @@ const copy = en ? {
   worlds:'Spikens världar', worldsText:'Bortom dikterna finns berättelser, reflektioner och andra världar som växer fram ur orden.',
   explore:'Utforska världarna', recent:'Senast publicerat', archive:'Diktarkivet',
   love:'Kärlek', longing:'Längtan', desire:'Begär', existence:'Existens',
-  stories:'Noveller', thoughts:'Reflektioner', mythology:'Min Bibel'
+  stories:'Noveller', thoughts:'Reflektioner', reviews:'Recensioner'
 };
 const moods = [
  {id:'love',name:copy.love,theme:'Kärlek',image:'kategori-karlek'},
@@ -45,9 +45,9 @@ const moods = [
  {id:'existence',name:copy.existence,theme:'Existens',image:'kategori-ensamhet'},
 ];
 const journeys = [
- {name:copy.stories,description:en?'Human stories and their shadows.':'Berättelser om människor och deras skuggor.',anchor:'noveller',image:'varldar-bibliotek'},
- {name:copy.thoughts,description:en?'Questions about living and feeling.':'Tankar om livet, känslorna och människan.',anchor:'reflektioner',image:'dikt-arkiv-v2'},
- {name:copy.mythology,description:en?'An evolving fictional mythology.':'En skönlitterär mytologi som växer fram.',anchor:'min-bibel',image:'bakgrund-litterar'}
+ {name:copy.stories,description:en?'Human stories and their shadows.':'Berättelser om människor och deras skuggor.',anchor:'noveller',image:'spiken-varld-noveller-20261119'}, 
+ {name:copy.thoughts,description:en?'Questions about living and feeling.':'Tankar om livet, känslorna och människan.',anchor:'reflektioner',image:'spiken-varld-reflektioner-20261119'}, 
+ {name:copy.reviews,description:en?'Personal reviews of books and stories.':'Personliga omdömen om böcker och berättelser.',anchor:'recensioner',image:'spiken-varld-recensioner-20261119'}
 ];
 ---
 <div class="spiken-three" style={`--s3-hero:url("${img('spiken-3-hero')}");--s3-author:url("${img('spiken-3-forfattare')}");--s3-hero-fallback:url("${img('hero-romantik')}");--s3-author-fallback:url("${img('bakgrund-litterar')}")`}>
