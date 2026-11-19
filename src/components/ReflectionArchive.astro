@@ -1,0 +1,89 @@
+---
+import {getReflections} from '../lib/reflections.js';
+const {lang='sv'}=Astro.props;
+const en=lang==='en';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const root=base+(en?'/en/worlds/reflektioner/':'/varldar/reflektioner/');
+const items=getReflections(lang);
+const topics=[...new Set(items.map(item=>item.topic))].sort((a,b)=>a.localeCompare(b,lang));
+const t=en?{
+ eyebrow:'THE REFLECTION ARCHIVE',title:'Thoughts that stay with you.',intro:'Questions about love, identity, relationships and the things we carry inside. Not answers carved in stone – just a place to think.',all:'All subjects',count:'reflections',read:'Read reflection',minutes:'min read',empty:'Some thoughts need more time.',emptyBody:'This archive is ready for personal reflections. Nothing is published here before the text has been finished and approved.'
+}:{
+ eyebrow:'REFLEKTIONSARKIVET',title:'Tankar som stannar kvar.',intro:'Om kärlek, identitet, relationer och sådant vi bär inom oss. Inte färdiga sanningar – bara en plats att tänka vidare.',all:'Alla ämnen',count:'reflektioner',read:'Läs reflektionen',minutes:'min läsning',empty:'Vissa tankar behöver mer tid.',emptyBody:'Här kommer mina reflektioner att samlas. Ingenting publiceras innan texten är färdig och godkänd.'
+};
+---
+<section class="rf-archive" id="reflektionsarkiv" aria-labelledby="rf-heading">
+  <div class="rf-wrap">
+    <header class="rf-heading">
+      <p class="rf-eyebrow">{t.eyebrow}</p>
+      <h2 id="rf-heading">{t.title}</h2>
+      <p>{t.intro}</p>
+    </header>
+    {items.length>0 ? <>
+      <div class="rf-toolbar">
+        <span>{items.length} {t.count}</span>
+        {topics.length>1&&<div class="rf-filters" role="group" aria-label={en?'Filter reflections':'Filtrera reflektioner'}>
+          <button type="button" class="rf-filter" data-topic="" aria-pressed="true">{t.all}</button>
+          {topics.map(topic=><button type="button" class="rf-filter" data-topic={topic} aria-pressed="false">{topic}</button>)}
+        </div>}
+      </div>
+      <div class="rf-grid">
+      {items.map(item=><article class="rf-card" data-topic={item.topic}>
+        <a href={root+encodeURIComponent(item.slug)+'/'} aria-label={item.title}>
+          <div class="rf-image" style={`--rf-image:url("${base}/images/${item.image}")`} aria-hidden="true"></div>
+          <div class="rf-card-text">
+            <p class="rf-category">{item.topic}</p>
+            <h3>{item.title}</h3>
+            <p class="rf-summary">{item.summary}</p>
+            <span class="rf-duration">{item.minutes} {t.minutes}</span>
+            <span class="rf-enter">{t.read} <span aria-hidden="true">↗</span></span>
+          </div>
+        </a>
+      </article>)}
+      </div>
+    </> : <div class="rf-empty">
+      <span aria-hidden="true">✦</span>
+      <h3>{t.empty}</h3>
+      <p>{t.emptyBody}</p>
+    </div>}
+  </div>
+</section>
+{topics.length>1&&<script>
+  const filters=[...document.querySelectorAll('.rf-filter')], cards=[...document.querySelectorAll('.rf-card')];
+  for(const button of filters)button.addEventListener('click',()=>{
+    const selected=button.dataset.topic||'';
+    for(const filter of filters)filter.setAttribute('aria-pressed',String(filter===button));
+    for(const card of cards)card.hidden=!!selected&&card.dataset.topic!==selected;
+  });
+</script>}
+<style>
+.rf-archive{background:radial-gradient(ellipse at 84% 12%,#481c203d,transparent 48%),#0d0b0b;color:#eee2d8;padding:65px 0 95px}
+.rf-wrap{width:min(1320px,calc(100% - 84px));margin:auto}
+.rf-heading{max-width:750px;margin:0 0 40px}
+.rf-eyebrow{font:700 11px/1.5 Arial,sans-serif!important;letter-spacing:.2em;color:#d4a19a!important;margin:0 0 17px!important}
+.rf-heading h2{font:italic 400 clamp(36px,4vw,54px)/1.16 Georgia,serif;margin:0 0 17px}
+.rf-heading>p:last-child{font:18px/1.72 Georgia,serif;color:#e0c9c0}
+.rf-toolbar{border-top:1px solid #704b45;padding:23px 0;display:flex;gap:20px;justify-content:space-between;align-items:center;flex-wrap:wrap;font:13px Arial,sans-serif;color:#d4aca6}
+.rf-filters{display:flex;flex-wrap:wrap;gap:8px}
+.rf-filter{border:1px solid #684641;background:#1d1416;color:#e6cbc2;padding:9px 14px;font:12px Arial,sans-serif;cursor:pointer}
+.rf-filter[aria-pressed=true],.rf-filter:hover{background:#87202a;color:#fff;border-color:#c26a6c}
+.rf-filter:focus-visible,.rf-card a:focus-visible{outline:2px solid #e5afa8;outline-offset:3px}
+.rf-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.rf-card{background:#1a1114;border:1px solid #64453e;overflow:hidden}
+.rf-card[hidden]{display:none}
+.rf-card:hover{border-color:#b36b67}
+.rf-card a{display:flex;flex-direction:column;height:100%;color:#f2e5df;text-decoration:none}
+.rf-image{height:210px;background-image:linear-gradient(0deg,#130c10b8,transparent 66%),var(--rf-image);background-size:cover;background-position:center}
+.rf-card-text{display:flex;flex:1;flex-direction:column;gap:13px;padding:26px}
+.rf-category{font:700 10px/1.4 Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#dca19c;margin:0}
+.rf-card h3{font:italic 400 31px/1.18 Georgia,serif;margin:0}
+.rf-summary{font:16px/1.66 Georgia,serif;color:#dac3bd;margin:0}
+.rf-duration{margin-top:auto;padding-top:12px;font:12px Arial,sans-serif;color:#c5a9a1}
+.rf-enter{align-self:start;border-bottom:1px solid #bc5d60;padding-bottom:6px;font:13px Arial,sans-serif;color:#efc8c3}
+.rf-empty{max-width:800px;padding:60px 25px;margin:auto;text-align:center;background:linear-gradient(135deg,#26161a,#130e10);border:1px solid #68453f}
+.rf-empty span{font-size:35px;color:#ca686c}
+.rf-empty h3{font:italic 400 clamp(27px,3vw,39px)/1.2 Georgia,serif;margin:12px 0 18px}
+.rf-empty p{font:16px/1.75 Georgia,serif;color:#d8bfb7;max-width:500px;margin:auto}
+@media(max-width:920px){.rf-wrap{width:calc(100% - 40px)}.rf-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.rf-wrap{width:calc(100% - 36px)}.rf-archive{padding:42px 0 64px}.rf-grid{grid-template-columns:1fr}}
+</style>

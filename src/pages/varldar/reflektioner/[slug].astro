@@ -1,0 +1,14 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ReflectionReader from '../../../components/ReflectionReader.astro';
+import {getReflections} from '../../../lib/reflections.js';
+export function getStaticPaths(){return getReflections('sv').map(item=>({params:{slug:item.slug},props:{item}}));}
+const {item}=Astro.props;
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const image=base+'/images/'+item.image;
+const alternate=item.companionSlug?'/en/worlds/reflektioner/'+item.companionSlug+'/':null;
+const schema={'@context':'https://schema.org','@type':'Article',headline:item.title,description:item.description,inLanguage:'sv',datePublished:item.published||undefined,author:{'@type':'Person',name:'Spiken'},url:new URL(Astro.url.pathname,Astro.site).toString()};
+---
+<Layout title={item.metaTitle} description={item.description} lang="sv" alternatePath={alternate} socialImage={image} socialImageAlt={item.imageAlt} publishedAt={item.published} structuredData={schema}>
+ <ReflectionReader item={item} lang="sv"/>
+</Layout>
