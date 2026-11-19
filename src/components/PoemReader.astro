@@ -117,26 +117,32 @@ if(continueBox && continueLink && continueTitle){
   try {options = JSON.parse(continueBox.dataset.nextOptions || '[]');} catch {}
   let history = [];
   try {
-    const stored = JSON.parse(window.sessionStorage.getItem(key) || '[]');
+    const stored = JSON.parse(window.localStorage.getItem(key) || '[]');
     if(Array.isArray(stored)) history=stored.filter(item=>typeof item==='string').slice(-60);
   } catch {}
   // Markera nuvarande dikt, även om den öppnades från en delad länk.
   history = [...history.filter(item=>item!==current),current].slice(-60);
   const saveHistory = () => {
-    try {window.sessionStorage.setItem(key,JSON.stringify(history));} catch {}
+    try {window.localStorage.setItem(key,JSON.stringify(history));} catch {}
   };
   saveHistory();
   let lastSuggestion = '';
+  const shownSuggestions = new Set();
   const chooseNext = () => {
     if(!options.length) return;
-    let available = options.filter(item=>!history.includes(item.slug) && item.slug!==lastSuggestion);
-    if(!available.length) available = options.filter(item=>item.slug!==lastSuggestion);
+    let available = options.filter(item=>!history.includes(item.slug) && !shownSuggestions.has(item.slug));
+    if(!available.length) available = options.filter(item=>!shownSuggestions.has(item.slug) && item.slug!==lastSuggestion);
+    if(!available.length){
+      shownSuggestions.clear();
+      available = options.filter(item=>item.slug!==lastSuggestion);
+    }
     if(!available.length) available = options;
     // Välj ur de mest relevanta alternativen, men variera ordningen.
     const pool = available.slice(0,Math.min(7,available.length));
     const choice = pool[Math.floor(Math.random()*pool.length)];
     if(!choice) return;
     lastSuggestion = choice.slug;
+    shownSuggestions.add(choice.slug);
     continueLink.href = choice.href;
     continueTitle.textContent = choice.title;
   };
