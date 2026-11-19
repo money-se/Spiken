@@ -1,0 +1,99 @@
+---
+const {review,lang='sv'}=Astro.props;
+const en=lang==='en';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const root=base+(en?'/en/worlds/recensioner/':'/varldar/recensioner/');
+const paragraphs=review.text.replace(/\r\n?/g,'\n').trim().split(/\n\s*\n/).filter(Boolean);
+const t=en?{
+ back:'All reviews',eyebrow:'A REVIEW BY SPIKEN',minutes:'min read',
+ myRating:'My rating',subject:'Reviewed work',creator:'By',verdict:'My conclusion',
+ strengths:'What worked for me',weaknesses:'What did not work for me',
+ share:'Share this review',copy:'Copy link',copied:'Link copied',return:'Back to the review archive'
+}:{
+ back:'Alla recensioner',eyebrow:'EN RECENSION AV SPIKEN',minutes:'min läsning',
+ myRating:'Mitt betyg',subject:'Recenserat verk',creator:'Av',verdict:'Min slutsats',
+ strengths:'Det som fungerade för mig',weaknesses:'Det som inte fungerade för mig',
+ share:'Dela recensionen',copy:'Kopiera länk',copied:'Länken kopierad',return:'Till recensionsarkivet'
+};
+---
+<div class="rv-reader sp-worlds" style={`--rv-cover:url("${base}/images/${review.image}")`}>
+  <header class="rv-hero">
+    <div class="rv-container">
+      <a class="rv-back" href={root}>← {t.back}</a>
+      <p class="rv-kicker">{t.eyebrow} <span aria-hidden="true">·</span> {review.subjectType}</p>
+      <h1>{review.title}</h1>
+      <p class="rv-lead">{review.summary}</p>
+      <div class="rv-meta"><span>{review.minutes} {t.minutes}</span>{review.published&&<span>{review.published}</span>}</div>
+    </div>
+  </header>
+  <main class="rv-reading">
+    <div class="rv-reading-grid">
+      <article class="rv-prose" aria-label={review.title}>
+        {paragraphs.map(paragraph=><p>{paragraph}</p>)}
+        {review.verdict&&<section class="rv-verdict"><h2>{t.verdict}</h2><p>{review.verdict}</p></section>}
+        <div class="rv-share"><span>{t.share}</span><button class="rv-copy" type="button" data-copied={t.copied}>{t.copy}</button></div>
+      </article>
+      <aside class="rv-aside">
+        <div class="rv-aside-inner">
+          <span class="rv-aside-label">{t.subject}</span>
+          {review.subjectTitle&&<h2>{review.subjectTitle}</h2>}
+          {review.creator&&<p class="rv-creator">{t.creator} {review.creator}</p>}
+          {review.genre&&<p class="rv-genre">{review.genre}</p>}
+          {review.rating!==null&&<div class="rv-rating" aria-label={t.myRating+': '+review.rating+'/5'}>
+            <span>{t.myRating}</span><strong>{review.rating}<small>/5</small></strong>
+            <span class="rv-stars" aria-hidden="true">{'★'.repeat(review.rating)}{'☆'.repeat(5-review.rating)}</span>
+          </div>}
+          {review.strengths.length>0&&<section class="rv-points"><h3>{t.strengths}</h3><ul>{review.strengths.map(strength=><li>{strength}</li>)}</ul></section>}
+          {review.weaknesses.length>0&&<section class="rv-points"><h3>{t.weaknesses}</h3><ul>{review.weaknesses.map(weakness=><li>{weakness}</li>)}</ul></section>}
+        </div>
+      </aside>
+    </div>
+    <div class="rv-return"><a href={root}>← {t.return}</a></div>
+  </main>
+</div>
+<script>
+  document.querySelectorAll('.rv-copy').forEach(button=>button.addEventListener('click',async()=>{
+    try{await navigator.clipboard.writeText(window.location.href);button.textContent=button.dataset.copied||'Kopierad';}
+    catch{button.textContent=button.textContent||'Kopiera länk';}
+  }));
+</script>
+<style>
+.rv-reader{background:#0d0b0b;color:#f3e9e2;overflow:hidden;font-family:Georgia,serif}
+.rv-container{width:min(1180px,calc(100% - 84px));margin:auto}
+.rv-hero{position:relative;isolation:isolate;display:flex;align-items:flex-end;min-height:550px}
+.rv-hero:before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(90deg,#090708fa,#090708dc 46%,#09070850),linear-gradient(0deg,#0d0b0b,transparent 46%),var(--rv-cover);background-size:cover;background-position:center}
+.rv-hero .rv-container{padding:138px 0 67px}
+.rv-back{border-bottom:1px solid #ab555a;color:#f2cec8;font:13px Arial,sans-serif;padding-bottom:7px}
+.rv-kicker{font:700 11px/1.5 Arial,sans-serif;letter-spacing:.16em;color:#dbada6;margin:46px 0 18px}
+.rv-kicker span{padding:0 7px}
+.rv-hero h1{font:italic 400 clamp(43px,5vw,74px)/1.1 Georgia,serif;margin:0 0 21px;max-width:850px}
+.rv-lead{font:19px/1.75 Georgia,serif;color:#e7d3cb;max-width:700px;margin:0}
+.rv-meta{display:flex;gap:18px;flex-wrap:wrap;color:#d1b4ab;font:12px Arial,sans-serif;margin-top:23px}
+.rv-reading{padding:62px 0 100px;background:radial-gradient(ellipse at 90% 9%,#411b2039,transparent 42%),#0d0b0b}
+.rv-reading-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(245px,315px);gap:clamp(24px,5vw,90px);width:min(1180px,calc(100% - 84px));margin:auto}
+.rv-prose{font:400 clamp(17px,1.5vw,19px)/1.82 Georgia,serif;color:#f3ece8;overflow-wrap:break-word;min-width:0}
+.rv-prose>p{white-space:pre-line;margin:0 0 30px}
+.rv-aside-inner{border-top:2px solid #9b3940;padding:25px;background:linear-gradient(135deg,#261719,#140f10)}
+.rv-aside-label{font:700 10px/1.5 Arial,sans-serif;text-transform:uppercase;letter-spacing:.14em;color:#d7a8a0}
+.rv-aside h2{font:italic 400 28px/1.25 Georgia,serif;margin:15px 0 7px}
+.rv-creator,.rv-genre{font:14px/1.7 Georgia,serif;color:#d9c4ba;margin:7px 0}
+.rv-rating{margin:27px 0;border-top:1px solid #754f4a;border-bottom:1px solid #754f4a;padding:17px 0;display:flex;flex-direction:column;gap:7px}
+.rv-rating>span:first-child{font:12px Arial,sans-serif;color:#d2aea6}
+.rv-rating strong{font:italic 400 39px/1.1 Georgia,serif}
+.rv-rating small{font-size:19px;color:#bba29b}
+.rv-stars{color:#e5bd89;letter-spacing:.12em;font-size:18px}
+.rv-points{border-top:1px solid #6e4c45;padding:19px 0 0;margin-top:18px}
+.rv-points h3{font:italic 400 22px/1.25 Georgia,serif;margin:0 0 15px}
+.rv-points ul{margin:0;padding-left:18px;color:#dbc4bc;font:15px/1.65 Georgia,serif}
+.rv-points li{margin-bottom:9px}
+.rv-verdict{background:#271619;border-left:3px solid #b35056;padding:23px 27px;margin-top:45px}
+.rv-verdict h2{font:italic 400 28px Georgia,serif;margin:0 0 13px}
+.rv-verdict p{margin:0;font:18px/1.75 Georgia,serif;color:#f0dcd6}
+.rv-share{border-top:1px solid #6e4a45;padding:22px 0;margin-top:55px;display:flex;align-items:center;justify-content:space-between;gap:15px;color:#d6b5ab;font:13px Arial,sans-serif}
+.rv-copy{cursor:pointer;padding:10px 16px;color:#f4e0da;background:#241618;border:1px solid #8b5555;font:13px Arial,sans-serif}
+.rv-copy:hover{background:#76242c}
+.rv-return{width:min(1180px,calc(100% - 84px));margin:48px auto 0;padding-top:24px;border-top:1px solid #684841;font:14px Arial,sans-serif}
+.rv-return a{color:#f0c9c2;border-bottom:1px solid #b4595d;padding-bottom:7px}
+.rv-reader a:focus-visible,.rv-reader button:focus-visible{outline:2px solid #edc0b9;outline-offset:4px}
+@media(max-width:800px){.rv-container,.rv-reading-grid,.rv-return{width:calc(100% - 36px)}.rv-reading-grid{grid-template-columns:1fr}.rv-hero{min-height:610px}.rv-hero .rv-container{padding:190px 0 60px}.rv-reading{padding:42px 0 70px}.rv-aside{grid-row:1}.rv-aside-inner{padding:22px}}
+</style>

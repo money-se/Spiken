@@ -1,0 +1,16 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ReviewReader from '../../../components/ReviewReader.astro';
+import {getReviews} from '../../../lib/reviews.js';
+export function getStaticPaths(){return getReviews('sv').map(review=>({params:{slug:review.slug},props:{review}}));}
+const {review}=Astro.props;
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const image=base+'/images/'+review.image;
+const alternate=review.companionSlug?'/en/worlds/recensioner/'+review.companionSlug+'/':null;
+const schema={'@context':'https://schema.org','@type':'Review',name:review.title,description:review.description,inLanguage:'sv',datePublished:review.published||undefined,
+ author:{'@type':'Person',name:'Spiken'},itemReviewed:{'@type':'CreativeWork',name:review.subjectTitle,author:review.creator?{'@type':'Person',name:review.creator}:undefined},
+ reviewBody:review.text,reviewRating:review.rating!==null?{'@type':'Rating',ratingValue:review.rating,bestRating:5,worstRating:1}:undefined,url:new URL(Astro.url.pathname,Astro.site).toString()};
+---
+<Layout title={review.metaTitle} description={review.description} lang="sv" alternatePath={alternate} socialImage={image} socialImageAlt={review.imageAlt} publishedAt={review.published} structuredData={schema}>
+ <ReviewReader review={review} lang="sv"/>
+</Layout>

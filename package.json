@@ -12,7 +12,8 @@
     "test:import": "node --test scripts/importera-dikter.test.mjs",
     "dikter:validera": "node scripts/kontrollera-publicering.mjs",
     "dikter:rapport": "node scripts/rapport-dikter.mjs",
-    "reflektioner:validera": "node scripts/kontrollera-reflektioner.mjs"
+    "reflektioner:validera": "node scripts/kontrollera-reflektioner.mjs",
+    "recensioner:validera": "node scripts/kontrollera-recensioner.mjs"
   },
   "dependencies": {
     "astro": "^5.0.0",
