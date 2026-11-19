@@ -5,6 +5,10 @@ import registry from '../data/publiceringsregister.json';
  * Publikt innehåll. Utelämnar uttryckligen utkast och opublicerade översättningar.
  * Behåller kompatibiliteten med det äldre src/data/dikter.json-formatet.
  */
+// Under Astro-bygget används samma publicerade samling för många statiska sidor.
+const poemCache = new Map();
+const poemLookupCache = new Map();
+
 const categories = {
   karlek:'Kärlek', langtan:'Längtan', begar:'Begär',
   hjartesorg:'Hjärtesorg', saknad:'Saknad', sarbarhet:'Sårbarhet',
@@ -20,6 +24,7 @@ const isPublished = translation =>
   safe(translation.title) && safe(translation.slug) && safe(translation.text);
 
 export function getPoems(lang = 'sv') {
+  if(poemCache.has(lang)) return poemCache.get(lang);
   const isEnglish = lang === 'en';
   const works = Array.isArray(registry.works) ? registry.works : [];
   const modern = works.flatMap(work => {
@@ -44,7 +49,11 @@ export function getPoems(lang = 'sv') {
       translatedSlug:isPublished(companion) ? safe(companion.slug) : '',
     }];
   });
-  if(isEnglish) return modern.sort(sortRecent);
+  if(isEnglish){
+    const published = modern.sort(sortRecent);
+    poemCache.set(lang,published);
+    return published;
+  }
 
   const known = new Set(modern.map(poem => poem.slug));
   const old = (Array.isArray(legacyPoems) ? legacyPoems : []).flatMap((d,index)=>{
@@ -57,7 +66,9 @@ export function getPoems(lang = 'sv') {
       legacyIndex:index
     }];
   });
-  return [...modern,...old].sort(sortRecent);
+  const published = [...modern,...old].sort(sortRecent);
+  poemCache.set(lang,published);
+  return published;
 }
 function sortRecent(a,b){
   const timeA=Date.parse(a.published)||0;
@@ -65,9 +76,28 @@ function sortRecent(a,b){
   return timeB-timeA || (b.legacyIndex ?? 0)-(a.legacyIndex ?? 0);
 }
 export function getPoem(lang,slug) {
-  return getPoems(lang).find(poem=>poem.slug===slug);
+  if(!poemLookupCache.has(lang)){
+    poemLookupCache.set(lang,new Map(getPoems(lang).map(poem=>[poem.slug,poem])));
+  }
+  return poemLookupCache.get(lang).get(slug);
 }
+
+/**
+ * Föreslå publicerade dikter efter gemensamma ämnesord och känslokategori.
+ * Fyll på med andra dikter när kategorin är liten. Undvik samma dikt.
+ * Slump används inte här, så rekommendationerna är stabila för statisk SEO.
+ */
 export function getRelatedPoems(lang,poem,limit=3) {
-  return getPoems(lang).filter(other=>other.slug!==poem.slug && other.theme===poem.theme).slice(0,limit);
+  if(limit<=0) return [];
+  const tags = new Set((poem.tags||[]).map(tag=>tag.toLocaleLowerCase(lang)));
+  const candidates = getPoems(lang).filter(other=>other.slug!==poem.slug);
+  const scored = candidates.map((other,index)=>{
+    const matchingTags = (other.tags||[]).filter(tag=>tags.has(tag.toLocaleLowerCase(lang))).length;
+    const matchingCategory = Boolean(poem.category && other.category && poem.category===other.category);
+    return {other,index,score:matchingTags*4+(matchingCategory?3:0)};
+  });
+  // Samlingens ursprungliga nyaste-först-ordning är tie-breaker.
+  scored.sort((a,b)=>b.score-a.score || a.index-b.index);
+  return scored.slice(0,limit).map(item=>item.other);
 }
 export function poemExcerpt(text,max=175){ return excerpt(text,max); }
