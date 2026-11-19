@@ -1,5 +1,6 @@
 ---
 import { worldSections } from '../lib/worlds.js';
+import NovelArchive from './NovelArchive.astro';
 const {section,lang='sv'}=Astro.props;
 const en=lang==='en';
 const base=import.meta.env.BASE_URL.replace(/\/$/,'');
@@ -28,9 +29,10 @@ const words=en?{
       <a class="wv-detail-action" href="#varlden">{en?'Explore this world':'Upptäck den här världen'} <span aria-hidden="true">↓</span></a>
     </div>
   </section>
+  {section.slug==='noveller' && <NovelArchive lang={lang}/>}
   <section class="wv-detail-body" id="varlden">
     <div class="wv-detail-wrap">
-      <div class="wv-detail-story">
+      {section.slug!=='noveller' && <div class="wv-detail-story">
         <div>
           <p class="wv-detail-label">{words.heading}</p>
           <h2>{text.title}<em>.</em></h2>
@@ -43,7 +45,7 @@ const words=en?{
           <p class="wv-detail-note">{words.empty}</p>
           <a href={poems}>{words.poems} <span aria-hidden="true">→</span></a>
         </aside>
-      </div>
+      </div>}
       <div class="wv-detail-more">
         <div class="wv-detail-more-head"><h2>{words.other}</h2><a href={worldsRoot}>{words.home} →</a></div>
         <div class="wv-detail-links">
