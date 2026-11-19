@@ -3,18 +3,20 @@ import Layout from '../../../layouts/Layout.astro';
 import { getPoems, poemExcerpt } from '../../../lib/poetry.js';
 // Temasidor uppstår automatiskt för varje kategori som har publicerade dikter.
 // Beskrivningar och bilder kan finjusteras utan att lägga till fler sidfiler.
-const categoryInfo = {
-  existens:{lead:'Dikter om att vara människa, hitta sin röst och våga bli den man är.',image:'kategori-ensamhet.webp'},
-  karlek:{lead:'Dikter om närhet, sårbarhet och allt det hjärtat bär.',image:'kategori-karlek.webp'},
-  langtan:{lead:'Dikter om det som saknas och det vi väntar på.',image:'kategori-sorg.webp'},
-  begar:{lead:'Dikter om attraktion, kropp och känslan av att vilja närmare.',image:'kategori-begar-v2.webp'},
-  hjartesorg:{lead:'Dikter om förlust, sorg och vägen vidare.',image:'kategori-saknad-v2.webp'},
-  saknad:{lead:'Dikter om avstånd, minnen och de människor som dröjer kvar.',image:'kategori-saknad-v2.webp'},
-  sarbarhet:{lead:'Dikter om att våga känna, vara sårbar och visa det som finns under ytan.',image:'kategori-ensamhet.webp'},
-  sorg:{lead:'Dikter om sorg, saknad och att leva med det som förändrats.',image:'kategori-sorg.webp'},
-  ensamhet:{lead:'Dikter om ensamhet, tystnad och längtan efter att bli förstådd.',image:'kategori-ensamhet.webp'}
-};
+
 export function getStaticPaths(){
+  const categoryInfo = {
+    existens:{lead:'Dikter om att vara människa, hitta sin röst och våga bli den man är.',image:'kategori-ensamhet.webp'},
+    karlek:{lead:'Dikter om närhet, sårbarhet och allt det hjärtat bär.',image:'kategori-karlek.webp'},
+    langtan:{lead:'Dikter om det som saknas och det vi väntar på.',image:'kategori-sorg.webp'},
+    begar:{lead:'Dikter om attraktion, kropp och känslan av att vilja närmare.',image:'kategori-begar-v2.webp'},
+    hjartesorg:{lead:'Dikter om förlust, sorg och vägen vidare.',image:'kategori-saknad-v2.webp'},
+    saknad:{lead:'Dikter om avstånd, minnen och de människor som dröjer kvar.',image:'kategori-saknad-v2.webp'},
+    sarbarhet:{lead:'Dikter om att våga känna, vara sårbar och visa det som finns under ytan.',image:'kategori-ensamhet.webp'},
+    sorg:{lead:'Dikter om sorg, saknad och att leva med det som förändrats.',image:'kategori-sorg.webp'},
+    ensamhet:{lead:'Dikter om ensamhet, tystnad och längtan efter att bli förstådd.',image:'kategori-ensamhet.webp'}
+  };
+
   const poems=getPoems('sv');
   const byCategory=new Map();
   for(const poem of poems){
