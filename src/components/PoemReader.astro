@@ -31,7 +31,7 @@ const labels = en ? {
   facebook:'Dela på Facebook',continueReading:'Fortsätt läsa',nextPoem:'Din nästa dikt',readNext:'Läs nästa dikt',another:'En annan dikt',readSize:'Textstorlek',smaller:'Mindre text',larger:'Större text',resetSize:'Återställ storlek',saveFavorite:'Spara dikten',removeFavorite:'Ta bort sparad dikt'
 };
 ---
-<div class="prv3" style={`--prv3-img:url("${photo}")`}>
+<div class="prv3" style={`--prv3-img:url("${photo}");--prv3-fallback:url("${base}/images/varldar-bibliotek.webp")`}>
   <section class="prv3-hero" aria-labelledby="prv3-title">
     <div class="prv3-visual" aria-hidden="true"></div>
     <div class="prv3-wide">
@@ -282,7 +282,7 @@ copyButton?.addEventListener('click',async()=>{
 .prv3-related-type,.prv3-panel-kicker{font:11px Arial,sans-serif;letter-spacing:.2em;color:#d6a29d;text-transform:uppercase}
 .prv3-related-arrow{text-align:right;margin-top:auto}
 .prv3-related-card:hover{border-color:#bd4145;color:#fff}
-.prv3-next-panel{min-height:180px;border:1px solid #62463f;display:flex;align-items:center;gap:22px;padding:30px 38px;background:linear-gradient(90deg,#170d11f5,#170d11bb),url("/Spiken/images/varldar-bibliotek.webp") center/cover}
+.prv3-next-panel{min-height:180px;border:1px solid #62463f;display:flex;align-items:center;gap:22px;padding:30px 38px;background:linear-gradient(90deg,#170d11f5,#170d11bb),var(--prv3-fallback) center/cover}
 .prv3-next-panel strong{font:italic 34px Georgia,serif;font-weight:400;margin-right:auto}
 .prv3-next-panel>span:last-child{font:25px Arial,sans-serif}
 .prv3-translation{display:inline-block;margin-bottom:32px;border-bottom:1px solid #af4349;padding-bottom:6px}
@@ -365,7 +365,7 @@ copyButton?.addEventListener('click',async()=>{
 .prv3-related-card strong{font-size:clamp(26px,2.5vw,34px)}
 .prv3-related-type{font-size:11px;color:#eed1ce}
 .prv3-next-panel{
- background:linear-gradient(90deg,#0a0709f5,#150c0da5),url("/Spiken/images/varldar-bibliotek.webp") center/cover;
+ background:linear-gradient(90deg,#0a0709f5,#150c0da5),var(--prv3-fallback) center/cover;
  border:1px solid #61463f;
 }
 @media(min-width:1000px){.prv3-body{border-left:1px solid #7f3436;padding-left:34px}}
