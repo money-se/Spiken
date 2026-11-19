@@ -17,12 +17,12 @@ const labels = en ? {
   back:'All poems', poem:'A POEM BY SPIKEN',read:'Read the poem',
   share:'Share these words',copy:'Copy link',related:'You may also like',all:'Browse all poems',
   language:'Read in Swedish', more:'Discover more words', by:'Written by Spiken',category:'Theme',
-  facebook:'Share on Facebook',readSize:'Text size',smaller:'Smaller text',larger:'Larger text'
+  facebook:'Share on Facebook',readSize:'Text size',smaller:'Smaller text',larger:'Larger text',resetSize:'Reset size'
 } : {
   back:'Alla dikter',poem:'EN DIKT AV SPIKEN',read:'Läs dikten',
   share:'Dela dessa ord',copy:'Kopiera länken',related:'Fler ord som berör',all:'Utforska alla dikter',
   language:'Read in English',more:'Upptäck fler ord',by:'Skriven av Spiken',category:'Tema',
-  facebook:'Dela på Facebook',readSize:'Textstorlek',smaller:'Mindre text',larger:'Större text'
+  facebook:'Dela på Facebook',readSize:'Textstorlek',smaller:'Mindre text',larger:'Större text',resetSize:'Återställ storlek'
 };
 ---
 <div class="prv3" style={`--prv3-img:url("${photo}")`}>
@@ -50,6 +50,7 @@ const labels = en ? {
         <span>{labels.readSize}</span>
         <button type="button" id="prv3-text-smaller" aria-label={labels.smaller}>A−</button>
         <button type="button" id="prv3-text-larger" aria-label={labels.larger}>A+</button>
+        <button type="button" id="prv3-text-reset" aria-label={labels.resetSize}>{en ? "Reset" : "Återställ"}</button>
       </div>
       <article class="prv3-article">
         <div class="prv3-body">
@@ -94,24 +95,29 @@ const copyButton = document.querySelector('#prv3-copy');
 const reader = document.querySelector('.prv3-reading');
 const smaller = document.querySelector('#prv3-text-smaller');
 const larger = document.querySelector('#prv3-text-larger');
-const readerSizeKey = 'spiken-reader-size-v1';
-let readerScale = 1;
+const resetSize = document.querySelector('#prv3-text-reset');
+// Ny nyckel: äldre sparade förstoringar påverkar inte den nya grundstorleken.
+const readerSizeKey = 'spiken-reader-size-v2';
+const MIN_SIZE = -2, MAX_SIZE = 4;
+let readerStep = 0;
 try {
  const saved = Number(window.localStorage.getItem(readerSizeKey));
- if(Number.isFinite(saved) && saved>=0.9 && saved<=1.3) readerScale=saved;
+ if(Number.isInteger(saved) && saved>=MIN_SIZE && saved<=MAX_SIZE) readerStep=saved;
 } catch {}
 function updateReaderSize(){
- reader?.style.setProperty('--reader-offset',((readerScale-1)*30).toFixed(1)+'px');
- if(smaller) smaller.disabled=readerScale<=0.9;
- if(larger) larger.disabled=readerScale>=1.3;
+ reader?.style.setProperty('--reader-offset',(readerStep * 0.75).toFixed(2)+'px');
+ if(smaller) smaller.disabled=readerStep<=MIN_SIZE;
+ if(larger) larger.disabled=readerStep>=MAX_SIZE;
+ if(resetSize) resetSize.disabled=readerStep===0;
 }
 function changeReaderSize(direction){
- readerScale=Math.max(0.9,Math.min(1.3,Math.round((readerScale+direction*.1)*10)/10));
- try {window.localStorage.setItem(readerSizeKey,String(readerScale));} catch {}
+ readerStep=Math.max(MIN_SIZE,Math.min(MAX_SIZE,readerStep+direction));
+ try {window.localStorage.setItem(readerSizeKey,String(readerStep));} catch {}
  updateReaderSize();
 }
 smaller?.addEventListener('click',()=>changeReaderSize(-1));
 larger?.addEventListener('click',()=>changeReaderSize(1));
+resetSize?.addEventListener('click',()=>{readerStep=0;try{window.localStorage.removeItem(readerSizeKey)}catch{}updateReaderSize();});
 updateReaderSize();
 copyButton?.addEventListener('click',async()=>{
  try{
@@ -153,8 +159,9 @@ copyButton?.addEventListener('click',async()=>{
 .prv3-reader-tools button{min-width:43px;min-height:40px;background:#1d1517;border:1px solid #74534e;color:#f1dfd7;cursor:pointer;font:16px Arial,sans-serif}
 .prv3-reader-tools button:hover:not(:disabled){background:#342024;border-color:#bd7574}
 .prv3-reader-tools button:disabled{opacity:.35;cursor:default}
+.prv3-reader-tools #prv3-text-reset{padding:0 11px;font-size:12px}
 .prv3-reader-tools button:focus-visible{outline:2px solid #e6babb;outline-offset:3px}
-.prv3-body{font:400 calc(clamp(18px,1.5vw,19px) + var(--reader-offset,0px))/1.9 Georgia,serif;letter-spacing:normal;color:#f7f3ef;text-shadow:none}
+.prv3-body{font:400 calc(clamp(17px,1.45vw,18px) + var(--reader-offset,0px))/1.78 Georgia,serif;letter-spacing:normal;color:#f7f3ef;text-shadow:none}
 .prv3-stanza{white-space:pre-line;margin:0 0 43px;overflow-wrap:break-word;line-height:inherit}
 .prv3-stanza:last-child{margin-bottom:0}
 .prv3-signature{font:italic 25px Georgia,serif;color:#d2a1a1;text-align:right;margin:55px 0 0}
@@ -193,7 +200,7 @@ copyButton?.addEventListener('click',async()=>{
  .prv3-summary{font-size:16px}
  .prv3-reading{padding:30px 0 57px}
  .prv3-ornament{margin-bottom:39px}
- .prv3-body{line-height:1.9}
+ .prv3-body{line-height:1.78}
  .prv3-stanza{margin-bottom:32px}
  .prv3-share{margin-top:58px;display:block}
  .prv3-share-actions{margin-top:12px}
@@ -231,7 +238,7 @@ copyButton?.addEventListener('click',async()=>{
 .prv3-ornament{margin-bottom:45px}
 .prv3-reading-inner{width:min(900px,calc(100% - 84px))}
 .prv3-article{max-width:610px;width:100%;margin:auto}
-.prv3-body{font:400 calc(clamp(18px,1.5vw,19px) + var(--reader-offset,0px))/1.9 Georgia,serif;color:#f7f3ef}
+.prv3-body{font:400 calc(clamp(17px,1.45vw,18px) + var(--reader-offset,0px))/1.78 Georgia,serif;color:#f7f3ef}
 .prv3-stanza{margin-bottom:34px}
 .prv3-signature{margin-top:50px}
 .prv3-share{margin-top:67px}
@@ -274,7 +281,7 @@ copyButton?.addEventListener('click',async()=>{
  .prv3-crumb{top:113px}
  .prv3-hero h1{font-size:clamp(43px,10.5vw,67px)}
  .prv3-reading{padding-top:32px}
- .prv3-body{font-size:calc(18px + var(--reader-offset,0px))}
+ .prv3-body{font-size:calc(17px + var(--reader-offset,0px))}
  .prv3-reading-inner{width:calc(100% - 36px)}
  .prv3-related-card{min-height:165px}
 }
