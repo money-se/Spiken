@@ -1,0 +1,14 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SpikenWorldDetail from '../../components/SpikenWorldDetail.astro';
+import {worldSections} from '../../lib/worlds.js';
+export function getStaticPaths(){
+  return worldSections.map(section=>({params:{del:section.slug},props:{section}}));
+}
+const {section}=Astro.props;
+const title=section.sv.title+' – Spikens världar | Spiken';
+const description=section.sv.intro;
+---
+<Layout title={title} description={description} lang="sv" alternatePath={'/en/worlds/'+section.slug+'/'}>
+ <SpikenWorldDetail section={section} lang="sv"/>
+</Layout>
