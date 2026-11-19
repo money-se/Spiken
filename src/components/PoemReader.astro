@@ -9,7 +9,7 @@ const related = getRelatedPoems(lang,poem,3);
 const categoryLink = !en && ['karlek','langtan','begar','existens','hjartesorg','saknad'].includes(poem.category?.toLocaleLowerCase('sv') || '')
  ? base+'/dikter/kategori/'+poem.category.toLocaleLowerCase('sv')+'/' : null;
 const all = getPoems(lang);
-const adjacent = all.filter(p=>p.slug!==poem.slug);
+const nextPoem = related[0] || null;
 const hasImage = Boolean(poem.image);
 const photo = hasImage ? (poem.image.startsWith('/')?base+poem.image:base+'/images/'+poem.image) : base+'/images/dikt-arkiv-v2.webp';
 const textBlocks = poem.text.split(/\n\s*\n/);
@@ -17,12 +17,12 @@ const labels = en ? {
   back:'All poems', poem:'A POEM BY SPIKEN',read:'Read the poem',
   share:'Share these words',copy:'Copy link',related:'You may also like',all:'Browse all poems',
   language:'Read in Swedish', more:'Discover more words', by:'Written by Spiken',category:'Theme',
-  facebook:'Share on Facebook',readSize:'Text size',smaller:'Smaller text',larger:'Larger text',resetSize:'Reset size'
+  facebook:'Share on Facebook',continueReading:'Keep reading',nextPoem:'Your next poem',readNext:'Read next poem',readSize:'Text size',smaller:'Smaller text',larger:'Larger text',resetSize:'Reset size'
 } : {
   back:'Alla dikter',poem:'EN DIKT AV SPIKEN',read:'Läs dikten',
   share:'Dela dessa ord',copy:'Kopiera länken',related:'Fler ord som berör',all:'Utforska alla dikter',
   language:'Read in English',more:'Upptäck fler ord',by:'Skriven av Spiken',category:'Tema',
-  facebook:'Dela på Facebook',readSize:'Textstorlek',smaller:'Mindre text',larger:'Större text',resetSize:'Återställ storlek'
+  facebook:'Dela på Facebook',continueReading:'Fortsätt läsa',nextPoem:'Din nästa dikt',readNext:'Läs nästa dikt',readSize:'Textstorlek',smaller:'Mindre text',larger:'Större text',resetSize:'Återställ storlek'
 };
 ---
 <div class="prv3" style={`--prv3-img:url("${photo}")`}>
@@ -65,6 +65,11 @@ const labels = en ? {
           <button id="prv3-copy" type="button">{labels.copy} <span aria-hidden="true">↗</span></button>
         </div>
       </div>
+      {nextPoem && <a class="prv3-continue" href={archive+encodeURIComponent(nextPoem.slug)+'/'}>
+        <span class="prv3-continue-eyebrow">{labels.continueReading} <span aria-hidden="true">·</span> {labels.nextPoem}</span>
+        <span class="prv3-continue-title">{nextPoem.title}</span>
+        <span class="prv3-continue-action">{labels.readNext} <span aria-hidden="true">→</span></span>
+      </a>}
     </div>
   </section>
 
@@ -166,6 +171,12 @@ copyButton?.addEventListener('click',async()=>{
 .prv3-stanza:last-child{margin-bottom:0}
 .prv3-signature{font:italic 25px Georgia,serif;color:#d2a1a1;text-align:right;margin:55px 0 0}
 .prv3-share{margin-top:82px;padding:24px 0;border-top:1px solid #74504e;border-bottom:1px solid #74504e;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.prv3-continue{display:flex;flex-direction:column;align-items:flex-start;gap:9px;width:min(610px,100%);margin:34px auto 0;padding:22px 24px;background:linear-gradient(115deg,#201314,#151011);border:1px solid #76514c;color:#f4e7e0;transition:border-color .2s ease,background .2s ease}
+.prv3-continue:hover{border-color:#c17c74;background:#241619;color:#fff}
+.prv3-continue-eyebrow{font:700 10px/1.5 Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#d6aaa1}
+.prv3-continue-title{font:italic 400 clamp(22px,2.4vw,31px)/1.3 Georgia,serif}
+.prv3-continue-action{font:13px/1.5 Arial,sans-serif;color:#f0ccc7}
+.prv3-continue:focus-visible{outline:2px solid #e6babb;outline-offset:4px}
 .prv3-share-title{font:13px Arial,sans-serif;color:#ddc4bc}
 .prv3-share-actions{display:flex;gap:26px;flex-wrap:wrap}
 .prv3-share-actions a,.prv3-share-actions button{border:0;border-bottom:1px solid #a7434b;background:none;color:#f0ded9;font:13px Arial,sans-serif;cursor:pointer;padding:8px 0}
