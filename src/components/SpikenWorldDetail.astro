@@ -26,7 +26,7 @@ const words=en?{
       <p class="wv-detail-kicker">{words.chapter} <span aria-hidden="true">·</span> {text.kicker}</p>
       <h1>{text.title}</h1>
       <p class="wv-detail-lead">{text.intro}</p>
-      <a class="wv-detail-action" href="#varlden">{en?'Explore this world':'Upptäck den här världen'} <span aria-hidden="true">↓</span></a>
+      <a class="wv-detail-action" href={section.slug==='noveller'?'#novellarkiv':'#varlden'}>{en?'Explore this world':'Upptäck den här världen'} <span aria-hidden="true">↓</span></a>
     </div>
   </section>
   {section.slug==='noveller' && <NovelArchive lang={lang}/>}
