@@ -1,0 +1,17 @@
+---
+import Layout from '../../../../../layouts/Layout.astro';
+import NovelReader from '../../../../../components/NovelReader.astro';
+import {getNovels} from '../../../../../lib/novels.js';
+export function getStaticPaths(){
+  return getNovels('en').flatMap(novel=>novel.chapters.map(chapter=>({
+    params:{slug:novel.slug,chapter:chapter.slug},props:{novel,chapter}
+  })));
+}
+const {novel,chapter}=Astro.props;
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const image=novel.cover?base+'/images/'+novel.cover:null;
+const schema={'@context':'https://schema.org','@type':'Chapter',name:chapter.title,description:chapter.description,isPartOf:{'@type':'CreativeWork',name:novel.title,url:new URL(base+'/en/worlds/noveller/'+novel.slug+'/',Astro.site).toString()},author:{'@type':'Person',name:'Spiken'},inLanguage:'en',url:new URL(Astro.url.pathname,Astro.site).toString()};
+---
+<Layout title={chapter.title+' – '+novel.title+' | Spiken'} description={chapter.description} lang="en" socialImage={image} socialImageAlt={novel.coverAlt} structuredData={schema}>
+  <NovelReader novel={novel} chapter={chapter} lang="en" />
+</Layout>
