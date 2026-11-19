@@ -1,0 +1,99 @@
+---
+import { worldSections } from '../lib/worlds.js';
+const {section,lang='sv'}=Astro.props;
+const en=lang==='en';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const worldsRoot=base+(en?'/en/worlds/':'/varldar/');
+const poems=base+(en?'/en/poems/':'/dikter/');
+const text=section[lang];
+const other=worldSections.filter(world=>world.slug!==section.slug);
+const link=slug=>worldsRoot+encodeURIComponent(slug)+'/';
+const words=en?{
+  back:'All worlds',chapter:'A PLACE WITHIN SPIKEN’S WORLDS',coming:'Under development',
+  heading:'What belongs here',expect:'What you will find here',empty:'This world is taking shape. No works have been published in this section yet.',
+  other:'Explore another world',poems:'Until then, read the poems',home:'Spiken’s worlds'
+}:{
+  back:'Alla världar',chapter:'EN DEL AV SPIKENS VÄRLDAR',coming:'Under uppbyggnad',
+  heading:'En plats för fler berättelser',expect:'Det här kommer att finnas här',empty:'Den här världen håller på att ta form. Inga verk har publicerats i avdelningen ännu.',
+  other:'Utforska en annan värld',poems:'Under tiden – läs dikterna',home:'Spikens världar'
+};
+---
+<div class="wv-detail" style={`--wv-hero:url("${base}/images/${section.image}.webp")`}>
+  <section class="wv-detail-hero">
+    <div class="wv-detail-wrap">
+      <a href={worldsRoot} class="wv-detail-back">← {words.back}</a>
+      <p class="wv-detail-kicker">{words.chapter} <span aria-hidden="true">·</span> {text.kicker}</p>
+      <h1>{text.title}</h1>
+      <p class="wv-detail-lead">{text.intro}</p>
+      <a class="wv-detail-action" href="#varlden">{en?'Explore this world':'Upptäck den här världen'} <span aria-hidden="true">↓</span></a>
+    </div>
+  </section>
+  <section class="wv-detail-body" id="varlden">
+    <div class="wv-detail-wrap">
+      <div class="wv-detail-story">
+        <div>
+          <p class="wv-detail-label">{words.heading}</p>
+          <h2>{text.title}<em>.</em></h2>
+          <p>{text.lead}</p>
+        </div>
+        <aside class="wv-detail-coming">
+          <p class="wv-detail-status"><span aria-hidden="true">✦</span> {words.coming}</p>
+          <h3>{words.expect}</h3>
+          <p>{text.expect}</p>
+          <p class="wv-detail-note">{words.empty}</p>
+          <a href={poems}>{words.poems} <span aria-hidden="true">→</span></a>
+        </aside>
+      </div>
+      <div class="wv-detail-more">
+        <div class="wv-detail-more-head"><h2>{words.other}</h2><a href={worldsRoot}>{words.home} →</a></div>
+        <div class="wv-detail-links">
+          {other.map(world=><a class="wv-detail-tile" href={link(world.slug)} style={`--wv-card:url("${base}/images/${world.image}.webp")`}>
+            <span>{world[lang].kicker}</span><strong>{world[lang].title}</strong><span class="wv-detail-arrow" aria-hidden="true">↗</span>
+          </a>)}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<style>
+.wv-detail{position:relative;background:#0d0b0b;color:#eee2d8;font-family:Georgia,serif;overflow:hidden}
+.wv-detail-wrap{width:min(1320px,calc(100% - 84px));margin-inline:auto}
+.wv-detail-hero{min-height:570px;position:relative;isolation:isolate;display:flex;align-items:flex-end;background:#0c090a}
+.wv-detail-hero:before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(90deg,#090808f9 0%,#090808df 32%,#09080856 75%),linear-gradient(0deg,#0d0b0b 0%,transparent 47%),var(--wv-hero);background-size:cover;background-position:center;background-repeat:no-repeat}
+.wv-detail-hero .wv-detail-wrap{padding:125px 0 76px}
+.wv-detail-back{display:inline-block;border-bottom:1px solid #b27471;padding-bottom:6px;font:13px/1.6 Arial,sans-serif;color:#f2d5d1}
+.wv-detail-back:hover{color:#fff}
+.wv-detail-kicker{margin:48px 0 15px;color:#e2b7ae;font:700 11px/1.6 Arial,sans-serif;letter-spacing:.18em}
+.wv-detail-kicker span{padding-inline:5px}
+.wv-detail h1{font:italic 400 clamp(52px,5vw,78px)/1.06 Georgia,serif;margin:0 0 22px;letter-spacing:-.03em}
+.wv-detail-lead{max-width:620px;font:clamp(17px,1.7vw,21px)/1.7 Georgia,serif;color:#f1ded7;margin:0}
+.wv-detail-action{display:inline-flex;align-items:center;gap:26px;margin-top:27px;padding:13px 22px;background:#921417;border:1px solid #b12d33;color:white;font:14px Arial,sans-serif}
+.wv-detail-action:hover{background:#bc2229;color:#fff}
+.wv-detail-body{padding:58px 0 90px;background:radial-gradient(ellipse at 86% 8%,#4b1b203d,transparent 50%),#0d0b0b}
+.wv-detail-story{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(290px,.8fr);gap:clamp(35px,6vw,110px);padding-bottom:78px}
+.wv-detail-label{font:700 11px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#ca938c;margin:0 0 18px}
+.wv-detail-story h2{font:italic 400 clamp(35px,3.8vw,56px)/1.15 Georgia,serif;margin:0 0 27px}
+.wv-detail-story h2 em{color:#bf2029}
+.wv-detail-story>div>p:last-child{max-width:650px;font:19px/1.8 Georgia,serif;color:#e2cfc7}
+.wv-detail-coming{border-top:2px solid #9a3039;padding:23px 27px 30px;background:linear-gradient(140deg,#211317,#140e10);align-self:start}
+.wv-detail-status{font:700 11px Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#e7aaa6;margin:0 0 22px}
+.wv-detail-coming h3{font:italic 400 29px/1.22 Georgia,serif;margin:0 0 18px}
+.wv-detail-coming>p:not(.wv-detail-status){font:16px/1.7 Georgia,serif;color:#e2cec6}
+.wv-detail-coming .wv-detail-note{padding-top:19px;margin-top:23px;border-top:1px solid #654840;color:#c5aaa5!important;font-size:14px!important}
+.wv-detail-coming a{display:inline-flex;gap:15px;margin-top:12px;border-bottom:1px solid #be575b;padding-bottom:7px;font:14px Arial,sans-serif;color:#f3dbd4}
+.wv-detail-more{border-top:1px solid #694b45;padding-top:38px}
+.wv-detail-more-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px}
+.wv-detail-more-head h2{font:italic 400 clamp(28px,3vw,41px)/1.2 Georgia,serif;margin:0}
+.wv-detail-more-head>a{font:13px Arial,sans-serif;border-bottom:1px solid #b85a61;padding-bottom:6px}
+.wv-detail-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.wv-detail-tile{min-height:195px;position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;padding:18px;border:1px solid #71534a;color:#f5e8e0;overflow:hidden}
+.wv-detail-tile:before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(0deg,#090607fa,#09060760 67%,#09060721),var(--wv-card);background-size:cover;background-position:center;transition:transform .3s}
+.wv-detail-tile:hover:before{transform:scale(1.04)}
+.wv-detail-tile:hover{border-color:#bc7775;color:white}
+.wv-detail-tile>span:first-child{font:10px/1.4 Arial,sans-serif;letter-spacing:.12em;color:#e7b5ab}
+.wv-detail-tile strong{font:italic 400 25px/1.2 Georgia,serif;margin:12px 0 0}
+.wv-detail-arrow{position:absolute;right:17px;top:13px}
+@media(max-width:950px){.wv-detail-links{grid-template-columns:repeat(2,minmax(0,1fr))}.wv-detail-wrap{width:calc(100% - 40px)}}
+@media(max-width:700px){.wv-detail-hero{min-height:600px}.wv-detail-hero .wv-detail-wrap{padding:170px 0 62px}.wv-detail-story{grid-template-columns:1fr;gap:24px;padding-bottom:55px}.wv-detail-body{padding:36px 0 65px}.wv-detail-more-head{align-items:start;flex-direction:column}.wv-detail-wrap{width:calc(100% - 36px)}.wv-detail-tile{min-height:170px}.wv-detail-tile strong{font-size:24px}}
+@media(prefers-reduced-motion:reduce){.wv-detail-tile:before{transition:none}}
+</style>
