@@ -2,6 +2,7 @@
 import { worldSections } from '../lib/worlds.js';
 import NovelArchive from './NovelArchive.astro';
 import ReflectionArchive from './ReflectionArchive.astro';
+import ReviewArchive from './ReviewArchive.astro';
 const {section,lang='sv'}=Astro.props;
 const en=lang==='en';
 const base=import.meta.env.BASE_URL.replace(/\/$/,'');
@@ -27,14 +28,15 @@ const words=en?{
       <p class="wv-detail-kicker">{words.chapter} <span aria-hidden="true">·</span> {text.kicker}</p>
       <h1>{text.title}</h1>
       <p class="wv-detail-lead">{text.intro}</p>
-      <a class="wv-detail-action" href={section.slug==='noveller'?'#novellarkiv':section.slug==='reflektioner'?'#reflektionsarkiv':'#varlden'}>{en?'Explore this world':'Upptäck den här världen'} <span aria-hidden="true">↓</span></a>
+      <a class="wv-detail-action" href={section.slug==='noveller'?'#novellarkiv':section.slug==='reflektioner'?'#reflektionsarkiv':section.slug==='recensioner'?'#recensionsarkiv':'#varlden'}>{en?'Explore this world':'Upptäck den här världen'} <span aria-hidden="true">↓</span></a>
     </div>
   </section>
   {section.slug==='noveller' && <NovelArchive lang={lang}/>}
   {section.slug==='reflektioner' && <ReflectionArchive lang={lang}/>}
+  {section.slug==='recensioner' && <ReviewArchive lang={lang}/>}
   <section class="wv-detail-body" id="varlden">
     <div class="wv-detail-wrap">
-      {section.slug!=='noveller' && section.slug!=='reflektioner' && <div class="wv-detail-story">
+      {section.slug!=='noveller' && section.slug!=='reflektioner' && section.slug!=='recensioner' && <div class="wv-detail-story">
         <div>
           <p class="wv-detail-label">{words.heading}</p>
           <h2>{text.title}<em>.</em></h2>
